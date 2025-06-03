@@ -4,6 +4,7 @@ import { defineQuery } from "next-sanity";
 const imageFragment = /* groq */ `
   image{
     ...,
+    "dimensions": asset->metadata.dimensions,
     ...asset->{
       "alt": coalesce(altText, originalFilename, "no-alt"),
       "blurData": metadata.lqip,
@@ -242,7 +243,15 @@ const ogFieldsFragment = /* groq */ `
   "image": image.asset->url + "?w=566&h=566&dpr=2&fit=max",
   "dominantColor": image.asset->metadata.palette.dominant.background,
   "seoImage": seoImage.asset->url + "?w=1200&h=630&dpr=2&fit=max", 
-  "logo": *[_type == "settings"][0].logo.asset->url + "?w=80&h=40&dpr=3&fit=max&q=100",
+  "logo": *[_type == "settings"][0].logo{
+    ...,
+    "dimensions": asset->metadata.dimensions,
+    ...asset->{
+      "alt": coalesce(altText, originalFilename, "no-alt"),
+      "blurData": metadata.lqip,
+      "dominantColor": metadata.palette.dominant.background
+    }
+  },
   "date": coalesce(date, _createdAt)
 `;
 
@@ -345,6 +354,7 @@ export const queryGlobalSeoSettings = defineQuery(`
     siteTitle,
     logo{
       ...,
+      "dimensions": asset->metadata.dimensions,
       ...asset->{
         "alt": coalesce(altText, originalFilename, "no-alt"),
         "blurData": metadata.lqip,

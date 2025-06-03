@@ -20,7 +20,13 @@ export type SanityButtonProps = NonNullable<
 //   NonNullable<QueryImageTypeResult>,
 //   { alt: string; blurData: string | null; dominantColor: string | null }
 // >;
-export type SanityImageProps = NonNullable<QueryImageTypeResult>;
+export type SanityImageProps = NonNullable<QueryImageTypeResult> & {
+  dimensions?: {
+    width?: number;
+    height?: number;
+    aspectRatio?: number;
+  };
+};
 
 export type SanityRichTextProps = NonNullable<
   NonNullable<PagebuilderType<"hero">>["richText"]

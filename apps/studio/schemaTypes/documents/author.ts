@@ -3,7 +3,7 @@ import { defineField, defineType } from "sanity";
 
 export const author = defineType({
   name: "author",
-  title: "Author",
+  title: "Person",
   type: "document",
   icon: UserIcon,
   fields: [
@@ -12,7 +12,7 @@ export const author = defineType({
       type: "string",
       title: "Name",
       description: "The full name of the person who wrote the content",
-      validation: (Rule) => Rule.required().error("Author name is required"),
+      validation: (Rule) => Rule.required().error("Person name is required"),
     }),
     defineField({
       name: "position",
@@ -26,7 +26,7 @@ export const author = defineType({
       type: "image",
       title: "Image",
       description:
-        "A photo of the author that will appear next to their articles",
+        "A photo of the Person that will appear next to their articles",
       options: {
         hotspot: true,
       },
@@ -36,7 +36,7 @@ export const author = defineType({
       type: "text",
       title: "Bio",
       description:
-        "A short paragraph about the author's background and expertise",
+        "A short paragraph about the Person's background and expertise",
       rows: 3,
     }),
   ],
@@ -55,7 +55,7 @@ export const author = defineType({
         : "📝 No bio yet";
 
       return {
-        title: `✍️ ${title || "Unnamed Author"}`,
+        title: `✍️ ${title || "Unnamed Person"}`,
         subtitle: `${positionInfo} | ${bioPreview}`,
         media,
       };

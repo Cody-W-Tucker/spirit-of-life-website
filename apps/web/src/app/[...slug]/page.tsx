@@ -46,7 +46,7 @@ export default async function SlugPage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
-}) {
+}): Promise<React.ReactElement> {
   const { slug } = await params;
   const slugString = slug.join("/");
   const { data: pageData } = await fetchSlugPageData(slugString);

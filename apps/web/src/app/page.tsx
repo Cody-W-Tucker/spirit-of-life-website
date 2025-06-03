@@ -14,7 +14,7 @@ export async function generateMetadata() {
   return await getMetaData(homePageData?.data ?? {});
 }
 
-export default async function Page() {
+export default async function Page(): Promise<React.ReactElement> {
   const { data: homePageData } = await fetchHomePageData();
 
   if (!homePageData) {
