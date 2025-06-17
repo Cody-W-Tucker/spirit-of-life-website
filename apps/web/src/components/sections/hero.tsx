@@ -9,6 +9,91 @@ import { SanityImage } from "../sanity-image";
 
 type HeroBlockProps = PagebuilderType<"hero">;
 
+// Reusable image component
+const HeroImage: FC<{ asset: NonNullable<HeroBlockProps["images"]>[number]; width: number; height: number }> = ({
+  asset,
+  width,
+  height,
+}) => (
+  <div className="relative">
+    <SanityImage
+      asset={asset}
+      width={width}
+      height={height}
+      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+    />
+    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+  </div>
+);
+
+// Layout configurations for different image counts
+const imageLayouts = {
+  1: {
+    container: "mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0",
+    columns: [
+      { className: "w-80 flex-none", images: [0] }
+    ]
+  },
+  2: {
+    container: "mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0",
+    columns: [
+      { className: "w-60 flex-none space-y-8 pt-32 sm:pt-80 lg:pt-36", images: [0] },
+      { className: "w-60 flex-none space-y-8 sm:pt-52 lg:pt-16", images: [1] }
+    ]
+  },
+  3: {
+    container: "mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0",
+    columns: [
+      { className: "w-48 flex-none space-y-8 pt-32 sm:pt-80 lg:pt-36", images: [0] },
+      { className: "w-48 flex-none space-y-8 sm:pt-52 lg:pt-16", images: [1] },
+      { className: "w-48 flex-none space-y-8 pt-32 sm:pt-0 lg:pt-32", images: [2] }
+    ]
+  },
+  4: {
+    container: "mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0",
+    columns: [
+      { className: "w-44 flex-none space-y-6 pt-32 sm:pt-80 lg:pt-36", images: [0, 1] },
+      { className: "w-44 flex-none space-y-6 sm:pt-52 lg:pt-16", images: [2, 3] }
+    ]
+  },
+  5: {
+    container: "mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0",
+    columns: [
+      { className: "ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80", images: [0] },
+      { className: "mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36", images: [1, 2] },
+      { className: "w-44 flex-none space-y-8 pt-32 sm:pt-0", images: [3, 4] }
+    ]
+  }
+} as const;
+
+// Dynamic image layout component
+const HeroImages: FC<{ images: NonNullable<HeroBlockProps["images"]> }> = ({ images }) => {
+  const count = Math.min(images.length, 5) as keyof typeof imageLayouts;
+  const layout = imageLayouts[count];
+  
+  if (!layout) return null;
+
+  return (
+    <div className={layout.container}>
+      {layout.columns.map((column, columnIndex) => (
+        <div key={columnIndex} className={column.className}>
+          {column.images.map((imageIndex) => {
+            const image = images[imageIndex];
+            return image ? (
+              <HeroImage
+                key={imageIndex}
+                asset={image}
+                width={count === 1 ? 320 : count === 2 ? 240 : 176}
+                height={count === 1 ? 480 : count === 2 ? 360 : 264}
+              />
+            ) : null;
+          })}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 export const HeroBlock: FC<HeroBlockProps> = ({
   title,
   buttons,
@@ -84,195 +169,7 @@ export const HeroBlock: FC<HeroBlockProps> = ({
                   )}
                 </div>
                 
-                {images && images.length > 0 && (
-                  <div className="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-                    {/* Dynamic layout based on image count */}
-                    {images.length === 1 && images[0] && (
-                      // Single image - larger and centered
-                      <div className="w-80 flex-none">
-                        <div className="relative">
-                          <SanityImage
-                            asset={images[0]}
-                            width={320}
-                            height={480}
-                            className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                          />
-                          <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                        </div>
-                      </div>
-                    )}
-                    
-                    {images.length === 2 && images[0] && images[1] && (
-                      // Two images - side by side
-                      <>
-                        <div className="w-60 flex-none space-y-8 pt-32 sm:pt-80 lg:pt-36">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[0]}
-                              width={240}
-                              height={360}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                        <div className="w-60 flex-none space-y-8 sm:pt-52 lg:pt-16">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[1]}
-                              width={240}
-                              height={360}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                      </>
-                    )}
-                    
-                    {images.length === 3 && images[0] && images[1] && images[2] && (
-                      // Three images - staggered layout
-                      <>
-                        <div className="w-48 flex-none space-y-8 pt-32 sm:pt-80 lg:pt-36">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[0]}
-                              width={192}
-                              height={288}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                        <div className="w-48 flex-none space-y-8 sm:pt-52 lg:pt-16">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[1]}
-                              width={192}
-                              height={288}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                        <div className="w-48 flex-none space-y-8 pt-32 sm:pt-0 lg:pt-32">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[2]}
-                              width={192}
-                              height={288}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                      </>
-                    )}
-                    
-                    {images.length === 4 && images[0] && images[1] && images[2] && images[3] && (
-                      // Four images - two columns with two images each
-                      <>
-                        <div className="w-44 flex-none space-y-6 pt-32 sm:pt-80 lg:pt-36">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[0]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[1]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                        <div className="w-44 flex-none space-y-6 sm:pt-52 lg:pt-16">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[2]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[3]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                      </>
-                    )}
-                    
-                    {images.length === 5 && images[0] && images[1] && images[2] && images[3] && images[4] && (
-                      // Five images - original three-column layout
-                      <>
-                        <div className="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[0]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                        <div className="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[1]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[2]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                        <div className="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[3]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                          <div className="relative">
-                            <SanityImage
-                              asset={images[4]}
-                              width={176}
-                              height={264}
-                              className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
-                            />
-                            <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
+                {images && images.length > 0 && <HeroImages images={images} />}
               </div>
             </div>
           </div>
