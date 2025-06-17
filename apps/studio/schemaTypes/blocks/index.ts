@@ -1,3 +1,4 @@
+import { contentSection } from "./content-section";
 import { cta } from "./cta";
 import { faqAccordion } from "./faq-accordion";
 import { featureCardsIcon } from "./feature-cards-icon";
@@ -10,6 +11,7 @@ import { scheduleBar } from "./schedule-bar";
 export const pageBuilderBlocks = [
   hero,
   cta,
+  contentSection,
   featureCardsIcon,
   faqAccordion,
   imageLinkCards,

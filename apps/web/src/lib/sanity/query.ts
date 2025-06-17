@@ -190,12 +190,24 @@ const scheduleBarBlock = /* groq */ `
   }
 `;
 
+const contentSectionBlock = /* groq */ `
+  _type == "contentSection" => {
+    ...,
+    ${richTextFragment},
+    "images": images[]{
+      ...,
+      ${imageFragment}
+    }
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
     _type,
     ${ctaBlock},
     ${heroBlock},
+    ${contentSectionBlock},
     ${faqAccordionBlock},
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},

@@ -7,6 +7,7 @@ import { dataset, projectId, studioUrl } from "@/lib/sanity/api";
 import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
 import type { PagebuilderType } from "@/types";
 
+import { ContentSection } from "./sections/content-section";
 import { CTABlock } from "./sections/cta";
 import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
@@ -33,6 +34,7 @@ type PageData = {
 };
 
 const BLOCK_COMPONENTS = {
+  contentSection: ContentSection,
   cta: CTABlock,
   faqAccordion: FaqAccordion,
   hero: HeroBlock,
@@ -61,9 +63,9 @@ export function PageBuilder({
     },
   );
 
-  // Separate fullpageImage, scheduleBar, and hero blocks from others
-  const fullWidthBlocks = pageBuilder.filter((block) => block._type === "fullpageImage" || block._type === "scheduleBar" || block._type === "hero");
-  const normalBlocks = pageBuilder.filter((block) => block._type !== "fullpageImage" && block._type !== "scheduleBar" && block._type !== "hero");
+  // Separate fullpageImage, scheduleBar, hero, and contentSection blocks from others
+  const fullWidthBlocks = pageBuilder.filter((block) => block._type === "fullpageImage" || block._type === "scheduleBar" || block._type === "hero" || block._type === "contentSection");
+  const normalBlocks = pageBuilder.filter((block) => block._type !== "fullpageImage" && block._type !== "scheduleBar" && block._type !== "hero" && block._type !== "contentSection");
 
   return (
     <>
