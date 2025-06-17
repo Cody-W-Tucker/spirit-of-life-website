@@ -4,11 +4,12 @@ import type {
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
+import type { FC } from "react";
 
 import { Logo } from "./logo";
 import { NavbarClient, NavbarSkeletonResponsive } from "./navbar-client";
 
-export async function NavbarServer() {
+export const NavbarServer: FC = async () => {
   const [navbarData, settingsData] = await Promise.all([
     sanityFetch({ query: queryNavbarData }),
     sanityFetch({ query: queryGlobalSeoSettings }),
@@ -18,13 +19,10 @@ export async function NavbarServer() {
   );
 }
 
-export function Navbar({
-  navbarData,
-  settingsData,
-}: {
+export const Navbar: FC<{
   navbarData: QueryNavbarDataResult;
   settingsData: QueryGlobalSeoSettingsResult;
-}) {
+}> = ({ navbarData, settingsData }) => {
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
   return (
     <section className="py-3 md:border-b">
@@ -39,7 +37,7 @@ export function Navbar({
   );
 }
 
-export function NavbarSkeleton() {
+export const NavbarSkeleton: FC = () => {
   return (
     <header className="h-[75px] py-4 md:border-b">
       <div className="container mx-auto px-4 md:px-6">

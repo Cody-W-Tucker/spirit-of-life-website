@@ -3,9 +3,12 @@ import type {
   QueryImageTypeResult,
 } from "./lib/sanity/sanity.types";
 
-export type PageBuilderBlockTypes = NonNullable<
-  NonNullable<QueryHomePageDataResult>["pageBuilder"]
->[number]["_type"];
+export type PageBuilderBlockTypes =
+  | NonNullable<
+      NonNullable<QueryHomePageDataResult>["pageBuilder"]
+    >[number]["_type"]
+  | "fullpageImage"
+  | "scheduleBar";
 
 export type PagebuilderType<T extends PageBuilderBlockTypes> = Extract<
   NonNullable<NonNullable<QueryHomePageDataResult>["pageBuilder"]>[number],
@@ -25,7 +28,7 @@ export type SanityImageProps = NonNullable<QueryImageTypeResult> & {
     width?: number;
     height?: number;
     aspectRatio?: number;
-  };
+  } | null;
 };
 
 export type SanityRichTextProps = NonNullable<

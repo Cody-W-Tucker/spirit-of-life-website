@@ -1,4 +1,5 @@
 import { Badge } from "@workspace/ui/components/badge";
+import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -8,13 +9,13 @@ import { SanityImage } from "../sanity-image";
 
 type HeroBlockProps = PagebuilderType<"hero">;
 
-export function HeroBlock({
+export const HeroBlock: FC<HeroBlockProps> = ({
   title,
   buttons,
   badge,
   image,
   richText,
-}: HeroBlockProps) {
+}: HeroBlockProps) => {
   return (
     <section id="hero" className="mt-4 md:my-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -55,4 +56,4 @@ export function HeroBlock({
       </div>
     </section>
   );
-}
+};

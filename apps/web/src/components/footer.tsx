@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { FC } from "react";
 
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
@@ -25,7 +26,7 @@ interface FooterProps {
   settingsData: NonNullable<QueryGlobalSeoSettingsResult>;
 }
 
-export async function FooterServer() {
+export const FooterServer: FC = async () => {
   const [response, settingsResponse] = await Promise.all([
     sanityFetch({
       query: queryFooterData,
@@ -37,7 +38,7 @@ export async function FooterServer() {
 
   if (!response?.data || !settingsResponse?.data) return <FooterSkeleton />;
   return <Footer data={response.data} settingsData={settingsResponse.data} />;
-}
+};
 
 function SocialLinks({ data }: SocialLinksProps) {
   if (!data) return null;
@@ -74,7 +75,7 @@ function SocialLinks({ data }: SocialLinksProps) {
             rel="noopener noreferrer"
             aria-label={label}
           >
-            <Icon className="fill-muted-foreground hover:fill-primary/80 dark:fill-zinc-400 dark:hover:fill-primary" />
+            <Icon className="fill-muted-foreground hover:fill-primary/80" />
             <span className="sr-only">{label}</span>
           </Link>
         </li>
@@ -83,7 +84,7 @@ function SocialLinks({ data }: SocialLinksProps) {
   );
 }
 
-export function FooterSkeleton() {
+export const FooterSkeleton: FC = () => {
   return (
     <section className="mt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
@@ -132,7 +133,7 @@ export function FooterSkeleton() {
       </div>
     </section>
   );
-}
+};
 
 function Footer({ data, settingsData }: FooterProps) {
   const { subtitle, columns } = data;
@@ -150,7 +151,7 @@ function Footer({ data, settingsData }: FooterProps) {
                   <Logo image={logo} alt={siteTitle} priority />
                 </span>
                 {subtitle && (
-                  <p className="mt-6 text-sm text-muted-foreground dark:text-zinc-400">
+                  <p className="mt-6 text-sm text-muted-foreground">
                     {subtitle}
                   </p>
                 )}
@@ -163,7 +164,7 @@ function Footer({ data, settingsData }: FooterProps) {
                   <div key={`column-${column?._key}-${index}`}>
                     <h3 className="mb-6 font-semibold">{column?.title}</h3>
                     {column?.links && column?.links?.length > 0 && (
-                      <ul className="space-y-4 text-sm text-muted-foreground dark:text-zinc-400">
+                      <ul className="space-y-4 text-sm text-muted-foreground">
                         {column?.links?.map((link, index) => (
                           <li
                             key={`${link?._key}-${index}-column-${column?._key}`}

@@ -81,7 +81,7 @@ const AnchorT: FC<{ heading: any }> = ({ heading }) => {
         <Circle
           className={cn(
             "min-w-1.5 min-h-1.5 size-1.5 ",
-            !isChild && "dark:fill-zinc-100 fill-zinc-900",
+            !isChild && "fill-zinc-900",
           )}
           aria-hidden
         />
@@ -120,9 +120,9 @@ export const TableOfContent: FC<TableProps> = ({ richText }) => {
   if (!showTableOfContent) return <></>;
 
   return (
-    <div className="sticky top-8 flex flex-col w-full max-w-xs p-4 bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-800 dark:to-zinc-900 shadow-sm rounded-lg border border-zinc-300 dark:border-zinc-700">
+    <div className="sticky top-8 flex flex-col w-full max-w-xs p-4 bg-gradient-to-b from-zinc-50 to-zinc-100 shadow-sm rounded-lg border border-zinc-300">
       <details className="group">
-        <summary className="flex cursor-pointer items-center justify-between text-lg font-semibold text-zinc-800 dark:text-zinc-200">
+        <summary className="flex cursor-pointer items-center justify-between text-lg font-semibold text-zinc-800">
           <span>Table of Contents</span>
           <ChevronDown
             className="h-5 w-5 transform transition-transform duration-200 group-open:rotate-180"

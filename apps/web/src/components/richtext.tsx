@@ -5,6 +5,7 @@ import {
   type PortableTextBlock,
   type PortableTextReactComponents,
 } from "next-sanity";
+import type { FC } from "react";
 
 import { parseChildrenToSlug } from "@/utils";
 
@@ -99,19 +100,51 @@ const components: Partial<PortableTextReactComponents> = {
   hardBreak: () => <br />,
 };
 
-export function RichText<T>({
-  richText,
-  className,
-}: {
-  richText?: T | null;
+type SanityRichText = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal" | "inline";
+  listItem?: "bullet" | "number";
+  markDefs?: Array<{
+    customLink?: {
+      openInNewTab?: boolean;
+      href?: string;
+    };
+    _type: "customLink";
+    _key: string;
+  }> | null;
+  level?: number;
+  _type: "block";
+  _key: string;
+} | {
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+  };
+  media?: unknown;
+  hotspot?: unknown;
+  crop?: unknown;
+  caption?: string;
+  _type: "image";
+  _key: string;
+  markDefs: null;
+}> | null;
+
+export const RichText: FC<{
+  richText?: SanityRichText;
   className?: string;
-}) {
+}> = ({ richText, className }) => {
   if (!richText) return null;
 
   return (
     <div
       className={cn(
-        "prose prose-zinc prose-headings:scroll-m-24 prose-headings:text-opacity-90 prose-p:text-opacity-80 prose-a:decoration-dotted prose-ol:text-opacity-80 prose-ul:text-opacity-80 prose-h2:border-b prose-h2:pb-2 prose-h2:text-3xl prose-h2:font-semibold prose-h2:first:mt-0 max-w-none dark:prose-invert",
+        "prose prose-zinc prose-headings:scroll-m-24 prose-headings:text-opacity-90 prose-p:text-opacity-80 prose-a:decoration-dotted prose-ol:text-opacity-80 prose-ul:text-opacity-80 prose-h2:border-b prose-h2:pb-2 prose-h2:text-3xl prose-h2:font-semibold prose-h2:first:mt-0 max-w-none",
         className,
       )}
     >
@@ -124,4 +157,4 @@ export function RichText<T>({
       />
     </div>
   );
-}
+};

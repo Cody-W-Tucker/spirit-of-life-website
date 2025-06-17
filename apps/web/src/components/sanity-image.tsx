@@ -1,6 +1,7 @@
 import { getImageDimensions } from "@sanity/asset-utils";
 import { cn } from "@workspace/ui/lib/utils";
 import Image, { type ImageProps as NextImageProps } from "next/image";
+import type { ReactElement } from "react";
 
 import { urlFor } from "@/lib/sanity/client";
 import type { SanityImageProps } from "@/types";
@@ -42,7 +43,7 @@ export function SanityImage({
   quality = 75,
   fill,
   ...props
-}: ImageProps) {
+}: ImageProps): ReactElement | null {
   if (!asset?.asset) return null;
   const dimensions = getImageDimensions(asset.asset);
 

@@ -19,25 +19,24 @@ export const author = defineType({
       type: "string",
       title: "Position",
       description:
-        "The job title or role of this person, like 'Editor' or 'Writer'",
+        "The job title or role of this person, like 'Pastor' or 'Director'",
     }),
     defineField({
       name: "image",
       type: "image",
       title: "Image",
       description:
-        "A photo of the Person that will appear next to their articles",
+        "A photo of the Person",
       options: {
         hotspot: true,
       },
     }),
     defineField({
       name: "bio",
-      type: "text",
+      type: "richText",
       title: "Bio",
       description:
-        "A short paragraph about the Person's background and expertise",
-      rows: 3,
+        "A short paragraph about the Person's background and expertise with text, images, and formatting",
     }),
   ],
   preview: {
@@ -45,18 +44,13 @@ export const author = defineType({
       title: "name",
       position: "position",
       media: "image",
-      bio: "bio",
     },
-    prepare: ({ title, position, media, bio }) => {
-      // Create a playful subtitle with emojis
-      const positionInfo = position ? `💼 ${position}` : "🎭 Mystery Writer";
-      const bioPreview = bio
-        ? `📝 ${bio.substring(0, 20)}${bio.length > 20 ? "..." : ""}`
-        : "📝 No bio yet";
+    prepare: ({ title, position, media }) => {
+      const positionInfo = position ? `${position}` : "";
 
       return {
-        title: `✍️ ${title || "Unnamed Person"}`,
-        subtitle: `${positionInfo} | ${bioPreview}`,
+        title: `${title || "Unnamed Person"}`,
+        subtitle: `${positionInfo}`,
         media,
       };
     },

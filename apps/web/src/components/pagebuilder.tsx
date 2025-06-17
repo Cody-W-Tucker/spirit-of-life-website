@@ -13,6 +13,8 @@ import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
+import { FullpageImageBlock } from "./sections/fullpage-image";
+import { ScheduleBar } from "./sections/schedule-bar";
 
 type PageBlock = NonNullable<
   NonNullable<QueryHomePageDataResult>["pageBuilder"]
@@ -37,6 +39,8 @@ const BLOCK_COMPONENTS = {
   featureCardsIcon: FeatureCardsWithIcon,
   subscribeNewsletter: SubscribeNewsletter,
   imageLinkCards: ImageLinkCards,
+  fullpageImage: FullpageImageBlock,
+  scheduleBar: ScheduleBar,
 } as const;
 
 type BlockType = keyof typeof BLOCK_COMPONENTS;
@@ -45,7 +49,7 @@ export function PageBuilder({
   pageBuilder: initialPageBuilder = [],
   id,
   type,
-}: PageBuilderProps) {
+}: PageBuilderProps): React.ReactElement {
   const pageBuilder = useOptimistic<PageBlock[], SanityDocument<PageData>>(
     initialPageBuilder,
     (currentPageBuilder, action) => {
@@ -57,50 +61,66 @@ export function PageBuilder({
     },
   );
 
+  // Separate fullpageImage and scheduleBar blocks from others
+  const fullWidthBlocks = pageBuilder.filter((block) => block._type === "fullpageImage" || block._type === "scheduleBar");
+  const normalBlocks = pageBuilder.filter((block) => block._type !== "fullpageImage" && block._type !== "scheduleBar");
+
   return (
-    <main
-      className="flex flex-col gap-16 my-16 max-w-7xl mx-auto"
-      data-sanity={createDataAttribute({
-        id: id,
-        baseUrl: studioUrl,
-        projectId: projectId,
-        dataset: dataset,
-        type: type,
-        path: "pageBuilder",
-      }).toString()}
-    >
-      {pageBuilder.map((block) => {
+    <>
+      {/* Render full width blocks outside the constrained main */}
+      {fullWidthBlocks.map((block) => {
         const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
           PagebuilderType<BlockType>
         >;
+        return (
+          <Component key={`${block._type}-${block._key}`} {...block} />
+        );
+      })}
+      {/* Render normal blocks inside the constrained main */}
+      <main
+        className="flex flex-col gap-16 my-16 max-w-7xl mx-auto"
+        data-sanity={createDataAttribute({
+          id: id,
+          baseUrl: studioUrl,
+          projectId: projectId,
+          dataset: dataset,
+          type: type,
+          path: "pageBuilder",
+        }).toString()}
+      >
+        {normalBlocks.map((block) => {
+          const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
+            PagebuilderType<BlockType>
+          >;
 
-        if (!Component) {
+          if (!Component) {
+            return (
+              <div
+                key={`${block._type}-${block._key}`}
+                className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg"
+              >
+                Component not found for block type: <code>{block._type}</code>
+              </div>
+            );
+          }
+
           return (
             <div
               key={`${block._type}-${block._key}`}
-              className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg"
+              data-sanity={createDataAttribute({
+                id: id,
+                baseUrl: studioUrl,
+                projectId: projectId,
+                dataset: dataset,
+                type: type,
+                path: `pageBuilder[_key=="${block._key}"]`,
+              }).toString()}
             >
-              Component not found for block type: <code>{block._type}</code>
+              <Component {...block} />
             </div>
           );
-        }
-
-        return (
-          <div
-            key={`${block._type}-${block._key}`}
-            data-sanity={createDataAttribute({
-              id: id,
-              baseUrl: studioUrl,
-              projectId: projectId,
-              dataset: dataset,
-              type: type,
-              path: `pageBuilder[_key=="${block._key}"]`,
-            }).toString()}
-          >
-            <Component {...block} />
-          </div>
-        );
-      })}
-    </main>
+        })}
+      </main>
+    </>
   );
 }

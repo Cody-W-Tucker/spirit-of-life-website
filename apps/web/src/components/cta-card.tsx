@@ -1,5 +1,6 @@
 import { cn } from "@workspace/ui/lib/utils";
 import Link from "next/link";
+import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -10,7 +11,7 @@ export type CTACardProps = {
   className?: string;
 };
 
-export function CTACard({ card, className }: CTACardProps) {
+export const CTACard: FC<CTACardProps> = ({ card, className }) => {
   const { image, description, title, href } = card ?? {};
   return (
     <Link
@@ -40,4 +41,4 @@ export function CTACard({ card, className }: CTACardProps) {
       </div>
     </Link>
   );
-}
+};

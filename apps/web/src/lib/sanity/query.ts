@@ -149,6 +149,39 @@ const subscribeNewsletterBlock = /* groq */ `
   }
 `;
 
+const fullpageImageBlock = /* groq */ `
+  _type == "fullpageImage" => {
+    ...,
+    ${imageFragment},
+    overlayText,
+    button {
+      text,
+      variant,
+      _key,
+      _type,
+      "openInNewTab": url.openInNewTab,
+      "href": select(
+        url.type == "internal" => url.internal->slug.current,
+        url.type == "external" => url.external,
+        url.href
+      ),
+    }
+  }
+`;
+
+const scheduleBarBlock = /* groq */ `
+  _type == "scheduleBar" => {
+    ...,
+    times[]{
+      _key,
+      label,
+      time
+    },
+    infoText,
+    location
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
@@ -157,7 +190,9 @@ const pageBuilderFragment = /* groq */ `
     ${heroBlock},
     ${faqAccordionBlock},
     ${subscribeNewsletterBlock},
-    ${imageLinkCardsBlock}
+    ${imageLinkCardsBlock},
+    ${fullpageImageBlock},
+    ${scheduleBarBlock}
   }
 `;
 

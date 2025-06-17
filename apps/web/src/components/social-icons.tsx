@@ -1,4 +1,6 @@
-export function LinkedinIcon({ className }: { className?: string }) {
+import type { FC } from "react";
+
+export const LinkedinIcon: FC<{ className?: string }> = ({ className }) => {
   return (
     <svg
       width="18"
@@ -14,7 +16,7 @@ export function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
-export function XIcon({ className }: { className?: string }) {
+export const XIcon: FC<{ className?: string }> = ({ className }) => {
   return (
     <svg
       width="20"
@@ -30,7 +32,7 @@ export function XIcon({ className }: { className?: string }) {
   );
 }
 
-export function YoutubeIcon({ className }: { className?: string }) {
+export const YoutubeIcon: FC<{ className?: string }> = ({ className }) => {
   return (
     <svg
       width="20"
@@ -46,7 +48,7 @@ export function YoutubeIcon({ className }: { className?: string }) {
   );
 }
 
-export function FacebookIcon({ className }: { className?: string }) {
+export const FacebookIcon: FC<{ className?: string }> = ({ className }) => {
   return (
     <svg
       height="24"
@@ -61,7 +63,7 @@ export function FacebookIcon({ className }: { className?: string }) {
   );
 }
 
-export function InstagramIcon({ className }: { className?: string }) {
+export const InstagramIcon: FC<{ className?: string }> = ({ className }) => {
   return (
     <svg
       height="24"

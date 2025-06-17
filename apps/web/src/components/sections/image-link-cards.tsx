@@ -1,5 +1,6 @@
 import { Badge } from "@workspace/ui/components/badge";
 import { cn } from "@workspace/ui/lib/utils";
+import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -8,12 +9,12 @@ import { RichText } from "../richtext";
 
 export type ImageLinkCardsProps = PagebuilderType<"imageLinkCards">;
 
-export function ImageLinkCards({
+export const ImageLinkCards: FC<ImageLinkCardsProps> = ({
   richText,
   title,
   eyebrow,
   cards,
-}: ImageLinkCardsProps) {
+}: ImageLinkCardsProps) => {
   return (
     <section id="image-link-cards" className="my-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -34,7 +35,7 @@ export function ImageLinkCards({
                   key={card._key}
                   card={card}
                   className={cn(
-                    "bg-muted-foreground/10 dark:bg-zinc-800",
+                    "bg-muted-foreground/10",
                     idx === 0 && "lg:rounded-l-3xl lg:rounded-r-none",
                     idx === cards.length - 1 &&
                       "lg:rounded-r-3xl lg:rounded-l-none",
@@ -48,4 +49,4 @@ export function ImageLinkCards({
       </div>
     </section>
   );
-}
+};

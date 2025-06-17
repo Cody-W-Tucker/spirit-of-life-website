@@ -1,4 +1,5 @@
 import { Badge } from "@workspace/ui/components/badge";
+import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -23,19 +24,19 @@ function FeatureCard({ card }: FeatureCardProps) {
         <h3 className="text-lg font-medium md:text-2xl mb-2">{title}</h3>
         <RichText
           richText={richText}
-          className="font-normal text-sm md:text-[16px] text-black/90 leading-7 text-balance dark:text-neutral-300"
+          className="font-normal text-sm md:text-[16px] text-black/90 leading-7 text-balance"
         />
       </div>
     </div>
   );
 }
 
-export function FeatureCardsWithIcon({
+export const FeatureCardsWithIcon: FC<FeatureCardsWithIconProps> = ({
   eyebrow,
   title,
   richText,
   cards,
-}: FeatureCardsWithIconProps) {
+}) => {
   return (
     <section id="features" className="my-6 md:my-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -60,4 +61,4 @@ export function FeatureCardsWithIcon({
       </div>
     </section>
   );
-}
+};

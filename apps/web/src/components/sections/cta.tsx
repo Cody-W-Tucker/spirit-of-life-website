@@ -1,5 +1,5 @@
 import { Badge } from "@workspace/ui/components/badge";
-
+import type { FC } from "react";
 import type { PagebuilderType } from "@/types";
 
 import { RichText } from "../richtext";
@@ -7,7 +7,7 @@ import { SanityButtons } from "../sanity-buttons";
 
 export type CTABlockProps = PagebuilderType<"cta">;
 
-export function CTABlock({ richText, title, eyebrow, buttons }: CTABlockProps) {
+export const CTABlock: FC<CTABlockProps> = ({ richText, title, eyebrow, buttons }) => {
   return (
     <section id="features" className="my-6 md:my-16">
       <div className="container mx-auto px-4 md:px-8">
@@ -16,7 +16,7 @@ export function CTABlock({ richText, title, eyebrow, buttons }: CTABlockProps) {
             {eyebrow && (
               <Badge
                 variant="secondary"
-                className="bg-zinc-200 dark:text-black"
+                className="bg-zinc-200"
               >
                 {eyebrow}
               </Badge>

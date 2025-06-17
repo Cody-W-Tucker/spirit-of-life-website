@@ -27,13 +27,12 @@ import { Menu } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type JSX } from "react";
 
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import type { QueryNavbarDataResult } from "@/lib/sanity/sanity.types";
 
 import { Logo } from "./logo";
-import { ModeToggle } from "./mode-toggle";
 import { SanityButtons } from "./sanity-buttons";
 import { SanityIcon } from "./sanity-icon";
 interface MenuItem {
@@ -106,7 +105,7 @@ function MobileNavbarAccordionColumn({
 }
 
 function MobileNavbar({ navbarData }: { navbarData: QueryNavbarDataResult }) {
-  const { logo, siteTitle, columns, buttons } = navbarData ?? {};
+  const { columns, buttons } = navbarData ?? {};
   const [isOpen, setIsOpen] = useState(false);
 
   const path = usePathname();
@@ -128,7 +127,7 @@ function MobileNavbar({ navbarData }: { navbarData: QueryNavbarDataResult }) {
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <SheetTitle>
-            <Logo src={logo} alt={siteTitle} priority />
+            {/* Logo is handled by parent component */}
           </SheetTitle>
         </SheetHeader>
 
@@ -195,7 +194,7 @@ function NavbarColumnLink({
       <NavigationMenuLink
         className={cn(
           navigationMenuTriggerStyle(),
-          "text-muted-foreground dark:text-neutral-300",
+          "text-muted-foreground",
         )}
       >
         {column.name}
@@ -217,7 +216,7 @@ export function NavbarColumn({
     NonNullable<NonNullable<QueryNavbarDataResult>["columns"]>[number],
     { type: "column" }
   >;
-}) {
+}): JSX.Element {
   const layoutClass = useMemo(
     () => getColumnLayoutClass(column.links?.length ?? 0),
     [column.links?.length],
@@ -225,7 +224,7 @@ export function NavbarColumn({
 
   return (
     <NavigationMenuList>
-      <NavigationMenuItem className="text-muted-foreground dark:text-neutral-300">
+      <NavigationMenuItem className="text-muted-foreground">
         <NavigationMenuTrigger>{column.title}</NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul className={cn("p-3", layoutClass)}>
@@ -257,7 +256,7 @@ export function DesktopNavbar({
   navbarData,
 }: {
   navbarData: QueryNavbarDataResult;
-}) {
+}): JSX.Element {
   const { columns, buttons } = navbarData ?? {};
 
   return (
@@ -273,7 +272,6 @@ export function DesktopNavbar({
       </NavigationMenu>
 
       <div className="justify-self-end flex items-center gap-4">
-        <ModeToggle />
         <SanityButtons
           buttons={buttons ?? []}
           className="flex items-center gap-4"
@@ -338,7 +336,7 @@ function SkeletonDesktopNavbar() {
   );
 }
 
-export function NavbarSkeletonResponsive() {
+export function NavbarSkeletonResponsive(): JSX.Element {
   return (
     <>
       <SkeletonMobileNavbar />
@@ -351,4 +349,4 @@ export function NavbarSkeletonResponsive() {
 export const NavbarClient = dynamic(() => Promise.resolve(ClientSideNavbar), {
   ssr: false,
   loading: () => <NavbarSkeletonResponsive />,
-});
+}) as React.ComponentType<{ navbarData: QueryNavbarDataResult }>;
