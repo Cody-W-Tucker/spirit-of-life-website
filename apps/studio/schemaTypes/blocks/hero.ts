@@ -21,12 +21,18 @@ export const hero = defineType({
     }),
     richTextField,
     defineField({
-      name: "image",
-      type: "image",
-      title: "Image",
-      options: {
-        hotspot: true,
-      },
+      name: "images",
+      type: "array",
+      title: "Images",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+      validation: (Rule) => Rule.max(5).error("Maximum 5 images allowed"),
     }),
     buttonsField,
   ],

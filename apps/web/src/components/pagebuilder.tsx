@@ -61,9 +61,9 @@ export function PageBuilder({
     },
   );
 
-  // Separate fullpageImage and scheduleBar blocks from others
-  const fullWidthBlocks = pageBuilder.filter((block) => block._type === "fullpageImage" || block._type === "scheduleBar");
-  const normalBlocks = pageBuilder.filter((block) => block._type !== "fullpageImage" && block._type !== "scheduleBar");
+  // Separate fullpageImage, scheduleBar, and hero blocks from others
+  const fullWidthBlocks = pageBuilder.filter((block) => block._type === "fullpageImage" || block._type === "scheduleBar" || block._type === "hero");
+  const normalBlocks = pageBuilder.filter((block) => block._type !== "fullpageImage" && block._type !== "scheduleBar" && block._type !== "hero");
 
   return (
     <>

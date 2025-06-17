@@ -104,7 +104,15 @@ const imageLinkCardsBlock = /* groq */ `
 const heroBlock = /* groq */ `
   _type == "hero" => {
     ...,
-    ${imageFragment},
+    "images": images[]{
+      ...,
+      "dimensions": asset->metadata.dimensions,
+      ...asset->{
+        "alt": coalesce(altText, originalFilename, "no-alt"),
+        "blurData": metadata.lqip,
+        "dominantColor": metadata.palette.dominant.background
+      },
+    },
     ${buttonsFragment},
     ${richTextFragment}
   }
