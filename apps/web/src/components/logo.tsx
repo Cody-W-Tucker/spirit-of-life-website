@@ -39,9 +39,13 @@ export const Logo: FC<LogoProps> = ({
     }
   }
 
+  // Set max height constraint
+  const maxHeight = 84;
+
   // Dynamically calculate width/height
   let finalWidth = width;
   let finalHeight = height;
+  
   if (width && !height) {
     finalHeight = width / aspectRatio;
   } else if (height && !width) {
@@ -49,6 +53,12 @@ export const Logo: FC<LogoProps> = ({
   } else if (!width && !height) {
     finalWidth = 170;
     finalHeight = 170 / aspectRatio;
+  }
+
+  // Constrain to maxHeight while maintaining aspect ratio
+  if (finalHeight && finalHeight > maxHeight) {
+    finalHeight = maxHeight;
+    finalWidth = maxHeight * aspectRatio;
   }
 
   // Round to nearest integer to avoid CDN errors
@@ -60,10 +70,9 @@ export const Logo: FC<LogoProps> = ({
       <div
         style={{
           width: finalWidth,
-          maxHeight: 84,
-          overflow: "hidden",
+          height: finalHeight,
         }}
-        className="h-full flex items-center"
+        className="flex items-center justify-center"
       >
         {image ? (
           <SanityImage
@@ -71,7 +80,7 @@ export const Logo: FC<LogoProps> = ({
             alt={alt ?? "logo"}
             width={finalWidth}
             height={finalHeight}
-            className="h-full w-auto object-contain"
+            className="w-full h-full object-contain"
             priority={priority}
             loading="eager"
             decoding="sync"
@@ -83,7 +92,7 @@ export const Logo: FC<LogoProps> = ({
             alt={alt ?? "logo"}
             width={finalWidth}
             height={finalHeight}
-            className="h-full w-auto object-contain"
+            className="w-full h-full object-contain"
             loading="eager"
             priority={priority}
             decoding="sync"
