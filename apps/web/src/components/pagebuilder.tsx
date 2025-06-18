@@ -16,6 +16,7 @@ import { ImageLinkCards } from "./sections/image-link-cards";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 import { FullpageImageBlock } from "./sections/fullpage-image";
 import { ScheduleBar } from "./sections/schedule-bar";
+import { VideoLibrary } from "./sections/video-library";
 
 type PageBlock = NonNullable<
   NonNullable<QueryHomePageDataResult>["pageBuilder"]
@@ -43,6 +44,7 @@ const BLOCK_COMPONENTS = {
   imageLinkCards: ImageLinkCards,
   fullpageImage: FullpageImageBlock,
   scheduleBar: ScheduleBar,
+  videoLibrary: VideoLibrary,
 } as const;
 
 type BlockType = keyof typeof BLOCK_COMPONENTS;

@@ -7,6 +7,7 @@ import { imageLinkCards } from "./image-link-cards";
 import { subscribeNewsletter } from "./subscribe-newsletter";
 import { fullpageImage } from "./fullpage-image";
 import { scheduleBar } from "./schedule-bar";
+import { videoLibrary } from "./video-library";
 
 export const pageBuilderBlocks = [
   hero,
@@ -18,4 +19,5 @@ export const pageBuilderBlocks = [
   subscribeNewsletter,
   fullpageImage,
   scheduleBar,
+  videoLibrary,
 ];

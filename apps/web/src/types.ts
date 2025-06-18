@@ -8,7 +8,8 @@ export type PageBuilderBlockTypes =
       NonNullable<QueryHomePageDataResult>["pageBuilder"]
     >[number]["_type"]
   | "fullpageImage"
-  | "scheduleBar";
+  | "scheduleBar"
+  | "videoLibrary";
 
 export type PagebuilderType<T extends PageBuilderBlockTypes> = Extract<
   NonNullable<NonNullable<QueryHomePageDataResult>["pageBuilder"]>[number],

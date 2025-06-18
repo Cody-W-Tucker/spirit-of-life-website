@@ -196,7 +196,36 @@ const contentSectionBlock = /* groq */ `
     ${richTextFragment},
     "images": images[]{
       ...,
-      ${imageFragment}
+      "dimensions": asset->metadata.dimensions,
+      ...asset->{
+        "alt": coalesce(altText, originalFilename, "no-alt"),
+        "blurData": metadata.lqip,
+        "dominantColor": metadata.palette.dominant.background
+      },
+    }
+  }
+`;
+
+const videoLibraryBlock = /* groq */ `
+  _type == "videoLibrary" => {
+    ...,
+    title,
+    subtitle,
+    videos[]{
+      _key,
+      title,
+      description,
+      videoUrl,
+      duration,
+      thumbnail{
+        ...,
+        "dimensions": asset->metadata.dimensions,
+        ...asset->{
+          "alt": coalesce(altText, originalFilename, "no-alt"),
+          "blurData": metadata.lqip,
+          "dominantColor": metadata.palette.dominant.background
+        },
+      }
     }
   }
 `;
@@ -212,7 +241,8 @@ const pageBuilderFragment = /* groq */ `
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},
     ${fullpageImageBlock},
-    ${scheduleBarBlock}
+    ${scheduleBarBlock},
+    ${videoLibraryBlock}
   }
 `;
 
