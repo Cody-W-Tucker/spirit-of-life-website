@@ -32,7 +32,6 @@ import { useEffect, useMemo, useState, type JSX } from "react";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import type { QueryNavbarDataResult } from "@/lib/sanity/sanity.types";
 
-import { Logo } from "./logo";
 import { SanityButtons } from "./sanity-buttons";
 import { SanityIcon } from "./sanity-icon";
 interface MenuItem {
