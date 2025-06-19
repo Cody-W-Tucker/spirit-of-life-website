@@ -28,7 +28,14 @@ export const Navbar: FC<{
     <section className="py-3 md:border-b">
       <div className="container mx-auto px-4 md:px-6">
         <nav className="grid grid-cols-[auto_1fr] items-center gap-4">
-          {logo && <Logo alt={settingsSiteTitle} priority image={logo} />}
+          <div className="flex items-center gap-4">
+            {logo && <Logo alt={settingsSiteTitle} priority image={logo} />}
+            {settingsSiteTitle && (
+              <h1 className="text-2xl font-bold text-foreground">
+                {settingsSiteTitle}
+              </h1>
+            )}
+          </div>
 
           <NavbarClient navbarData={navbarData} />
         </nav>
@@ -42,7 +49,10 @@ export const NavbarSkeleton: FC = () => {
     <header className="h-[75px] py-4 md:border-b">
       <div className="container mx-auto px-4 md:px-6">
         <nav className="grid grid-cols-[auto_1fr] items-center gap-4">
-          <div className="h-[40px] w-[170px] rounded animate-pulse bg-muted" />
+          <div className="flex items-center gap-4">
+            <div className="h-[40px] w-[170px] rounded animate-pulse bg-muted" />
+            <div className="h-[32px] w-[200px] rounded animate-pulse bg-muted" />
+          </div>
           <NavbarSkeletonResponsive />
         </nav>
       </div>

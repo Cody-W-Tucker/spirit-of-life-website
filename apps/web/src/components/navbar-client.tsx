@@ -193,7 +193,7 @@ function NavbarColumnLink({
       <NavigationMenuLink
         className={cn(
           navigationMenuTriggerStyle(),
-          "text-muted-foreground",
+          "text-muted-foreground text-lg font-medium px-6 py-3",
         )}
       >
         {column.name}
@@ -224,7 +224,7 @@ export function NavbarColumn({
   return (
     <NavigationMenuList>
       <NavigationMenuItem className="text-muted-foreground">
-        <NavigationMenuTrigger>{column.title}</NavigationMenuTrigger>
+        <NavigationMenuTrigger className="text-lg font-medium px-6 py-3">{column.title}</NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul className={cn("p-3", layoutClass)}>
             {column.links?.map((item) => (
@@ -259,23 +259,27 @@ export function DesktopNavbar({
   const { columns, buttons } = navbarData ?? {};
 
   return (
-    <div className="grid grid-cols-[1fr_auto] items-center gap-8">
-      <NavigationMenu className="">
-        {columns?.map((column) =>
-          column.type === "column" ? (
-            <NavbarColumn key={`nav-${column._key}`} column={column} />
-          ) : (
-            <NavbarColumnLink key={`nav-${column._key}`} column={column} />
-          ),
-        )}
-      </NavigationMenu>
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-6">
+      <div className="grid grid-cols-[1fr_auto] items-center gap-8">
+        <div className="flex justify-center">
+          <NavigationMenu className="">
+            {columns?.map((column) =>
+              column.type === "column" ? (
+                <NavbarColumn key={`nav-${column._key}`} column={column} />
+              ) : (
+                <NavbarColumnLink key={`nav-${column._key}`} column={column} />
+              ),
+            )}
+          </NavigationMenu>
+        </div>
 
-      <div className="justify-self-end flex items-center gap-4">
-        <SanityButtons
-          buttons={buttons ?? []}
-          className="flex items-center gap-4"
-          buttonClassName="rounded-[10px]"
-        />
+        <div className="justify-self-end flex items-center gap-4">
+          <SanityButtons
+            buttons={buttons ?? []}
+            className="flex items-center gap-4"
+            buttonClassName="rounded-[10px] text-base font-medium px-6 py-3"
+          />
+        </div>
       </div>
     </div>
   );
