@@ -27,7 +27,7 @@ export const Logo: FC<LogoProps> = ({
   priority = true,
 }: LogoProps) => {
   // Default aspect ratio
-  let aspectRatio = 3 / 1; 
+  let aspectRatio = 3 / 1;
   let imgW: number | undefined;
   let imgH: number | undefined;
 
@@ -45,7 +45,7 @@ export const Logo: FC<LogoProps> = ({
   // Dynamically calculate width/height
   let finalWidth = width;
   let finalHeight = height;
-  
+
   if (width && !height) {
     finalHeight = width / aspectRatio;
   } else if (height && !width) {
@@ -101,4 +101,4 @@ export const Logo: FC<LogoProps> = ({
       </div>
     </Link>
   );
-}
+};

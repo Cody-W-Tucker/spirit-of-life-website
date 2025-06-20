@@ -9,14 +9,14 @@ import { SanityImage } from "../sanity-image";
 type ContentSectionProps = PagebuilderType<"contentSection">;
 
 // Reusable image component
-const ContentImage: FC<{ asset: NonNullable<ContentSectionProps["images"]>[number]; width: number; height: number }> = ({
-  asset,
-  width,
-  height,
-}) => (
+const ContentImage: FC<{
+  asset: NonNullable<ContentSectionProps["images"]>[number];
+  width: number;
+  height: number;
+}> = ({ asset, width, height }) => (
   <div className="relative">
     <SanityImage
-      asset={asset as any}
+      asset={asset}
       width={width}
       height={height}
       className="aspect-square w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover"
@@ -28,42 +28,46 @@ const ContentImage: FC<{ asset: NonNullable<ContentSectionProps["images"]>[numbe
 // Layout configurations for different image counts
 const imageLayouts = {
   1: {
-    container: "-mx-8 flex justify-center gap-4 sm:-mx-16 lg:mx-0 lg:gap-4 xl:gap-8",
-    columns: [
-      { className: "w-80 max-w-md", images: [0] }
-    ]
+    container:
+      "-mx-8 flex justify-center gap-4 sm:-mx-16 lg:mx-0 lg:gap-4 xl:gap-8",
+    columns: [{ className: "w-80 max-w-md", images: [0] }],
   },
   2: {
-    container: "-mx-8 grid grid-cols-2 gap-6 sm:-mx-16 lg:mx-0 lg:gap-8 xl:gap-12",
-    columns: [
-      { className: "", images: [0] },
-      { className: "-mt-8 lg:-mt-40", images: [1] }
-    ]
-  },
-  3: {
-    container: "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-3 lg:mx-0 lg:grid-cols-2 lg:gap-6 xl:gap-8",
+    container:
+      "-mx-8 grid grid-cols-2 gap-6 sm:-mx-16 lg:mx-0 lg:gap-8 xl:gap-12",
     columns: [
       { className: "", images: [0] },
       { className: "-mt-8 lg:-mt-40", images: [1] },
-      { className: "", images: [2] }
-    ]
+    ],
   },
-  4: {
-    container: "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-4 xl:gap-8",
+  3: {
+    container:
+      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-3 lg:mx-0 lg:grid-cols-2 lg:gap-6 xl:gap-8",
     columns: [
       { className: "", images: [0] },
       { className: "-mt-8 lg:-mt-40", images: [1] },
       { className: "", images: [2] },
-      { className: "-mt-8 lg:-mt-40", images: [3] }
-    ]
-  }
+    ],
+  },
+  4: {
+    container:
+      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-4 xl:gap-8",
+    columns: [
+      { className: "", images: [0] },
+      { className: "-mt-8 lg:-mt-40", images: [1] },
+      { className: "", images: [2] },
+      { className: "-mt-8 lg:-mt-40", images: [3] },
+    ],
+  },
 } as const;
 
 // Dynamic image layout component
-const ContentImages: FC<{ images: NonNullable<ContentSectionProps["images"]> }> = ({ images }) => {
+const ContentImages: FC<{
+  images: NonNullable<ContentSectionProps["images"]>;
+}> = ({ images }) => {
   const count = Math.min(images.length, 4) as keyof typeof imageLayouts;
   const layout = imageLayouts[count];
-  
+
   if (!layout) return null;
 
   return (
@@ -130,4 +134,4 @@ export const ContentSection: FC<ContentSectionProps> = ({
       </div>
     </div>
   );
-}; 
+};

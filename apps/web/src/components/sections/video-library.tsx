@@ -16,11 +16,17 @@ interface VideoCardProps {
   _type?: string;
 }
 
-const VideoCard: FC<VideoCardProps> = ({ title, description, videoUrl, thumbnail, duration }) => {
+const VideoCard: FC<VideoCardProps> = ({
+  title,
+  description,
+  videoUrl,
+  thumbnail,
+  duration,
+}) => {
   const handleVideoClick = () => {
     // For now, just open the URL in a new tab
     // In a real implementation, you might want to open a modal or embed player
-    window.open(videoUrl, '_blank');
+    window.open(videoUrl, "_blank");
   };
 
   return (
@@ -36,9 +42,9 @@ const VideoCard: FC<VideoCardProps> = ({ title, description, videoUrl, thumbnail
             <PlayIcon className="w-12 h-12 text-muted-foreground" />
           </div>
         )}
-        
+
         {/* Play button overlay */}
-        <div 
+        <div
           className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           onClick={handleVideoClick}
         >
@@ -46,7 +52,7 @@ const VideoCard: FC<VideoCardProps> = ({ title, description, videoUrl, thumbnail
             <PlayIcon className="w-8 h-8 text-foreground fill-current" />
           </div>
         </div>
-        
+
         {/* Duration badge */}
         {duration && (
           <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
@@ -54,7 +60,7 @@ const VideoCard: FC<VideoCardProps> = ({ title, description, videoUrl, thumbnail
           </div>
         )}
       </div>
-      
+
       <div className="p-4">
         <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
           {title}
@@ -69,14 +75,19 @@ const VideoCard: FC<VideoCardProps> = ({ title, description, videoUrl, thumbnail
   );
 };
 
-export const VideoLibrary: FC<VideoLibraryProps> = ({ title, subtitle, videos = [] }) => {
+export const VideoLibrary: FC<VideoLibraryProps> = ({
+  title,
+  subtitle,
+  videos = [],
+}) => {
   // Fill with placeholders if we have fewer than 3 videos
   const videoSlots = [...(Array.isArray(videos) ? videos : [])];
   while (videoSlots.length < 3) {
     videoSlots.push({
       _key: `placeholder-${videoSlots.length}`,
       title: `Video ${videoSlots.length + 1} Placeholder`,
-      description: "This is a placeholder for your video content. Add your video through the CMS to replace this placeholder.",
+      description:
+        "This is a placeholder for your video content. Add your video through the CMS to replace this placeholder.",
       videoUrl: "#",
       duration: null,
       thumbnail: null,
@@ -89,9 +100,7 @@ export const VideoLibrary: FC<VideoLibraryProps> = ({ title, subtitle, videos = 
         {/* Section Header */}
         <div className="text-center mb-12">
           {title && (
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              {title}
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
           )}
           {subtitle && (
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -99,7 +108,7 @@ export const VideoLibrary: FC<VideoLibraryProps> = ({ title, subtitle, videos = 
             </p>
           )}
         </div>
-        
+
         {/* Video Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videoSlots.slice(0, 3).map((video, index) => (
@@ -116,4 +125,4 @@ export const VideoLibrary: FC<VideoLibraryProps> = ({ title, subtitle, videos = 
       </div>
     </section>
   );
-}; 
+};

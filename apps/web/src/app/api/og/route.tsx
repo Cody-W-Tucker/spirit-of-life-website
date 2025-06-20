@@ -5,6 +5,7 @@ import type { ImageResponseOptions } from "next/server";
 
 import type { Maybe } from "@/types";
 import { getTitleCase } from "@/utils";
+import { urlFor } from "@/lib/sanity/client";
 
 import { getOgMetaData } from "./og-config";
 import {
@@ -211,14 +212,32 @@ const getHomePageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getHomePageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  return dominantColorSeoImageRender(result);
+  
+  // Convert Sanity image object to URL string
+  const logoUrl = result.logo?.asset 
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+    : undefined;
+  
+  return dominantColorSeoImageRender({
+    ...result,
+    logo: logoUrl,
+  });
 };
 const getSlugPageContent = async ({ id }: ContentProps) => {
   if (!id) return undefined;
   const [result, err] = await getSlugPageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  return dominantColorSeoImageRender(result);
+  
+  // Convert Sanity image object to URL string
+  const logoUrl = result.logo?.asset 
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+    : undefined;
+  
+  return dominantColorSeoImageRender({
+    ...result,
+    logo: logoUrl,
+  });
 };
 
 const getBlogPageContent = async ({ id }: ContentProps) => {
@@ -226,7 +245,16 @@ const getBlogPageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getBlogPageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  return dominantColorSeoImageRender(result);
+  
+  // Convert Sanity image object to URL string
+  const logoUrl = result.logo?.asset 
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+    : undefined;
+  
+  return dominantColorSeoImageRender({
+    ...result,
+    logo: logoUrl,
+  });
 };
 
 const getGenericPageContent = async ({ id }: ContentProps) => {
@@ -234,7 +262,16 @@ const getGenericPageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getGenericPageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  return dominantColorSeoImageRender(result);
+  
+  // Convert Sanity image object to URL string
+  const logoUrl = result.logo?.asset 
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+    : undefined;
+  
+  return dominantColorSeoImageRender({
+    ...result,
+    logo: logoUrl,
+  });
 };
 
 const block = {

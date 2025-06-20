@@ -27,7 +27,7 @@ import { Menu } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState, type JSX } from "react";
+import { type JSX, useEffect, useMemo, useState } from "react";
 
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import type { QueryNavbarDataResult } from "@/lib/sanity/sanity.types";
@@ -125,9 +125,7 @@ function MobileNavbar({ navbarData }: { navbarData: QueryNavbarDataResult }) {
       </div>
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>
-            {/* Logo is handled by parent component */}
-          </SheetTitle>
+          <SheetTitle>{/* Logo is handled by parent component */}</SheetTitle>
         </SheetHeader>
 
         <div className="mb-8 mt-8 flex flex-col gap-4">
@@ -224,7 +222,9 @@ export function NavbarColumn({
   return (
     <NavigationMenuList>
       <NavigationMenuItem className="text-muted-foreground">
-        <NavigationMenuTrigger className="text-lg font-medium px-6 py-3">{column.title}</NavigationMenuTrigger>
+        <NavigationMenuTrigger className="text-lg font-medium px-6 py-3">
+          {column.title}
+        </NavigationMenuTrigger>
         <NavigationMenuContent>
           <ul className={cn("p-3", layoutClass)}>
             {column.links?.map((item) => (

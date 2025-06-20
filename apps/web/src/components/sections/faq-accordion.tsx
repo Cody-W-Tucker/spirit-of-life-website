@@ -72,10 +72,7 @@ export const FaqAccordion: FC<FaqAccordionProps> = ({
                   {link?.description}
                 </p>
                 <span className="rounded-full border p-1">
-                  <ArrowUpRight
-                    size={16}
-                    className="text-[#374151]"
-                  />
+                  <ArrowUpRight size={16} className="text-[#374151]" />
                 </span>
               </Link>
             </div>

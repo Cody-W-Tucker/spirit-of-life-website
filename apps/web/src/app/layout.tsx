@@ -31,7 +31,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): Promise<React.JSX.Element> {
   preconnect("https://cdn.sanity.io");
   prefetchDNS("https://cdn.sanity.io");
   return (

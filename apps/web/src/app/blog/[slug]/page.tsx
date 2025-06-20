@@ -45,7 +45,7 @@ export default async function BlogSlugPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<React.JSX.Element> {
   const { slug } = await params;
   const { data } = await fetchBlogSlugPageData(slug);
   if (!data) return notFound();

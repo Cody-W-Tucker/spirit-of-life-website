@@ -16,7 +16,7 @@ interface IconProps extends Omit<ComponentProps<"span">, "src"> {
 export const SanityIcon = memo(
   forwardRef<HTMLSpanElement, IconProps>(function SanityIconUnmemorized(
     { icon, className, alt: altText = "sanity-icon", ...props },
-    ref
+    ref,
   ) {
     const alt = typeof icon === "object" && icon?.name ? icon?.name : altText;
     const svg = typeof icon === "object" ? icon?.svg : icon;
@@ -40,5 +40,5 @@ export const SanityIcon = memo(
         title={alt}
       />
     );
-  })
+  }),
 );

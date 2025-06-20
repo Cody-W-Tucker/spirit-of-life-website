@@ -9,6 +9,20 @@ export type TableProps = {
   richText?: PortableTextBlock[] | null;
 };
 
+interface HeadingData {
+  heading: string;
+  href: string;
+  head: number;
+  text: string;
+  children: HeadingData[];
+  isChild?: boolean;
+  _key?: string;
+}
+
+interface HeadingBlock extends PortableTextBlock {
+  style: keyof typeof headings;
+}
+
 const headings = {
   h2: "pl-0",
   h3: "pl-4",
@@ -17,43 +31,50 @@ const headings = {
   h6: "pl-16",
 };
 
-const extractTextFromBlock = (block: any[]) => {
-  return block?.[0]?.text;
+const extractTextFromBlock = (block: PortableTextBlock['children']): string => {
+  return (block as Array<{ text?: string }>)?.[0]?.text || '';
 };
 
-const styleToNumber = (style: string) => Number(style.replace("h", ""));
+const styleToNumber = (style: string): number => Number(style.replace("h", ""));
 
-const isExistTableOfContent = (richText?: PortableTextBlock[]) => {
+const isExistTableOfContent = (richText?: PortableTextBlock[]): HeadingBlock[] => {
   if (Array.isArray(richText)) {
-    const even = (text: any) => text.style in headings;
+    const even = (text: PortableTextBlock): text is HeadingBlock => 
+      text.style !== undefined && text.style in headings;
     return richText.filter(even);
   }
   return [];
 };
 
-const getHeadingLevels = (exist: any[]) => {
-  const temp: any[] = exist.map((block) => {
+const getHeadingLevels = (exist: HeadingBlock[]): HeadingData[] => {
+  const temp: HeadingData[] = exist.map((block) => {
+    const text = extractTextFromBlock(block.children);
     return {
-      heading: block?.style,
-      href: `#${slugify(extractTextFromBlock(block.children), {
+      heading: block.style,
+      href: `#${slugify(text, {
         lower: true,
         strict: true,
       })}`,
-      head: styleToNumber(block?.style),
-      text: extractTextFromBlock(block.children),
+      head: styleToNumber(block.style),
+      text,
+      children: [],
+      _key: block._key,
     };
   });
 
-  const headings: any[] = [];
+  const headings: HeadingData[] = [];
   temp.forEach((block, index) => {
-    const children = [];
+    const children: HeadingData[] = [];
 
     if (block.isChild) return;
 
     let count = index + 1;
-    while (count < temp.length && block["head"] < temp[count].head) {
-      children.push(temp[count]);
-      temp[count]["isChild"] = true;
+    while (count < temp.length) {
+      const currentItem = temp[count];
+      if (!currentItem || block.head >= currentItem.head) break;
+      
+      children.push(currentItem);
+      currentItem.isChild = true;
       count++;
     }
 
@@ -66,8 +87,8 @@ const getHeadingLevels = (exist: any[]) => {
   return headings;
 };
 
-const AnchorT: FC<{ heading: any }> = ({ heading }) => {
-  const { href, text, children, isChild, heading: style } = heading ?? {};
+const AnchorT: FC<{ heading: HeadingData }> = ({ heading }) => {
+  const { href, text, children, isChild, heading: style } = heading;
   if (isChild === true && children?.length === 0) return <></>;
 
   return (
@@ -86,7 +107,7 @@ const AnchorT: FC<{ heading: any }> = ({ heading }) => {
           aria-hidden
         />
         <Link
-          href={href ?? "#"}
+          href={href}
           className=" hover:text-blue-500 hover:underline line-clamp-1"
         >
           {text}
@@ -96,7 +117,7 @@ const AnchorT: FC<{ heading: any }> = ({ heading }) => {
       {Array.isArray(children) && children.length > 0 && (
         <ul>
           {children.map((child, index) => (
-            <AnchorT heading={child} key={`${child.text}-${index}-${style}`} />
+            <AnchorT heading={child} key={`${child._key || child.text}-${index}-${style}`} />
           ))}
         </ul>
       )}
@@ -133,7 +154,7 @@ export const TableOfContent: FC<TableProps> = ({ richText }) => {
           <ul className="text-sm">
             {Array.isArray(headings) &&
               headings.map((heading, index) => (
-                <AnchorT heading={heading} key={`${heading._key}-${index}`} />
+                <AnchorT heading={heading} key={`${heading._key || heading.text}-${index}`} />
               ))}
           </ul>
         </nav>

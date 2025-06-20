@@ -16,7 +16,7 @@ export async function generateMetadata() {
   return await getMetaData(result?.data ?? {});
 }
 
-export default async function BlogIndexPage() {
+export default async function BlogIndexPage(): Promise<React.JSX.Element> {
   const [res, err] = await fetchBlogPosts();
   if (err || !res?.data) notFound();
 

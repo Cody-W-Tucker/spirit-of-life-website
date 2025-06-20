@@ -100,40 +100,43 @@ const components: Partial<PortableTextReactComponents> = {
   hardBreak: () => <br />,
 };
 
-type SanityRichText = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal" | "inline";
-  listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    customLink?: {
-      openInNewTab?: boolean;
-      href?: string;
-    };
-    _type: "customLink";
-    _key: string;
-  }> | null;
-  level?: number;
-  _type: "block";
-  _key: string;
-} | {
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-  };
-  media?: unknown;
-  hotspot?: unknown;
-  crop?: unknown;
-  caption?: string;
-  _type: "image";
-  _key: string;
-  markDefs: null;
-}> | null;
+type SanityRichText = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal" | "inline";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        customLink?: {
+          openInNewTab?: boolean;
+          href?: string;
+        };
+        _type: "customLink";
+        _key: string;
+      }> | null;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+      };
+      media?: unknown;
+      hotspot?: unknown;
+      crop?: unknown;
+      caption?: string;
+      _type: "image";
+      _key: string;
+      markDefs: null;
+    }
+> | null;
 
 export const RichText: FC<{
   richText?: SanityRichText;

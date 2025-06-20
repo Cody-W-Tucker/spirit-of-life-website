@@ -11,11 +11,11 @@ import { ContentSection } from "./sections/content-section";
 import { CTABlock } from "./sections/cta";
 import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
+import { FullpageImageBlock } from "./sections/fullpage-image";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
-import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
-import { FullpageImageBlock } from "./sections/fullpage-image";
 import { ScheduleBar } from "./sections/schedule-bar";
+import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 import { VideoLibrary } from "./sections/video-library";
 
 type PageBlock = NonNullable<
@@ -66,8 +66,20 @@ export function PageBuilder({
   );
 
   // Separate fullpageImage, scheduleBar, hero, and contentSection blocks from others
-  const fullWidthBlocks = pageBuilder.filter((block) => block._type === "fullpageImage" || block._type === "scheduleBar" || block._type === "hero" || block._type === "contentSection");
-  const normalBlocks = pageBuilder.filter((block) => block._type !== "fullpageImage" && block._type !== "scheduleBar" && block._type !== "hero" && block._type !== "contentSection");
+  const fullWidthBlocks = pageBuilder.filter(
+    (block) =>
+      block._type === "fullpageImage" ||
+      block._type === "scheduleBar" ||
+      block._type === "hero" ||
+      block._type === "contentSection",
+  );
+  const normalBlocks = pageBuilder.filter(
+    (block) =>
+      block._type !== "fullpageImage" &&
+      block._type !== "scheduleBar" &&
+      block._type !== "hero" &&
+      block._type !== "contentSection",
+  );
 
   return (
     <>
@@ -76,9 +88,7 @@ export function PageBuilder({
         const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
           PagebuilderType<BlockType>
         >;
-        return (
-          <Component key={`${block._type}-${block._key}`} {...block} />
-        );
+        return <Component key={`${block._type}-${block._key}`} {...block} />;
       })}
       {/* Render normal blocks inside the constrained main */}
       <main

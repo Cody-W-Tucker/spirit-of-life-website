@@ -1,10 +1,11 @@
+import type { FC } from "react";
+
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryGlobalSeoSettings, queryNavbarData } from "@/lib/sanity/query";
 import type {
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
-import type { FC } from "react";
 
 import { Logo } from "./logo";
 import { NavbarClient, NavbarSkeletonResponsive } from "./navbar-client";
@@ -17,7 +18,7 @@ export const NavbarServer: FC = async () => {
   return (
     <Navbar navbarData={navbarData.data} settingsData={settingsData.data} />
   );
-}
+};
 
 export const Navbar: FC<{
   navbarData: QueryNavbarDataResult;
@@ -42,7 +43,7 @@ export const Navbar: FC<{
       </div>
     </section>
   );
-}
+};
 
 export const NavbarSkeleton: FC = () => {
   return (
@@ -58,4 +59,4 @@ export const NavbarSkeleton: FC = () => {
       </div>
     </header>
   );
-}
+};
