@@ -1,0 +1,717 @@
+---
+description: 
+globs: apps/web/src/components/**/*.tsx,packages/ui/src/components/**/*.tsx,packages/ui/src/styles/globals.css,packages/ui/tailwind.config.ts,apps/web/src/app/*.tsx,apps/web/src/app/blog/*.tsx
+alwaysApply: false
+---
+# Spirit of Life Church - Design System & Style Guide
+
+This document outlines the design system and frontend components for **Spirit of Life Church**, building upon the established brand identity while evolving it into a modern, accessible, and engaging digital experience. The design honors our heritage while embracing contemporary web standards.
+
+## Table of Contents
+1. [Brand Heritage & Evolution](mdc:#brand-heritage--evolution)
+2. [Design Philosophy](mdc:#design-philosophy)
+3. [Design Tokens](mdc:#design-tokens)
+   - [Brand Colors](mdc:#brand-colors)
+   - [Typography](mdc:#typography)
+   - [Spacing](mdc:#spacing)
+4. [Layout & Breakpoints](mdc:#layout--breakpoints)
+5. [Global Components](mdc:#global-components)
+   - [Navbar](mdc:#navbar)
+   - [Footer](mdc:#footer)
+   - [Logo](mdc:#logo)
+6. [UI Components](mdc:#ui-components)
+   - [Buttons](mdc:#buttons)
+   - [Inputs & Forms](mdc:#inputs--forms)
+   - [Badge, Avatar, Icons](mdc:#badge-avatar-icons)
+   - [Cards](mdc:#cards)
+   - [Table of Contents](mdc:#table-of-contents)
+   - [Social Icons](mdc:#social-icons)
+7. [Church-Specific Components](mdc:#church-specific-components)
+   - [Service Times Display](mdc:#service-times-display)
+   - [Prayer Request Form](mdc:#prayer-request-form)
+   - [Donation Components](mdc:#donation-components)
+   - [Ministry Cards](mdc:#ministry-cards)
+   - [Media & Sermon Components](mdc:#media--sermon-components)
+   - [Event Calendar](mdc:#event-calendar)
+8. [Page Sections](mdc:#page-sections)
+   - [Hero](mdc:#hero)
+   - [Content Section](mdc:#content-section)
+   - [Call To Action (CTA)](mdc:#call-to-action-cta)
+   - [Feature Cards with Icon](mdc:#feature-cards-with-icon)
+   - [FAQ Accordion](mdc:#faq-accordion)
+   - [Fullpage Image](mdc:#fullpage-image)
+   - [Image Link Cards](mdc:#image-link-cards)
+   - [Schedule Bar](mdc:#schedule-bar)
+   - [Subscribe Newsletter](mdc:#subscribe-newsletter)
+   - [Video Library](mdc:#video-library)
+   - [Testimonials](mdc:#testimonials)
+   - [Location & Contact](mdc:#location--contact)
+
+---
+
+## Brand Heritage & Evolution
+
+### Our Brand DNA
+**Core Mission**: ENCOUNTER • GROW • RELEASE
+- **Encounter** the presence of God
+- **Grow** in your walk with God
+- **Release** your gifts from God to the world around you
+
+### Visual Heritage
+Spirit of Life Church has established a strong visual identity built on:
+- **Deep Forest Green** (#224A3F) - representing growth, renewal, and life
+- **Rich Dark Green** (#0C251D) - providing depth and grounding
+- **Clean Typography** - ensuring clarity and accessibility
+- **Visual Storytelling** - using imagery and media to convey our message
+- **Media-Centric** - strong emphasis on sermons and video content
+
+### Evolution Goals
+While honoring our visual heritage, we're evolving to:
+- **Enhance Accessibility** - WCAG 2.1 AA compliance
+- **Improve User Experience** - Modern navigation and interactions
+- **Strengthen Digital Presence** - Professional, contemporary feel
+- **Expand Color Palette** - Add supporting colors while maintaining brand integrity
+- **Optimize for Media** - Better showcase our sermon and video content
+
+---
+
+## Design Philosophy
+
+### Core Principles
+- **Heritage + Innovation**: Honor our established brand while embracing modern design
+- **Media-First**: Prioritize excellent presentation of sermons and video content
+- **Welcoming & Inclusive**: Design should feel warm and inviting to all visitors
+- **Accessible**: WCAG 2.1 AA compliance for all users including elderly and disabled
+- **Clear Communication**: Information should be easy to find and understand
+- **Spiritual & Reverent**: Visual design should reflect the sacred nature of the church
+- **Community-Focused**: Emphasize connection, fellowship, and belonging
+- **Mobile-First**: Many visitors will access on mobile devices
+
+### Color Psychology
+Our forest green palette conveys:
+- **Growth & Renewal**: Reflecting spiritual growth and new life
+- **Stability & Trust**: Creating a sense of security and reliability
+- **Natural & Grounding**: Connecting with creation and authenticity
+- **Peace & Tranquility**: Fostering a sense of calm and reflection
+
+---
+
+## Design Tokens
+
+### Brand Colors
+
+#### Primary Brand Palette (Heritage Colors)
+```css
+:root {
+  /* Primary Brand Colors */
+  --brand-primary: 158 29% 20%;          /* #224A3F - Main brand green */
+  --brand-primary-dark: 150 50% 8%;      /* #0C251D - Deep brand green */
+  --brand-primary-light: 158 29% 35%;    /* Lighter variant for hover states */
+  
+  /* Text Colors */
+  --brand-text-light: 0 0% 96%;          /* #F4F4F4 - Off-white text */
+  --brand-text-white: 0 0% 100%;         /* #FFFFFF - Pure white text */
+}
+```
+
+#### Enhanced Color System
+Building on our heritage colors with modern accessibility and functionality:
+
+```css
+:root {
+  /* Background Colors */
+  --background: 0 0% 100%;                /* Pure white backgrounds */
+  --background-secondary: 158 15% 97%;   /* Subtle green-tinted background */
+  --background-muted: 158 10% 95%;       /* Muted background variant */
+  
+  /* Primary Colors (Brand Green) */
+  --primary: 158 29% 20%;                 /* #224A3F - Heritage green */
+  --primary-foreground: 0 0% 98%;         /* White text on primary */
+  --primary-hover: 158 29% 25%;           /* Hover state */
+  --primary-active: 150 50% 8%;           /* Active state (dark green) */
+  
+  /* Secondary Colors */
+  --secondary: 158 15% 92%;               /* Light green-grey */
+  --secondary-foreground: 158 29% 20%;    /* Primary green text */
+  --secondary-hover: 158 20% 88%;         /* Hover state */
+  
+  /* Accent Colors */
+  --accent: 43 96% 56%;                   /* Warm gold for highlights */
+  --accent-foreground: 158 29% 20%;       /* Primary green text */
+  
+  /* Supporting Colors */
+  --muted: 158 10% 95%;                   /* Subtle backgrounds */
+  --muted-foreground: 158 15% 45%;        /* Muted text */
+  --border: 158 20% 85%;                  /* Subtle borders */
+  --input: 158 15% 97%;                   /* Input backgrounds */
+  --ring: 158 29% 20%;                    /* Focus rings */
+  
+  /* Semantic Colors */
+  --destructive: 0 84% 60%;               /* Error states */
+  --destructive-foreground: 0 0% 98%;     /* Error text */
+  --success: 120 40% 40%;                 /* Success states */
+  --success-foreground: 0 0% 98%;         /* Success text */
+  --warning: 43 96% 56%;                  /* Warning states */
+  --warning-foreground: 158 29% 20%;      /* Warning text */
+}
+
+.dark {
+  /* Dark mode variants */
+  --background: 150 50% 8%;               /* #0C251D - Heritage dark green */
+  --foreground: 0 0% 96%;                 /* #F4F4F4 - Heritage light text */
+  --primary: 158 29% 35%;                 /* Lighter green for dark mode */
+  --primary-foreground: 150 50% 8%;       /* Dark text on primary */
+  --secondary: 158 20% 15%;               /* Dark secondary */
+  --secondary-foreground: 0 0% 96%;       /* Light text */
+  --muted: 158 25% 12%;                   /* Dark muted */
+  --muted-foreground: 158 15% 65%;        /* Muted light text */
+  --border: 158 20% 20%;                  /* Dark borders */
+  --input: 158 25% 12%;                   /* Dark inputs */
+}
+```
+
+#### Color Usage Guidelines
+
+**Primary Green (#224A3F)**
+- Navigation bars and headers
+- Primary call-to-action buttons
+- Logo and brand elements
+- Section dividers and accents
+
+**Dark Green (#0C251D)**
+- Footer backgrounds
+- Dark theme primary background
+- Depth and contrast elements
+- Secondary navigation
+
+**Light Colors (#F4F4F4, #FFFFFF)**
+- Body text on dark backgrounds
+- Card backgrounds
+- Content areas
+- Clean, readable interfaces
+
+**Gold Accent (#D4AF37)**
+- Highlights and special emphasis
+- Donation/giving buttons
+- Featured content markers
+- Call-to-action accents
+
+### Typography
+
+#### Font Recommendations
+Current Geist font is excellent for modern church websites. Consider these enhancements:
+
+**Primary Font Stack:**
+```css
+font-family: 'Geist', 'Inter', 'Segoe UI', system-ui, sans-serif;
+```
+
+**Alternative Options for Enhanced Readability:**
+- **Inter**: Excellent for digital reading
+- **Source Sans Pro**: Professional and highly legible
+- **Open Sans**: Friendly and accessible
+
+#### Typography Scale for Church Content
+```css
+/* Hero and Major Headlines */
+.text-hero: text-5xl md:text-7xl font-bold leading-tight tracking-tight;
+
+/* Section Headers */
+.text-section: text-3xl md:text-5xl font-semibold leading-tight;
+
+/* Subsection Headers */
+.text-subsection: text-2xl md:text-4xl font-semibold leading-snug;
+
+/* Card Titles */
+.text-card-title: text-xl md:text-2xl font-medium leading-snug;
+
+/* Body Text */
+.text-body: text-base md:text-lg leading-relaxed;
+
+/* Large Text */
+.text-large: text-lg md:text-xl leading-relaxed;
+
+/* Small Text */
+.text-small: text-sm leading-relaxed;
+
+/* Captions */
+.text-caption: text-xs leading-normal;
+```
+
+#### Accessibility Standards
+- **Minimum font size**: 16px (1rem) for body text
+- **Line height**: 1.6 (leading-relaxed) minimum
+- **Contrast ratios**: 
+  - 4.5:1 for normal text
+  - 3:1 for large text (18px+ or 14px+ bold)
+- **Semantic HTML**: Proper heading hierarchy (h1-h6)
+
+### Spacing
+
+#### Church-Specific Spacing System
+```css
+/* Section Spacing */
+.section-padding: py-16 md:py-24 lg:py-32;
+
+/* Card Spacing */
+.card-padding: p-6 md:p-8;
+
+/* Button Spacing */
+.button-padding: px-6 py-3 md:px-8 md:py-4;
+
+/* Form Spacing */
+.form-spacing: space-y-4 md:space-y-6;
+
+/* Content Spacing */
+.content-spacing: space-y-6 md:space-y-8;
+```
+
+---
+
+## Layout & Breakpoints
+
+### Container System
+```css
+/* Main Content Container */
+.container-main: container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+
+/* Text Content (Optimal Reading) */
+.container-text: max-w-4xl mx-auto px-4 sm:px-6;
+
+/* Card Grids */
+.container-cards: max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+
+/* Full Width Sections */
+.container-full: w-full px-4 sm:px-6 lg:px-8;
+```
+
+### Responsive Breakpoints
+- **xs**: 475px (Small phones)
+- **sm**: 640px (Large phones)
+- **md**: 768px (Tablets)
+- **lg**: 1024px (Small laptops)
+- **xl**: 1280px (Desktop)
+- **2xl**: 1536px (Large screens)
+
+---
+
+## Media & Sermon Components
+
+### Sermon Video Player
+**Purpose**: Showcase weekly sermons with professional presentation
+**Features**: High-quality video playback, sermon notes, download options
+
+```jsx
+<SermonPlayer 
+  title="Wildly Different Full Worship Service"
+  speaker="Kelley Mast"
+  series="Famous Passages"
+  date="June 22, 2025"
+  videoUrl="/sermons/famous-passages-2025-06-22.mp4"
+  thumbnail="/sermon-thumbnails/famous-passages.jpg"
+  downloadable={true}
+  notes={sermonNotesContent}
+/>
+```
+
+### Sermon Archive Grid
+**Purpose**: Display sermon library in an engaging grid format
+**Features**: Filter by speaker, series, date; search functionality
+
+```jsx
+<SermonArchive 
+  sermons={sermonsData}
+  featuredSeries="Famous Passages"
+  speakers={["Kelley Mast", "Pastor John", "Guest Speaker"]}
+  showFilters={true}
+  showSearch={true}
+  itemsPerPage={12}
+/>
+```
+
+### Video Testimonials
+**Purpose**: Share faith stories through video
+**Features**: Auto-play on scroll, captions, sharing options
+
+### Live Stream Integration
+**Purpose**: Broadcast live services
+**Features**: Chat integration, prayer requests during service
+
+---
+
+## Church-Specific Components
+
+### Service Times Display
+**Purpose**: Prominently show worship schedule
+**Design**: Use brand green background with white text
+
+```jsx
+<ServiceTimes 
+  className="bg-brand-primary text-brand-text-white"
+  services={[
+    { name: "Sunday Worship", time: "10:00 AM", description: "Main service with communion" },
+    { name: "Wednesday Prayer", time: "7:00 PM", description: "Midweek gathering & Bible study" }
+  ]}
+/>
+```
+
+### Mission Statement Banner
+**Purpose**: Display "ENCOUNTER • GROW • RELEASE" prominently
+**Design**: Large typography with brand colors
+
+```jsx
+<MissionBanner 
+  title="ENCOUNTER"
+  subtitle="the presence of God"
+  nextTitle="GROW"
+  nextSubtitle="in your walk with God"
+  finalTitle="RELEASE"
+  finalSubtitle="your gifts from God to the world around you"
+  className="bg-brand-primary text-brand-text-white"
+/>
+```
+
+### Donation Components
+**Purpose**: Facilitate online giving with trust and security
+**Design**: Use gold accent color for giving buttons
+
+```jsx
+<DonationWidget 
+  amounts={[25, 50, 100, 250]}
+  recurring={true}
+  designations={["General Fund", "Missions", "Building Fund"]}
+  className="accent-color-gold"
+  trustIndicators={true}
+/>
+```
+
+### Ministry Cards
+**Purpose**: Showcase different church ministries
+**Features**: Age groups, meeting times, contact information
+
+```jsx
+<MinistryCard 
+  title="Youth Ministry"
+  ageRange="13-18"
+  meetingTime="Sundays 6 PM"
+  leader="Pastor Sarah"
+  image="/youth-ministry.jpg"
+/>
+```
+
+### Event Calendar
+**Purpose**: Display upcoming church events
+**Features**: Filter by type, RSVP functionality, calendar export
+
+---
+
+## Page Sections
+
+### Hero
+File: `apps/web/src/components/sections/hero.tsx`
+
+**Church hero considerations:**
+- Welcoming message for visitors
+- Clear service times and location
+- "Plan Your Visit" call-to-action
+- High-quality, inviting imagery
+
+```jsx
+<Hero 
+  title="Welcome to Spirit of Life Church"
+  subtitle="Join us this Sunday for worship, fellowship, and community"
+  backgroundImage="/church-hero.jpg"
+  primaryButton={{ text: "Plan Your Visit", href: "/visit" }}
+  secondaryButton={{ text: "Watch Online", href: "/live" }}
+/>
+```
+
+### Content Section
+File: `apps/web/src/components/sections/content-section.tsx`
+- Rich text content with optional side image
+- Perfect for "About Us", mission statements, and detailed information
+
+### Call To Action (CTA)
+File: `apps/web/src/components/sections/cta.tsx`
+- Highlight boxes for important actions like visiting, giving, or volunteering
+
+### Testimonials
+**Purpose**: Share stories of faith and community impact
+**Features**: Photo, quote, attribution, optional video
+
+```jsx
+<TestimonialsSection 
+  testimonials={[
+    {
+      quote: "This church changed my life...",
+      author: "Sarah M.",
+      role: "Member since 2020",
+      photo: "/testimonial-sarah.jpg"
+    }
+  ]}
+/>
+```
+
+### Location & Contact
+**Purpose**: Make it easy for visitors to find and contact the church
+**Features**: Interactive map, multiple contact methods, office hours
+
+### Video Library
+File: `apps/web/src/components/sections/video-library.tsx`
+- Perfect for sermon archives, church announcements, and teachings
+
+### FAQ Accordion
+File: `apps/web/src/components/sections/faq-accordion.tsx`
+- Answer common questions about visiting, beliefs, and church life
+
+---
+
+## Implementation Guidelines
+
+### CSS Custom Properties Setup
+Update `packages/ui/src/styles/globals.css`:
+
+```css
+@layer base {
+  :root {
+    /* Brand Heritage Colors */
+    --brand-primary: 158 29% 20%;          /* #224A3F */
+    --brand-primary-dark: 150 50% 8%;      /* #0C251D */
+    --brand-text-light: 0 0% 96%;          /* #F4F4F4 */
+    --brand-text-white: 0 0% 100%;         /* #FFFFFF */
+    
+    /* Enhanced System Colors */
+    --background: 0 0% 100%;
+    --foreground: 158 29% 15%;
+    --primary: 158 29% 20%;                 /* Heritage green */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 158 15% 92%;
+    --secondary-foreground: 158 29% 20%;
+    --accent: 43 96% 56%;                   /* Gold accent */
+    --accent-foreground: 158 29% 20%;
+    --muted: 158 10% 95%;
+    --muted-foreground: 158 15% 45%;
+    --border: 158 20% 85%;
+    --input: 158 15% 97%;
+    --ring: 158 29% 20%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 150 50% 8%;               /* Heritage dark green */
+    --foreground: 0 0% 96%;                 /* Heritage light text */
+    --primary: 158 29% 35%;
+    --primary-foreground: 150 50% 8%;
+    --secondary: 158 20% 15%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 158 25% 12%;
+    --muted-foreground: 158 15% 65%;
+    --border: 158 20% 20%;
+    --input: 158 25% 12%;
+  }
+}
+```
+
+### Tailwind Configuration
+Update `packages/ui/tailwind.config.ts`:
+
+```typescript
+const config = {
+  theme: {
+    extend: {
+      colors: {
+        // Brand heritage colors
+        brand: {
+          primary: "hsl(var(--brand-primary))",
+          "primary-dark": "hsl(var(--brand-primary-dark))",
+          "text-light": "hsl(var(--brand-text-light))",
+          "text-white": "hsl(var(--brand-text-white))",
+        },
+        // System colors
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        // ... rest of color system
+      },
+    },
+  },
+};
+```
+
+### Next Steps for Implementation
+
+1. **Update Color System** - Implement the heritage color palette
+2. **Create Media Components** - Build sermon video player and archive
+3. **Enhance Navigation** - Add media-focused navigation structure
+4. **Develop Mission Banner** - Create prominent ENCOUNTER • GROW • RELEASE display
+5. **Optimize for Accessibility** - Ensure all components meet WCAG standards
+6. **Add Donation Integration** - Implement secure giving components
+7. **Build Testimonial System** - Create video and text testimonial components
+
+This evolution honors Spirit of Life Church's established visual identity while providing modern functionality and enhanced user experience that will serve the congregation and welcome new visitors effectively.
+
+## Dark Mode Implementation
+
+### How to Use Dark Mode
+
+With your heritage colors now set up in CSS variables, you can use Tailwind's `dark:` prefix to apply different styles in dark mode:
+
+```jsx
+// Basic pattern - light background, dark mode uses heritage dark green
+<div className="bg-background dark:bg-background text-foreground dark:text-foreground">
+  Content that adapts to light/dark mode
+</div>
+
+// Church header - primary green in light, heritage dark green in dark mode
+<header className="bg-brand-primary dark:bg-brand-primary-dark text-brand-text-white">
+  <nav>Navigation content</nav>
+</header>
+
+// Cards that work in both modes
+<div className="bg-card dark:bg-card border border-border dark:border-border text-card-foreground dark:text-card-foreground p-6 rounded-lg">
+  <h3 className="text-foreground dark:text-foreground">Card Title</h3>
+  <p className="text-muted-foreground dark:text-muted-foreground">Card description</p>
+</div>
+```
+
+### Common Dark Mode Patterns for Spirit of Life Church
+
+#### 1. **Navigation/Header**
+```jsx
+<header className="bg-brand-primary dark:bg-brand-primary-dark text-brand-text-white border-b border-border dark:border-border">
+  <nav className="container mx-auto px-4 py-4">
+    <Logo />
+    <ThemeToggle />
+  </nav>
+</header>
+```
+
+#### 2. **Hero Section** 
+```jsx
+<section className="bg-brand-primary dark:bg-brand-primary-dark text-brand-text-white py-16 md:py-24">
+  <div className="container mx-auto px-4 text-center">
+    <h1 className="text-4xl md:text-6xl font-bold mb-6">ENCOUNTER</h1>
+    <p className="text-lg md:text-xl opacity-90">the presence of God</p>
+  </div>
+</section>
+```
+
+#### 3. **Content Cards**
+```jsx
+<div className="bg-card dark:bg-card border border-border dark:border-border rounded-lg p-6 shadow-sm">
+  <h3 className="text-lg font-semibold text-foreground dark:text-foreground mb-2">
+    Sermon Title
+  </h3>
+  <p className="text-muted-foreground dark:text-muted-foreground mb-4">
+    Description text that works in both light and dark modes
+  </p>
+  <button className="bg-primary dark:bg-primary text-primary-foreground dark:text-primary-foreground px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
+    Watch Sermon
+  </button>
+</div>
+```
+
+#### 4. **Forms**
+```jsx
+<form className="space-y-4">
+  <div>
+    <label className="block text-sm font-medium text-foreground dark:text-foreground mb-1">
+      Your Name
+    </label>
+    <input 
+      type="text"
+      className="w-full px-3 py-2 bg-input dark:bg-input border border-border dark:border-border rounded-md text-foreground dark:text-foreground focus:outline-none focus:ring-2 focus:ring-ring dark:focus:ring-ring"
+      placeholder="Enter your name"
+    />
+  </div>
+</form>
+```
+
+#### 5. **Footer**
+```jsx
+<footer className="bg-brand-primary-dark text-brand-text-light border-t border-border dark:border-border mt-16">
+  <div className="container mx-auto px-4 py-12">
+    <div className="grid md:grid-cols-3 gap-8">
+      <div>
+        <h4 className="font-semibold mb-4">Contact Us</h4>
+        <p className="opacity-90">123 Church Street</p>
+        <p className="opacity-90">Kearney, NE 68847</p>
+      </div>
+    </div>
+  </div>
+</footer>
+```
+
+#### 6. **Buttons with Dark Mode**
+```jsx
+// Primary button (giving)
+<button className="bg-accent dark:bg-accent text-accent-foreground dark:text-accent-foreground px-6 py-3 rounded-md font-medium hover:opacity-90 transition-opacity">
+  Give Online
+</button>
+
+// Secondary button  
+<button className="bg-secondary dark:bg-secondary text-secondary-foreground dark:text-secondary-foreground border border-border dark:border-border px-6 py-3 rounded-md font-medium hover:bg-secondary/80 dark:hover:bg-secondary/80 transition-colors">
+  Learn More
+</button>
+
+// Ghost button
+<button className="text-foreground dark:text-foreground hover:bg-accent/10 dark:hover:bg-accent/10 px-6 py-3 rounded-md font-medium transition-colors">
+  Download Sermon
+</button>
+```
+
+### Using the Theme Toggle
+
+Add the theme toggle to your navigation:
+
+```jsx
+import { ThemeToggle } from "./theme-toggle";
+
+<nav className="flex items-center justify-between">
+  <Logo />
+  <div className="flex items-center gap-4">
+    <NavigationMenu />
+    <ThemeToggle />
+  </div>
+</nav>
+```
+
+### Color Reference for Dark Mode
+
+Your heritage colors automatically work in dark mode:
+
+**Light Mode:**
+- Background: White (`#FFFFFF`)
+- Text: Dark green (`#224A3F` variations)
+- Cards: White with subtle borders
+
+**Dark Mode:**
+- Background: Heritage dark green (`#0C251D`)
+- Text: Heritage light (`#F4F4F4`)
+- Cards: Slightly lighter dark green with visible borders
+
+### Consistent Patterns
+
+Use these consistent class combinations:
+
+```jsx
+// Standard content container
+"bg-background dark:bg-background text-foreground dark:text-foreground"
+
+// Muted text (descriptions, metadata)
+"text-muted-foreground dark:text-muted-foreground"
+
+// Borders
+"border-border dark:border-border"
+
+// Interactive elements
+"hover:bg-accent/10 dark:hover:bg-accent/10"
+
+// Focus states
+"focus:ring-ring dark:focus:ring-ring"
+```

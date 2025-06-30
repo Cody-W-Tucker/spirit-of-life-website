@@ -17,6 +17,15 @@ const config = {
         mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       colors: {
+        // Spirit of Life Church brand colors
+        brand: {
+          primary: "hsl(var(--brand-primary))",           // #224A3F
+          "primary-dark": "hsl(var(--brand-primary-dark))", // #0C251D
+          "primary-light": "hsl(var(--brand-primary-light))",
+          "text-light": "hsl(var(--brand-text-light))",   // #F4F4F4
+          "text-white": "hsl(var(--brand-text-white))",   // #FFFFFF
+        },
+        // System colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
