@@ -51,7 +51,7 @@ function MenuItemLink({
   return (
     <Link
       className={cn(
-        "flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-accent hover:text-accent-foreground items-center focus:bg-accent focus:text-accent-foreground",
+        "flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-secondary hover:text-secondary-foreground items-center focus:bg-secondary focus:text-secondary-foreground",
       )}
       aria-label={`Link to ${item.title ?? item.href}`}
       onClick={() => setIsOpen?.(false)}
@@ -78,7 +78,7 @@ function MobileNavbarAccordionColumn({
   if (column.type !== "column") return null;
   return (
     <AccordionItem value={column.title ?? column._key} className="border-b-0">
-      <AccordionTrigger className="mb-4 py-0 font-semibold hover:no-underline hover:bg-accent hover:text-accent-foreground pr-2 rounded-md">
+      <AccordionTrigger className="mb-4 py-0 font-semibold hover:no-underline hover:bg-secondary hover:text-secondary-foreground pr-2 rounded-md">
         <div
           className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
         >
@@ -164,8 +164,7 @@ function MobileNavbar({ navbarData }: { navbarData: QueryNavbarDataResult }) {
         <div className="border-t pt-4">
           <SanityButtons
             buttons={buttons ?? []}
-            buttonClassName="w-full"
-            className="flex mt-2 flex-col gap-3"
+            className="flex mt-2 flex-col gap-3 [&>*]:w-full"
           />
         </div>
       </SheetContent>
@@ -277,7 +276,6 @@ export function DesktopNavbar({
           <SanityButtons
             buttons={buttons ?? []}
             className="flex items-center gap-4"
-            buttonClassName="rounded-[10px] text-base font-medium px-6 py-3"
           />
         </div>
       </div>

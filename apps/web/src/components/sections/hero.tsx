@@ -193,7 +193,6 @@ export const HeroBlock: FC<HeroBlockProps> = ({
                   <div className="mt-10">
                     <SanityButtons
                       buttons={buttons}
-                      buttonClassName="rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-sm"
                       className="flex items-center gap-x-6"
                     />
                   </div>
