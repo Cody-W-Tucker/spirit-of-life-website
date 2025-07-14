@@ -88,8 +88,8 @@ export const blogIndex = defineType({
       slug: "slug.current",
     },
     prepare: ({ title, description, slug }) => ({
-      title: title || "Untitled Blog Index",
-      subtitle: description || slug || "Blog Index",
+      title: title || "Untitled Blog Listing",
+      subtitle: description || slug || "Blog Listing",
     }),
   },
 });

@@ -60,6 +60,18 @@ const blogCardFragment = /* groq */ `
   ${blogAuthorFragment}
 `;
 
+const eventCardFragment = /* groq */ `
+  _type,
+  _id,
+  title,
+  description,
+  "slug":slug.current,
+  ${imageFragment},
+  startDate,
+  endDate,
+  location
+`;
+
 const buttonsFragment = /* groq */ `
   buttons[]{
     text,
@@ -312,6 +324,35 @@ export const queryBlogPaths = defineQuery(`
   *[_type == "blog" && defined(slug.current)].slug.current
 `);
 
+export const queryEventIndexPageData = defineQuery(`
+  *[_type == "eventIndex"][0]{
+    ...,
+    _id,
+    _type,
+    title,
+    description,
+    ${pageBuilderFragment},
+    "slug": slug.current,
+    "events": *[_type == "event" && (seoHideFromLists != true)] | order(startDate asc){
+      ${eventCardFragment}
+    }
+  }
+`);
+
+export const queryEventSlugPageData = defineQuery(`
+  *[_type == "event" && slug.current == $slug][0]{
+    ...,
+    "slug": slug.current,
+    ${imageFragment},
+    ${richTextFragment},
+    ${pageBuilderFragment}
+  }
+`);
+
+export const queryEventPaths = defineQuery(`
+  *[_type == "event" && defined(slug.current)].slug.current
+`);
+
 const ogFieldsFragment = /* groq */ `
   _id,
   _type,
@@ -428,6 +469,10 @@ export const querySitemapData = defineQuery(`{
     "lastModified": _updatedAt
   },
   "blogPages": *[_type == "blog" && defined(slug.current)]{
+    "slug": slug.current,
+    "lastModified": _updatedAt
+  },
+  "eventPages": *[_type == "event" && defined(slug.current)]{
     "slug": slug.current,
     "lastModified": _updatedAt
   }
