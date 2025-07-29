@@ -9,7 +9,8 @@ export type PageBuilderBlockTypes =
     >[number]["_type"]
   | "fullpageImage"
   | "scheduleBar"
-  | "videoLibrary";
+  | "videoLibrary"
+  | "authorSection";
 
 export type PagebuilderType<T extends PageBuilderBlockTypes> = Extract<
   NonNullable<NonNullable<QueryHomePageDataResult>["pageBuilder"]>[number],

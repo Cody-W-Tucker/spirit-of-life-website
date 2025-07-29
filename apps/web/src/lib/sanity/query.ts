@@ -242,6 +242,22 @@ const videoLibraryBlock = /* groq */ `
   }
 `;
 
+const authorSectionBlock = /* groq */ `
+  _type == "authorSection" => {
+    ...,
+    "authors": authors[]->{
+      _id,
+      name,
+      position,
+      ${imageFragment},
+      bio[]{
+        ...,
+        ${markDefsFragment}
+      }
+    }
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
@@ -249,6 +265,7 @@ const pageBuilderFragment = /* groq */ `
     ${ctaBlock},
     ${heroBlock},
     ${contentSectionBlock},
+    ${authorSectionBlock},
     ${faqAccordionBlock},
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock},

@@ -1,3 +1,4 @@
+import { authorSection } from "./author-section";
 import { contentSection } from "./content-section";
 import { cta } from "./cta";
 import { faqAccordion } from "./faq-accordion";
@@ -13,6 +14,7 @@ export const pageBuilderBlocks = [
   hero,
   cta,
   contentSection,
+  authorSection,
   featureCardsIcon,
   faqAccordion,
   imageLinkCards,
