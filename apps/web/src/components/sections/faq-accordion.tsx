@@ -23,13 +23,13 @@ export const FaqAccordion: FC<FaqAccordionProps> = ({
   link,
 }: FaqAccordionProps) => {
   return (
-    <section id="faq" className="my-8">
+    <section id="faq" className="section-spacing-tight">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex w-full flex-col items-center">
           <div className="flex flex-col items-center space-y-4 text-center sm:space-y-6 md:text-center">
             <Badge variant="secondary">{eyebrow}</Badge>
-            <h2 className="text-3xl font-semibold md:text-5xl">{title}</h2>
-            <h3 className="text-lg font-normal text-[#374151] text-balance">
+            <h2 className="heading-2">{title}</h2>
+            <h3 className="text-lg font-normal text-muted-foreground text-balance">
               {subtitle}
             </h3>
           </div>
@@ -72,7 +72,7 @@ export const FaqAccordion: FC<FaqAccordionProps> = ({
                   {link?.description}
                 </p>
                 <span className="rounded-full border p-1">
-                  <ArrowUpRight size={16} className="text-[#374151]" />
+                  <ArrowUpRight size={16} className="text-muted-foreground" />
                 </span>
               </Link>
             </div>

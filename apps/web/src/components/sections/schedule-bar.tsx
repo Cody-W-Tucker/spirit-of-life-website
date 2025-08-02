@@ -13,13 +13,13 @@ export const ScheduleBar: FC<ScheduleBarBlockProps> = ({
   location,
 }) => {
   return (
-    <section className="bg-[#274344] text-white py-5 text-[1.13rem] tracking-wide schedule-bar">
+    <section className="bg-brand-primary-dark text-brand-text-white py-5 text-[1.13rem] tracking-wide schedule-bar">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:justify-center md:items-center gap-4 md:gap-8 schedule-times w-full">
           {times.map((t, i) => (
             <React.Fragment key={t._key || i}>
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-[#B2DCF7]">{t.label}</span>
+                <span className="font-semibold text-blue-300">{t.label}</span>
                 <span>{t.time}</span>
               </div>
               {i < times.length - 1 && times.length > 1 && (

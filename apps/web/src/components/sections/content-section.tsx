@@ -100,7 +100,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
   images,
 }) => {
   return (
-    <div className="overflow-hidden bg-white py-24 sm:py-32">
+    <div className="overflow-hidden bg-background section-spacing">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <div className="max-w-4xl">
           {eyebrow && (
@@ -109,7 +109,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
             </Badge>
           )}
           {title && (
-            <h1 className="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+            <h1 className="mt-2 text-pretty heading-2">
               {title}
             </h1>
           )}
@@ -121,7 +121,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
             {richText && (
               <RichText
                 richText={richText}
-                className="text-base/7 text-gray-600"
+                className="text-base/7 text-muted-foreground"
               />
             )}
           </div>

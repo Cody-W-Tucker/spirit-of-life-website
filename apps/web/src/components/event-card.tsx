@@ -38,22 +38,22 @@ function EventMeta({ startDate, endDate, location }: { startDate: string | null,
       <time dateTime={startDate ?? ""} className="text-muted-foreground">
         {startDate
           ? new Date(startDate).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
           : ""}
       </time>
-        {endDate && (
-            <time dateTime={endDate} className="text-muted-foreground">
-                - {new Date(endDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                })}
-            </time>
-        )}
-        {location && <p className="text-muted-foreground">{location}</p>}
+      {endDate && (
+        <time dateTime={endDate} className="text-muted-foreground">
+          - {new Date(endDate).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </time>
+      )}
+      {location && <p className="text-muted-foreground">{location}</p>}
     </div>
   );
 }
@@ -119,7 +119,7 @@ export const EventHeader: FC<{
   return (
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-3xl font-bold sm:text-4xl">{title}</h1>
+        <h1 className="heading-2">{title}</h1>
         <p className="mt-4 text-lg leading-8 text-muted-foreground">
           {description}
         </p>

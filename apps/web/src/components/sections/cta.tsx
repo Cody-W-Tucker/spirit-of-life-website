@@ -15,7 +15,7 @@ export const CTABlock: FC<CTABlockProps> = ({
   buttons,
 }) => {
   return (
-    <section id="features" className="my-6 md:my-16">
+    <section id="features" className="section-spacing-tight">
       <div className="container mx-auto px-4 md:px-8">
         <div className="bg-muted py-16 rounded-3xl px-4">
           <div className="text-center max-w-3xl mx-auto space-y-8">
@@ -24,7 +24,7 @@ export const CTABlock: FC<CTABlockProps> = ({
                 {eyebrow}
               </Badge>
             )}
-            <h2 className="text-3xl font-semibold md:text-5xl text-balance">
+            <h2 className="heading-2 text-balance">
               {title}
             </h2>
             <div className="text-lg text-muted-foreground">

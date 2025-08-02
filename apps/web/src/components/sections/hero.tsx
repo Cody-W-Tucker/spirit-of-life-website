@@ -181,11 +181,11 @@ export const HeroBlock: FC<HeroBlockProps> = ({
                     {badge}
                   </Badge>
                 )}
-                <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
+                <h1 className="text-pretty heading-1">
                   {title}
                 </h1>
                 {richText && (
-                  <div className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:max-w-md sm:text-xl/8 lg:max-w-none">
+                  <div className="mt-8 text-pretty text-lg font-medium text-muted-foreground sm:max-w-md sm:text-xl/8 lg:max-w-none">
                     <RichText richText={richText} />
                   </div>
                 )}

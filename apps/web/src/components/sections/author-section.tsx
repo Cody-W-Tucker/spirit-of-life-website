@@ -52,7 +52,7 @@ const AuthorCard: FC<AuthorCardProps> = ({ author }) => {
         <h3 className="text-xl lg:text-2xl font-semibold text-foreground">
           {author.name}
         </h3>
-        
+
         {author.position && (
           <p className="text-brand-primary font-medium text-sm lg:text-base">
             {author.position}
@@ -95,7 +95,7 @@ export const AuthorSection: FC<AuthorSectionProps> = ({
 
   if (authorCount === 0) {
     return (
-      <section className="py-16 lg:py-24">
+      <section className="section-spacing">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center">
             <p className="text-muted-foreground">No authors selected</p>
@@ -106,7 +106,7 @@ export const AuthorSection: FC<AuthorSectionProps> = ({
   }
 
   return (
-    <section className="py-16 lg:py-24">
+    <section className="section-spacing">
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Header */}
         {(eyebrow || title || subtitle) && (
@@ -116,13 +116,13 @@ export const AuthorSection: FC<AuthorSectionProps> = ({
                 {eyebrow}
               </Badge>
             )}
-            
+
             {title && (
               <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-4">
                 {title}
               </h2>
             )}
-            
+
             {subtitle && (
               <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
                 {subtitle}
