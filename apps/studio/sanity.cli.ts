@@ -10,8 +10,6 @@ export default defineCliConfig({
     dataset: dataset,
   },
   studioHost:
-    host && host !== "main"
-      ? `${host}-spirit-of-life`
-      : "spirit-of-life",
+    host && host !== "main" ? `${host}-spirit-of-life` : "spirit-of-life",
   autoUpdates: false,
 });

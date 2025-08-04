@@ -57,15 +57,19 @@ export const scheduleBar = defineType({
     },
     prepare({ times = [], infoText, location }) {
       const timeParts = Array.isArray(times)
-        ? times.map((t) => t && t.label && t.time ? `${t.label} ${t.time}` : null).filter(Boolean)
+        ? times
+            .map((t) =>
+              t && t.label && t.time ? `${t.label} ${t.time}` : null,
+            )
+            .filter(Boolean)
         : [];
       const parts = [...timeParts];
       if (infoText) parts.push(infoText);
       if (location) parts.push(location);
       return {
         title: `Schedule Bar`,
-        subtitle: parts.join(' • '),
+        subtitle: parts.join(" • "),
       };
     },
   },
-}); 
+});

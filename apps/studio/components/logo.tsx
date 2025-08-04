@@ -65,4 +65,4 @@ export function Logo() {
       </defs>
     </svg>
   );
-} 
+}

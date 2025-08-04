@@ -52,7 +52,8 @@ export const videoLibrary = defineType({
               name: "thumbnail",
               title: "Video Thumbnail",
               type: "image",
-              description: "Custom thumbnail image (optional - will use video provider thumbnail if not provided)",
+              description:
+                "Custom thumbnail image (optional - will use video provider thumbnail if not provided)",
               options: {
                 hotspot: true,
               },
@@ -89,7 +90,7 @@ export const videoLibrary = defineType({
     },
     prepare: ({ title, videoCount }) => ({
       title: title || "Video Library",
-      subtitle: `${videoCount || 0} video${videoCount !== 1 ? 's' : ''}`,
+      subtitle: `${videoCount || 0} video${videoCount !== 1 ? "s" : ""}`,
     }),
   },
-}); 
+});

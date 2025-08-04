@@ -212,12 +212,12 @@ const getHomePageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getHomePageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  
+
   // Convert Sanity image object to URL string
-  const logoUrl = result.logo?.asset 
-    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+  const logoUrl = result.logo?.asset
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url()
     : undefined;
-  
+
   return dominantColorSeoImageRender({
     ...result,
     logo: logoUrl,
@@ -228,12 +228,12 @@ const getSlugPageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getSlugPageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  
+
   // Convert Sanity image object to URL string
-  const logoUrl = result.logo?.asset 
-    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+  const logoUrl = result.logo?.asset
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url()
     : undefined;
-  
+
   return dominantColorSeoImageRender({
     ...result,
     logo: logoUrl,
@@ -245,12 +245,12 @@ const getBlogPageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getBlogPageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  
+
   // Convert Sanity image object to URL string
-  const logoUrl = result.logo?.asset 
-    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+  const logoUrl = result.logo?.asset
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url()
     : undefined;
-  
+
   return dominantColorSeoImageRender({
     ...result,
     logo: logoUrl,
@@ -262,12 +262,12 @@ const getGenericPageContent = async ({ id }: ContentProps) => {
   const [result, err] = await getGenericPageOGData(id);
   if (err || !result) return undefined;
   if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
-  
+
   // Convert Sanity image object to URL string
-  const logoUrl = result.logo?.asset 
-    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url() 
+  const logoUrl = result.logo?.asset
+    ? urlFor({ ...result.logo, _id: result.logo.asset._ref }).url()
     : undefined;
-  
+
   return dominantColorSeoImageRender({
     ...result,
     logo: logoUrl,

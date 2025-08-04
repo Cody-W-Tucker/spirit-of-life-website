@@ -137,13 +137,10 @@ export const AuthorSection: FC<AuthorSectionProps> = ({
         {/* Authors Layout */}
         <div className={cn(getLayoutConfig(authorCount))}>
           {validAuthors.map((author, index) => (
-            <AuthorCard
-              key={author._id || `author-${index}`}
-              author={author}
-            />
+            <AuthorCard key={author._id || `author-${index}`} author={author} />
           ))}
         </div>
       </div>
     </section>
   );
-}; 
+};

@@ -1,5 +1,5 @@
-import { defineField, defineType } from "sanity";
 import { Image as ImageIcon } from "lucide-react";
+import { defineField, defineType } from "sanity";
 
 export const fullpageImage = defineType({
   name: "fullpageImage",
@@ -38,4 +38,4 @@ export const fullpageImage = defineType({
       };
     },
   },
-}); 
+});

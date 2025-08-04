@@ -24,9 +24,7 @@ export const CTABlock: FC<CTABlockProps> = ({
                 {eyebrow}
               </Badge>
             )}
-            <h2 className="heading-2 text-balance">
-              {title}
-            </h2>
+            <h2 className="heading-2 text-balance">{title}</h2>
             <div className="text-lg text-muted-foreground">
               <RichText richText={richText} className="text-balance" />
             </div>

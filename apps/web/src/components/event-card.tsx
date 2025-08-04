@@ -32,21 +32,30 @@ interface EventCardProps {
   event: Event;
 }
 
-function EventMeta({ startDate, endDate, location }: { startDate: string | null, endDate: string | null, location: string | null }) {
+function EventMeta({
+  startDate,
+  endDate,
+  location,
+}: {
+  startDate: string | null;
+  endDate: string | null;
+  location: string | null;
+}) {
   return (
     <div className="flex items-center gap-x-4 text-xs my-4">
       <time dateTime={startDate ?? ""} className="text-muted-foreground">
         {startDate
           ? new Date(startDate).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })
           : ""}
       </time>
       {endDate && (
         <time dateTime={endDate} className="text-muted-foreground">
-          - {new Date(endDate).toLocaleDateString("en-US", {
+          -{" "}
+          {new Date(endDate).toLocaleDateString("en-US", {
             year: "numeric",
             month: "short",
             day: "numeric",
@@ -96,7 +105,8 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
     );
   }
 
-  const { title, startDate, endDate, location, slug, description, image } = event;
+  const { title, startDate, endDate, location, slug, description, image } =
+    event;
 
   return (
     <article className="grid grid-cols-1 gap-4 w-full">
@@ -105,7 +115,11 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div className="w-full space-y-4">
-        <EventMeta startDate={startDate} endDate={endDate} location={location} />
+        <EventMeta
+          startDate={startDate}
+          endDate={endDate}
+          location={location}
+        />
         <EventContent title={title} slug={slug} description={description} />
       </div>
     </article>

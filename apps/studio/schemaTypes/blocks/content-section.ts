@@ -22,7 +22,8 @@ export const contentSection = defineType({
     {
       ...richTextField,
       title: "Content",
-      description: "Main content - you can add headers, paragraphs, and other formatting as needed",
+      description:
+        "Main content - you can add headers, paragraphs, and other formatting as needed",
     },
     defineField({
       name: "images",
@@ -49,4 +50,4 @@ export const contentSection = defineType({
       subtitle: eyebrow ? `${eyebrow} | Content Section` : "Content Section",
     }),
   },
-}); 
+});

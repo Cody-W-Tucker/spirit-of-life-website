@@ -108,11 +108,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
               {eyebrow}
             </Badge>
           )}
-          {title && (
-            <h1 className="mt-2 text-pretty heading-2">
-              {title}
-            </h1>
-          )}
+          {title && <h1 className="mt-2 text-pretty heading-2">{title}</h1>}
         </div>
 
         <section className="mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">

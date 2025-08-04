@@ -25,8 +25,7 @@ export const author = defineType({
       name: "image",
       type: "image",
       title: "Image",
-      description:
-        "A photo of the Person",
+      description: "A photo of the Person",
       options: {
         hotspot: true,
       },

@@ -31,15 +31,17 @@ const headings = {
   h6: "pl-16",
 };
 
-const extractTextFromBlock = (block: PortableTextBlock['children']): string => {
-  return (block as Array<{ text?: string }>)?.[0]?.text || '';
+const extractTextFromBlock = (block: PortableTextBlock["children"]): string => {
+  return (block as Array<{ text?: string }>)?.[0]?.text || "";
 };
 
 const styleToNumber = (style: string): number => Number(style.replace("h", ""));
 
-const isExistTableOfContent = (richText?: PortableTextBlock[]): HeadingBlock[] => {
+const isExistTableOfContent = (
+  richText?: PortableTextBlock[],
+): HeadingBlock[] => {
   if (Array.isArray(richText)) {
-    const even = (text: PortableTextBlock): text is HeadingBlock => 
+    const even = (text: PortableTextBlock): text is HeadingBlock =>
       text.style !== undefined && text.style in headings;
     return richText.filter(even);
   }
@@ -72,7 +74,7 @@ const getHeadingLevels = (exist: HeadingBlock[]): HeadingData[] => {
     while (count < temp.length) {
       const currentItem = temp[count];
       if (!currentItem || block.head >= currentItem.head) break;
-      
+
       children.push(currentItem);
       currentItem.isChild = true;
       count++;
@@ -117,7 +119,10 @@ const AnchorT: FC<{ heading: HeadingData }> = ({ heading }) => {
       {Array.isArray(children) && children.length > 0 && (
         <ul>
           {children.map((child, index) => (
-            <AnchorT heading={child} key={`${child._key || child.text}-${index}-${style}`} />
+            <AnchorT
+              heading={child}
+              key={`${child._key || child.text}-${index}-${style}`}
+            />
           ))}
         </ul>
       )}
@@ -154,7 +159,10 @@ export const TableOfContent: FC<TableProps> = ({ richText }) => {
           <ul className="text-sm">
             {Array.isArray(headings) &&
               headings.map((heading, index) => (
-                <AnchorT heading={heading} key={`${heading._key || heading.text}-${index}`} />
+                <AnchorT
+                  heading={heading}
+                  key={`${heading._key || heading.text}-${index}`}
+                />
               ))}
           </ul>
         </nav>

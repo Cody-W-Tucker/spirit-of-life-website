@@ -18,7 +18,7 @@ async function fetchEventPaths() {
   const paths: { slug: string }[] = [];
   for (const slug of slugs) {
     if (!slug) continue;
-    const cleanSlug = slug.startsWith('/') ? slug.slice(1) : slug;
+    const cleanSlug = slug.startsWith("/") ? slug.slice(1) : slug;
     if (cleanSlug) paths.push({ slug: cleanSlug });
   }
   return paths;
@@ -46,7 +46,8 @@ export default async function EventSlugPage({
   const { slug } = await params;
   const { data } = await fetchEventSlugPageData(slug);
   if (!data) return notFound();
-  const { title, description, image, startDate, endDate, location } = data ?? {};
+  const { title, description, image, startDate, endDate, location } =
+    data ?? {};
 
   return (
     <div className="container my-16 mx-auto px-4 md:px-6">

@@ -10,6 +10,13 @@ import { navbar } from "./navbar";
 import { page } from "./page";
 import { settings } from "./settings";
 
-export const singletons = [homePage, blogIndex, eventIndex, settings, footer, navbar];
+export const singletons = [
+  homePage,
+  blogIndex,
+  eventIndex,
+  settings,
+  footer,
+  navbar,
+];
 
 export const documents = [blog, page, faq, author, event, ...singletons];

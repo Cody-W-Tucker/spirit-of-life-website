@@ -36,7 +36,8 @@ export const authorSection = defineType({
           to: [{ type: "author" }],
         },
       ],
-      validation: (Rule) => Rule.min(1).max(6).error("Please select 1-6 authors"),
+      validation: (Rule) =>
+        Rule.min(1).max(6).error("Please select 1-6 authors"),
     }),
   ],
   preview: {
@@ -48,8 +49,8 @@ export const authorSection = defineType({
       const authorCount = authors?.length || 0;
       return {
         title: title || "Author Section",
-        subtitle: `${authorCount} author${authorCount !== 1 ? 's' : ''} selected`,
+        subtitle: `${authorCount} author${authorCount !== 1 ? "s" : ""} selected`,
       };
     },
   },
-}); 
+});
