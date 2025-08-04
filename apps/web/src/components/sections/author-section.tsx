@@ -17,15 +17,16 @@ const AuthorCard: FC<AuthorCardProps> = ({ author }) => {
   if (!author) return null;
 
   return (
-    <div className="flex flex-col items-center text-center group">
+    <div className="flex flex-col md:flex-row items-center md:items-start gap-8 group">
       {/* Author Image */}
-      <div className="relative mb-6 w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64">
+      <div className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 flex-shrink-0">
         {author.image ? (
           <SanityImage
             asset={author.image}
-            width={256}
-            height={256}
-            className="w-full h-full object-cover rounded-2xl shadow-lg transition-transform duration-300 group-hover:scale-105"
+            fill
+            className="w-full h-full object-cover rounded-2xl shadow-lg"
+            quality={100}
+            sizes="100vw"
           />
         ) : (
           <div className="w-full h-full bg-muted rounded-2xl flex items-center justify-center shadow-lg">
@@ -48,19 +49,21 @@ const AuthorCard: FC<AuthorCardProps> = ({ author }) => {
       </div>
 
       {/* Author Info */}
-      <div className="space-y-3">
-        <h3 className="text-xl lg:text-2xl font-semibold text-foreground">
-          {author.name}
-        </h3>
+      <div className="space-y-3 text-center md:text-left">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+          <h3 className="text-xl lg:text-2xl font-semibold text-foreground">
+            {author.name}
+          </h3>
 
-        {author.position && (
-          <p className="text-brand-primary font-medium text-sm lg:text-base">
-            {author.position}
-          </p>
-        )}
+          {author.position && (
+            <p className="text-brand-primary font-medium text-sm lg:text-base">
+              {author.position}
+            </p>
+          )}
+        </div>
 
         {author.bio && (
-          <div className="text-muted-foreground text-sm lg:text-base max-w-sm mx-auto">
+          <div className="text-muted-foreground text-sm lg:text-base max-w-none">
             <RichText richText={author.bio} />
           </div>
         )}
@@ -69,17 +72,17 @@ const AuthorCard: FC<AuthorCardProps> = ({ author }) => {
   );
 };
 
-// Grid layout configurations for different author counts
-const getGridConfig = (count: number) => {
+// Layout configurations for different author counts
+const getLayoutConfig = (count: number) => {
   switch (count) {
     case 1:
-      return "grid grid-cols-1 justify-items-center max-w-md mx-auto";
+      return "flex flex-col items-center max-w-4xl mx-auto";
     case 2:
-      return "grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 max-w-4xl mx-auto";
+      return "flex flex-col gap-16 lg:gap-20 max-w-4xl mx-auto";
     case 3:
-      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16 max-w-6xl mx-auto";
+      return "flex flex-col gap-16 lg:gap-20 max-w-5xl mx-auto";
     default:
-      return "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12 lg:gap-16 max-w-7xl mx-auto";
+      return "flex flex-col gap-16 lg:gap-20 max-w-6xl mx-auto";
   }
 };
 
@@ -131,8 +134,8 @@ export const AuthorSection: FC<AuthorSectionProps> = ({
           </div>
         )}
 
-        {/* Authors Grid */}
-        <div className={cn(getGridConfig(authorCount))}>
+        {/* Authors Layout */}
+        <div className={cn(getLayoutConfig(authorCount))}>
           {validAuthors.map((author, index) => (
             <AuthorCard
               key={author._id || `author-${index}`}
