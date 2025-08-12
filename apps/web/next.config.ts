@@ -21,6 +21,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/events",
+        destination: "/connect",
+        permanent: true,
+      },
+      {
+        source: "/events/:slug*",
+        destination: "/connect/event/:slug*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

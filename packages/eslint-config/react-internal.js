@@ -13,9 +13,8 @@ import { config as baseConfig } from "./base.js"
  * @type {import("eslint").Linter.Config} */
 export const config = [
   ...baseConfig,
-  js.configs.recommended,
+  // js/ts configs already included by baseConfig
   eslintConfigPrettier,
-  ...tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
     languageOptions: {

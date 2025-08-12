@@ -5,7 +5,7 @@ import type { QueryBlogIndexPageDataResult } from "@/lib/sanity/sanity.types";
 
 import { SanityImage } from "./sanity-image";
 
-type Blog = NonNullable<
+export type Blog = NonNullable<
   NonNullable<QueryBlogIndexPageDataResult>["blogs"]
 >[number];
 
@@ -71,10 +71,10 @@ function BlogMeta({ publishedAt }: { publishedAt: string | null }) {
       <time dateTime={publishedAt ?? ""} className="text-muted-foreground">
         {publishedAt
           ? new Date(publishedAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
           : ""}
       </time>
     </div>

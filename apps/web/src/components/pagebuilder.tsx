@@ -10,6 +10,7 @@ import type { PagebuilderType } from "@/types";
 import { AuthorSection } from "./sections/author-section";
 import { ContentSection } from "./sections/content-section";
 import { CTABlock } from "./sections/cta";
+import { EventsListSection } from "./sections/events-list";
 import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { FullpageImageBlock } from "./sections/fullpage-image";
@@ -24,7 +25,7 @@ type PageBlock = NonNullable<
 >[number];
 
 export type PageBuilderProps = {
-  pageBuilder: PageBlock[];
+  pageBuilder: PageBlock[] | null | undefined;
   id: string;
   type: string;
 };
@@ -47,17 +48,21 @@ const BLOCK_COMPONENTS = {
   fullpageImage: FullpageImageBlock,
   scheduleBar: ScheduleBar,
   videoLibrary: VideoLibrary,
+  eventsList: EventsListSection,
 } as const;
 
 type BlockType = keyof typeof BLOCK_COMPONENTS;
 
 export function PageBuilder({
-  pageBuilder: initialPageBuilder = [],
+  pageBuilder: initialPageBuilder,
   id,
   type,
 }: PageBuilderProps): React.ReactElement {
+  const safeInitial = Array.isArray(initialPageBuilder)
+    ? initialPageBuilder
+    : [];
   const pageBuilder = useOptimistic<PageBlock[], SanityDocument<PageData>>(
-    initialPageBuilder,
+    safeInitial,
     (currentPageBuilder, action) => {
       if (action.id === id && action.document.pageBuilder) {
         return action.document.pageBuilder;
@@ -94,7 +99,7 @@ export function PageBuilder({
       })}
       {/* Render normal blocks inside the constrained main */}
       <main
-        className="flex flex-col gap-16 my-16 max-w-7xl mx-auto"
+        className="flex flex-col [--section-gap:clamp(24px,4vw,64px)] gap-y-[var(--section-gap)] my-[var(--section-gap)] max-w-7xl mx-auto"
         data-sanity={createDataAttribute({
           id: id,
           baseUrl: studioUrl,

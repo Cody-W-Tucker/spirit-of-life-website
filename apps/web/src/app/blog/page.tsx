@@ -56,7 +56,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
 
   const featuredBlogs = shouldDisplayFeaturedBlogs
     ? blogs.slice(0, validFeaturedBlogsCount)
-    : [];
+    : [] as typeof blogs;
   const remainingBlogs = shouldDisplayFeaturedBlogs
     ? blogs.slice(validFeaturedBlogsCount)
     : blogs;
@@ -68,7 +68,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
 
         {featuredBlogs.length > 0 && (
           <div className="mx-auto mt-8 sm:mt-12 md:mt-16 mb-12 lg:mb-20 grid grid-cols-1 gap-8 md:gap-12">
-            {featuredBlogs.map((blog) => (
+            {featuredBlogs.map((blog: import("@/components/blog-card").Blog) => (
               <FeaturedBlogCard key={blog._id} blog={blog} />
             ))}
           </div>
@@ -76,7 +76,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
 
         {remainingBlogs.length > 0 && (
           <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2 mt-8">
-            {remainingBlogs.map((blog) => (
+            {remainingBlogs.map((blog: import("@/components/blog-card").Blog) => (
               <BlogCard key={blog._id} blog={blog} />
             ))}
           </div>

@@ -1,6 +1,7 @@
 import { authorSection } from "./author-section";
 import { contentSection } from "./content-section";
 import { cta } from "./cta";
+import { eventsList } from "./events-list";
 import { faqAccordion } from "./faq-accordion";
 import { featureCardsIcon } from "./feature-cards-icon";
 import { fullpageImage } from "./fullpage-image";
@@ -22,4 +23,5 @@ export const pageBuilderBlocks = [
   fullpageImage,
   scheduleBar,
   videoLibrary,
+  eventsList,
 ];

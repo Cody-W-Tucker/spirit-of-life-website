@@ -3,9 +3,9 @@
 import { ImageResponse } from "next/og";
 import type { ImageResponseOptions } from "next/server";
 
+import { urlFor } from "@/lib/sanity/client";
 import type { Maybe } from "@/types";
 import { getTitleCase } from "@/utils";
-import { urlFor } from "@/lib/sanity/client";
 
 import { getOgMetaData } from "./og-config";
 import {

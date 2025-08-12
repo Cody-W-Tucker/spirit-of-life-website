@@ -108,6 +108,7 @@ export const structure = (
     .title("Content")
     .items([
       createSingleTon({ S, type: "homePage", icon: HomeIcon }),
+      createSingleTon({ S, type: "connectPage", title: "Connect", icon: User }),
       S.divider(),
       createList({ S, type: "page", title: "Pages" }),
       createIndexListWithOrderableItems({
@@ -116,12 +117,8 @@ export const structure = (
         list: { type: "blog", title: "Blogs", icon: FileText },
         context,
       }),
-      createIndexListWithOrderableItems({
-        S,
-        index: { type: "eventIndex", icon: Calendar },
-        list: { type: "event", title: "Events", icon: Calendar },
-        context,
-      }),
+      // Removed eventIndex singleton; manage events via pages and page builder blocks
+      createList({ S, type: "event", title: "Events", icon: Calendar }),
       createList({
         S,
         type: "faq",

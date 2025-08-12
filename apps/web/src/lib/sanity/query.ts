@@ -258,6 +258,28 @@ const authorSectionBlock = /* groq */ `
   }
 `;
 
+const eventsListBlock = /* groq */ `
+  _type == "eventsList" => {
+    ...,
+    "subTitle": subTitle[]{
+      ...,
+      ${markDefsFragment}
+    },
+    ${buttonsFragment},
+    "events": select(
+      mode == "manual" => array::compact(selectedEvents[]->{
+        ${eventCardFragment}
+      }),
+      array::compact(
+        *[_type == "event" && (seoHideFromLists != true) && (coalesce(endDate, startDate) >= now() || ^.onlyUpcoming != true)]
+          | order(startDate asc)[0...6]{
+            ${eventCardFragment}
+          }
+      )
+    )
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
@@ -271,7 +293,8 @@ const pageBuilderFragment = /* groq */ `
     ${imageLinkCardsBlock},
     ${fullpageImageBlock},
     ${scheduleBarBlock},
-    ${videoLibraryBlock}
+    ${videoLibraryBlock},
+    ${eventsListBlock}
   }
 `;
 
@@ -368,6 +391,18 @@ export const queryEventSlugPageData = defineQuery(`
 
 export const queryEventPaths = defineQuery(`
   *[_type == "event" && defined(slug.current)].slug.current
+`);
+
+export const queryConnectPageData = defineQuery(`
+  *[_type == "connectPage" && defined(slug.current)][0]{
+    ...,
+    _id,
+    _type,
+    "slug": slug.current,
+    title,
+    description,
+    ${pageBuilderFragment}
+  }
 `);
 
 const ogFieldsFragment = /* groq */ `

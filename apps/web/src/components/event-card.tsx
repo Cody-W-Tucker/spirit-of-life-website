@@ -46,10 +46,10 @@ function EventMeta({
       <time dateTime={startDate ?? ""} className="text-muted-foreground">
         {startDate
           ? new Date(startDate).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
           : ""}
       </time>
       {endDate && (
@@ -79,7 +79,7 @@ function EventContent({
   return (
     <div className="group relative">
       <h3 className="mt-3 text-lg font-semibold leading-6">
-        <Link href={slug ? `/events${slug}` : "#"}>
+        <Link href={slug ? `/connect/event${slug}` : "#"}>
           <span className="absolute inset-0" />
           {title}
         </Link>
