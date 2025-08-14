@@ -28,6 +28,22 @@ export const event = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "occurrenceType",
+      title: "Event Type",
+      type: "string",
+      description: "Is this a one-time event or a recurring event?",
+      group: GROUP.MAIN_CONTENT,
+      initialValue: "single",
+      options: {
+        layout: "radio",
+        list: [
+          { title: "One-time", value: "single" },
+          { title: "Recurring", value: "recurring" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "slug",
       type: "slug",
       description: "The web address for this event page.",
@@ -69,6 +85,144 @@ export const event = defineType({
       type: "datetime",
       description: "The end date and time of the event.",
       group: GROUP.MAIN_CONTENT,
+    }),
+    defineField({
+      name: "recurrence",
+      title: "Recurrence",
+      type: "object",
+      group: GROUP.MAIN_CONTENT,
+      description: "Define how this event repeats over time.",
+      hidden: ({ parent }) => parent?.occurrenceType !== "recurring",
+      fields: [
+        defineField({
+          name: "frequency",
+          title: "Frequency",
+          type: "string",
+          initialValue: "weekly",
+          options: {
+            layout: "radio",
+            list: [
+              { title: "Daily", value: "daily" },
+              { title: "Weekly", value: "weekly" },
+              { title: "Monthly", value: "monthly" },
+            ],
+          },
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: "interval",
+          title: "Repeat every",
+          type: "number",
+          description: "Repeat every N frequency units (e.g., every 2 weeks)",
+          initialValue: 1,
+          validation: (Rule) => Rule.min(1).max(52),
+        }),
+        defineField({
+          name: "byWeekday",
+          title: "Days of week",
+          type: "array",
+          of: [
+            defineField({
+              name: "weekday",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Sunday", value: "sun" },
+                  { title: "Monday", value: "mon" },
+                  { title: "Tuesday", value: "tue" },
+                  { title: "Wednesday", value: "wed" },
+                  { title: "Thursday", value: "thu" },
+                  { title: "Friday", value: "fri" },
+                  { title: "Saturday", value: "sat" },
+                ],
+              },
+            }),
+          ],
+          hidden: ({ parent }) => parent?.frequency !== "weekly",
+        }),
+        defineField({
+          name: "byMonthday",
+          title: "Days of month",
+          type: "array",
+          of: [{ type: "number" }],
+          description:
+            "For monthly frequency, choose which day(s) of the month (1-31)",
+          hidden: ({ parent }) =>
+            parent?.frequency !== "monthly" ||
+            parent?.monthlyMode === "byWeekdayOfMonth",
+          validation: (Rule) => Rule.unique(),
+        }),
+        defineField({
+          name: "monthlyMode",
+          title: "Monthly pattern",
+          type: "string",
+          initialValue: "byDate",
+          options: {
+            layout: "radio",
+            list: [
+              {
+                title: "On specific day(s) of month (e.g., 5th)",
+                value: "byDate",
+              },
+              {
+                title: "On weekday position (e.g., 1st Sunday)",
+                value: "byWeekdayOfMonth",
+              },
+            ],
+          },
+          hidden: ({ parent }) => parent?.frequency !== "monthly",
+        }),
+        defineField({
+          name: "weekOfMonth",
+          title: "Week of month",
+          type: "number",
+          description:
+            "1 = first, 2 = second, 3 = third, 4 = fourth, 5 = fifth (if exists)",
+          validation: (Rule) => Rule.min(1).max(5),
+          hidden: ({ parent }) =>
+            parent?.frequency !== "monthly" ||
+            parent?.monthlyMode !== "byWeekdayOfMonth",
+        }),
+        defineField({
+          name: "weekday",
+          title: "Weekday",
+          type: "string",
+          options: {
+            list: [
+              { title: "Sunday", value: "sun" },
+              { title: "Monday", value: "mon" },
+              { title: "Tuesday", value: "tue" },
+              { title: "Wednesday", value: "wed" },
+              { title: "Thursday", value: "thu" },
+              { title: "Friday", value: "fri" },
+              { title: "Saturday", value: "sat" },
+            ],
+          },
+          hidden: ({ parent }) =>
+            parent?.frequency !== "monthly" ||
+            parent?.monthlyMode !== "byWeekdayOfMonth",
+        }),
+        defineField({
+          name: "until",
+          title: "Repeat until",
+          type: "datetime",
+          description: "Optional end date for the recurrence",
+        }),
+        defineField({
+          name: "count",
+          title: "Number of occurrences",
+          type: "number",
+          description: "Stop after this many occurrences (optional)",
+          validation: (Rule) => Rule.min(1).max(1000),
+        }),
+        defineField({
+          name: "exceptions",
+          title: "Skip dates",
+          type: "array",
+          of: [{ type: "datetime" }],
+          description: "Dates to skip (holidays, cancellations)",
+        }),
+      ],
     }),
     defineField({
       name: "location",

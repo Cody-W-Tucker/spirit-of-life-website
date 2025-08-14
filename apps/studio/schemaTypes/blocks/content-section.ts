@@ -19,6 +19,12 @@ export const contentSection = defineType({
       type: "string",
       title: "Main Title",
     }),
+    defineField({
+      name: "subtitle",
+      type: "string",
+      title: "Subtitle",
+      description: "Optional subtitle text that appears below the main title",
+    }),
     {
       ...richTextField,
       title: "Content",

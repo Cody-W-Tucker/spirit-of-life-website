@@ -96,24 +96,31 @@ const ContentImages: FC<{
 export const ContentSection: FC<ContentSectionProps> = ({
   eyebrow,
   title,
+  subtitle,
   richText,
   images,
 }) => {
   return (
-    <div className="overflow-hidden bg-background section-spacing">
+    <div className="relative overflow-hidden section-spacing">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-        <div className="max-w-4xl">
+        {/* Header with proper z-index */}
+        <div className="relative z-20 max-w-4xl">
           {eyebrow && (
             <Badge variant="secondary" className="mb-8">
               {eyebrow}
             </Badge>
           )}
           {title && <h1 className="mt-2 text-pretty heading-2">{title}</h1>}
+          {subtitle && (
+            <p className="mt-6 text-xl text-muted-foreground max-w-3xl">
+              {subtitle}
+            </p>
+          )}
         </div>
 
-        <section className="mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">
-          {/* Content Section */}
-          <div className="lg:pr-8">
+        <section className="relative mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">
+          {/* Content Section with proper z-index */}
+          <div className="relative z-10 lg:pr-8">
             {richText && (
               <RichText
                 richText={richText}
@@ -122,9 +129,11 @@ export const ContentSection: FC<ContentSectionProps> = ({
             )}
           </div>
 
-          {/* Image Grid */}
+          {/* Image Grid with lower z-index */}
           {images && Array.isArray(images) && images.length > 0 && (
-            <ContentImages images={images} />
+            <div className="relative z-0">
+              <ContentImages images={images} />
+            </div>
           )}
         </section>
       </div>

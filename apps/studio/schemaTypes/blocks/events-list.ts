@@ -55,6 +55,15 @@ export const eventsList = defineType({
       hidden: ({ parent }) => parent?.mode !== "auto",
     }),
     defineField({
+      name: "includeRecurring",
+      type: "boolean",
+      title: "Include recurring events",
+      description:
+        "When on, upcoming instances of recurring events will appear",
+      initialValue: true,
+      hidden: ({ parent }) => parent?.mode !== "auto",
+    }),
+    defineField({
       name: "limit",
       type: "number",
       title: "Max events to show",

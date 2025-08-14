@@ -1,13 +1,55 @@
 import Link from "next/link";
 import type { FC } from "react";
 
-import type { QueryEventIndexPageDataResult } from "@/lib/sanity/sanity.types";
+import { computeNextOccurrence } from "@/lib/recurrence";
+import type {
+  internalGroqTypeReferenceTo,
+  SanityImageCrop,
+  SanityImageDimensions,
+  SanityImageHotspot
+} from "@/lib/sanity/sanity.types";
 
 import { SanityImage } from "./sanity-image";
 
-type Event = NonNullable<
-  NonNullable<QueryEventIndexPageDataResult>["events"]
->[number];
+type Event = {
+  _id: string;
+  _type: "event";
+  title: string | null;
+  description: string | null;
+  slug: string | null;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+    dimensions: SanityImageDimensions | null;
+    alt: string | "no-alt";
+    blurData: string | null;
+    dominantColor: string | null;
+  };
+  startDate: string | null;
+  endDate: string | null;
+  location: string | null;
+  occurrenceType?: "single" | "recurring" | null;
+  recurrence?: {
+    frequency?: string;
+    interval?: number;
+    byWeekday?: number[];
+    byMonthday?: number[];
+    monthlyMode?: string;
+    weekOfMonth?: number;
+    weekday?: number;
+    until?: string;
+    count?: number;
+    exceptions?: string[];
+  };
+};
 
 interface EventImageProps {
   image: Event["image"];
@@ -79,7 +121,7 @@ function EventContent({
   return (
     <div className="group relative">
       <h3 className="mt-3 text-lg font-semibold leading-6">
-        <Link href={slug ? `/connect/event${slug}` : "#"}>
+        <Link href={slug ? `/connect/event/${slug}` : "#"}>
           <span className="absolute inset-0" />
           {title}
         </Link>
@@ -108,6 +150,23 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
   const { title, startDate, endDate, location, slug, description, image } =
     event;
 
+  // Resolve the display occurrence (supports recurring events)
+  let displayStart = startDate;
+  let displayEnd = endDate;
+  if ((event as any).occurrenceType === "recurring") {
+    const next = computeNextOccurrence({
+      _id: event._id as string,
+      startDate: startDate,
+      endDate: endDate ?? null,
+      occurrenceType: (event as any).occurrenceType ?? null,
+      recurrence: (event as any).recurrence ?? null,
+    });
+    if (next) {
+      displayStart = next.startDate;
+      displayEnd = next.endDate;
+    }
+  }
+
   return (
     <article className="grid grid-cols-1 gap-4 w-full">
       <div className="relative w-full h-auto aspect-[16/9] overflow-hidden rounded-2xl">
@@ -115,11 +174,7 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div className="w-full space-y-4">
-        <EventMeta
-          startDate={startDate}
-          endDate={endDate}
-          location={location}
-        />
+        <EventMeta startDate={displayStart} endDate={displayEnd} location={location} />
         <EventContent title={title} slug={slug} description={description} />
       </div>
     </article>

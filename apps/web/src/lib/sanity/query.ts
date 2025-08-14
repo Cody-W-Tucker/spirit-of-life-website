@@ -69,7 +69,20 @@ const eventCardFragment = /* groq */ `
   ${imageFragment},
   startDate,
   endDate,
-  location
+  location,
+  occurrenceType,
+  recurrence{
+    frequency,
+    interval,
+    byWeekday,
+    byMonthday,
+    monthlyMode,
+    weekOfMonth,
+    weekday,
+    until,
+    count,
+    exceptions
+  }
 `;
 
 const buttonsFragment = /* groq */ `
@@ -205,6 +218,7 @@ const scheduleBarBlock = /* groq */ `
 const contentSectionBlock = /* groq */ `
   _type == "contentSection" => {
     ...,
+    subtitle,
     ${richTextFragment},
     "images": images[]{
       ...,
@@ -266,13 +280,17 @@ const eventsListBlock = /* groq */ `
       ${markDefsFragment}
     },
     ${buttonsFragment},
+    "mode": mode,
+    "onlyUpcoming": onlyUpcoming,
+    "includeRecurring": coalesce(includeRecurring, true),
+    "limit": limit,
     "events": select(
       mode == "manual" => array::compact(selectedEvents[]->{
         ${eventCardFragment}
       }),
       array::compact(
-        *[_type == "event" && (seoHideFromLists != true) && (coalesce(endDate, startDate) >= now() || ^.onlyUpcoming != true)]
-          | order(startDate asc)[0...6]{
+        *[_type == "event" && (seoHideFromLists != true)]
+          | order(startDate asc)[0...100]{
             ${eventCardFragment}
           }
       )
@@ -373,7 +391,7 @@ export const queryEventIndexPageData = defineQuery(`
     description,
     ${pageBuilderFragment},
     "slug": slug.current,
-    "events": *[_type == "event" && (seoHideFromLists != true)] | order(startDate asc){
+    "events": *[_type == "event" && (seoHideFromLists != true)] | order(startDate asc)[0...200]{
       ${eventCardFragment}
     }
   }
