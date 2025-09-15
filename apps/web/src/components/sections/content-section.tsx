@@ -13,13 +13,14 @@ const ContentImage: FC<{
   asset: NonNullable<ContentSectionProps["images"]>[number];
   width: number;
   height: number;
-}> = ({ asset, width, height }) => (
+  count?: number;
+}> = ({ asset, width, height, count }) => (
   <div className="relative">
     <SanityImage
       asset={asset}
       width={width}
       height={height}
-      className="aspect-square w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover"
+      className={`${count === 1 ? 'aspect-[4/3]' : 'aspect-square'} w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover`}
     />
     <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
   </div>
@@ -30,7 +31,7 @@ const imageLayouts = {
   1: {
     container:
       "-mx-8 flex justify-center gap-4 sm:-mx-16 lg:mx-0 lg:gap-4 xl:gap-8",
-    columns: [{ className: "w-80 max-w-md", images: [0] }],
+    columns: [{ className: "w-full", images: [0] }],
   },
   2: {
     container:
@@ -71,7 +72,7 @@ const ContentImages: FC<{
   if (!layout) return null;
 
   return (
-    <div className="pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto">
+    <div className={count === 1 ? "lg:row-span-2" : "pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto"}>
       <div className={layout.container}>
         {layout.columns.map((column, columnIndex) => (
           <div key={columnIndex} className={column.className}>
@@ -81,8 +82,9 @@ const ContentImages: FC<{
                 <ContentImage
                   key={imageIndex}
                   asset={image}
-                  width={count === 1 ? 320 : 280}
-                  height={count === 1 ? 320 : 280}
+                  width={count === 1 ? 1200 : 280}
+                  height={count === 1 ? 800 : 280}
+                  count={count}
                 />
               ) : null;
             })}

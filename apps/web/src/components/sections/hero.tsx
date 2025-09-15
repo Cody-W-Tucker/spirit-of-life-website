@@ -14,13 +14,14 @@ const HeroImage: FC<{
   asset: NonNullable<HeroBlockProps["images"]>[number];
   width: number;
   height: number;
-}> = ({ asset, width, height }) => (
+  count?: number;
+}> = ({ asset, width, height, count }) => (
   <div className="relative">
     <SanityImage
       asset={asset}
       width={width}
       height={height}
-      className="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg"
+      className={`${count === 1 ? 'aspect-[4/3]' : 'aspect-[2/3]'} w-full rounded-xl bg-gray-900/5 object-cover shadow-lg`}
     />
     <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
   </div>
@@ -31,7 +32,7 @@ const imageLayouts = {
   1: {
     container:
       "mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0",
-    columns: [{ className: "w-80 flex-none", images: [0] }],
+    columns: [{ className: "w-full flex-none", images: [0] }],
   },
   2: {
     container:
@@ -101,17 +102,18 @@ const HeroImages: FC<{ images: NonNullable<HeroBlockProps["images"]> }> = ({
   if (!layout) return null;
 
   return (
-    <div className={layout.container}>
+    <div className={count === 1 ? "mt-8 lg:mt-0" : layout.container}>
       {layout.columns.map((column, columnIndex) => (
-        <div key={columnIndex} className={column.className}>
+        <div key={columnIndex} className={count === 1 ? "w-full max-w-2xl" : column.className}>
           {column.images.map((imageIndex) => {
             const image = images[imageIndex];
             return image ? (
               <HeroImage
                 key={imageIndex}
                 asset={image}
-                width={count === 1 ? 320 : count === 2 ? 240 : 176}
-                height={count === 1 ? 480 : count === 2 ? 360 : 264}
+                width={count === 1 ? 1200 : count === 2 ? 240 : 176}
+                height={count === 1 ? 800 : count === 2 ? 360 : 264}
+                count={count}
               />
             ) : null;
           })}

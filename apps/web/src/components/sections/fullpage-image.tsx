@@ -1,9 +1,6 @@
 import type { ReactElement } from "react";
-import { useId } from "react";
 
 import type { PagebuilderType } from "@/types";
-
-import { SanityButtons } from "../sanity-buttons";
 import { SanityImage } from "../sanity-image";
 
 export type FullpageImageBlockProps = PagebuilderType<"fullpageImage">;
@@ -12,8 +9,6 @@ export function FullpageImageBlock({
   image,
   overlayText,
 }: FullpageImageBlockProps): ReactElement {
-  const reactId = useId();
-
   // Fix: always pass a dimensions property, mapping null to undefined
   let imageWithFixedDimensions = image;
   if (image && "dimensions" in image) {
@@ -34,14 +29,17 @@ export function FullpageImageBlock({
           priority
           quality={90}
           sizes="100vw"
-          className="absolute inset-0 w-full h-full object-cover z-0"
+          className="absolute inset-0 w-full h-full object-cover object-top z-0"
         />
       )}
 
       {/* Colored bar overlay on top */}
-      <div className="absolute top-0 left-0 right-0 h-4 bg-brand-primary z-20" aria-hidden="true" />
+      <div
+        className="absolute top-0 left-0 right-0 h-4 bg-brand-primary z-20"
+        aria-hidden="true"
+      />
 
-      {(overlayText) && (
+      {overlayText && (
         <div className="relative z-10 flex flex-col items-center justify-center text-center px-4">
           {overlayText && (
             <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-lg mb-6">
