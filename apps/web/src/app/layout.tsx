@@ -2,14 +2,12 @@ import "@workspace/ui/globals.css";
 
 import { Geist, Geist_Mono } from "next/font/google";
 import { draftMode } from "next/headers";
-import { VisualEditing } from "next-sanity";
 import { Suspense } from "react";
 import { preconnect, prefetchDNS } from "react-dom";
 
 import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
-import { SanityLive } from "@/lib/sanity/live";
 
 import { Providers } from "../components/providers";
 
@@ -48,13 +46,7 @@ export default async function RootLayout({
           <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />
           </Suspense>
-          <SanityLive />
-          {(await draftMode()).isEnabled && (
-            <>
-              <PreviewBar />
-              <VisualEditing />
-            </>
-          )}
+          {(await draftMode()).isEnabled && <PreviewBar />}
         </Providers>
       </body>
     </html>

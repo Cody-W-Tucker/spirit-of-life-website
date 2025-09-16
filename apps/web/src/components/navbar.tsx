@@ -12,11 +12,11 @@ import { NavbarClient, NavbarSkeletonResponsive } from "./navbar-client";
 
 export const NavbarServer: FC = async () => {
   const [navbarData, settingsData] = await Promise.all([
-    sanityFetch({ query: queryNavbarData }),
-    sanityFetch({ query: queryGlobalSeoSettings }),
+    sanityFetch(queryNavbarData),
+    sanityFetch(queryGlobalSeoSettings),
   ]);
   return (
-    <Navbar navbarData={navbarData.data} settingsData={settingsData.data} />
+    <Navbar navbarData={navbarData} settingsData={settingsData} />
   );
 };
 

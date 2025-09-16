@@ -6,21 +6,16 @@ import { queryConnectPageData } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchConnectPage() {
-    return await sanityFetch({
-        query: queryConnectPageData,
-    });
+    return await sanityFetch(queryConnectPageData);
 }
 
 export async function generateMetadata() {
-    const result = await sanityFetch({
-        query: queryConnectPageData,
-    });
-    return await getMetaData(result?.data ?? {});
+    const result = await sanityFetch(queryConnectPageData);
+    return await getMetaData(result ?? {});
 }
 
 export default async function ConnectPage(): Promise<React.JSX.Element> {
-    const res = await fetchConnectPage();
-    const data = res?.data;
+    const data = await fetchConnectPage();
     if (!data) notFound();
 
     const { pageBuilder, _id, _type } = data;

@@ -8,17 +8,17 @@ import { getMetaData } from "@/lib/seo";
 import { handleErrors } from "@/utils";
 
 async function fetchBlogPosts() {
-  return await handleErrors(sanityFetch({ query: queryBlogIndexPageData }));
+  return await handleErrors(sanityFetch(queryBlogIndexPageData));
 }
 
 export async function generateMetadata() {
-  const result = await sanityFetch({ query: queryBlogIndexPageData });
-  return await getMetaData(result?.data ?? {});
+  const result = await sanityFetch(queryBlogIndexPageData);
+  return await getMetaData(result ?? {});
 }
 
 export default async function BlogIndexPage(): Promise<React.JSX.Element> {
   const [res, err] = await fetchBlogPosts();
-  if (err || !res?.data) notFound();
+  if (err || !res) notFound();
 
   const {
     blogs = [],
@@ -29,7 +29,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
     _type,
     displayFeaturedBlogs,
     featuredBlogsCount,
-  } = res.data;
+  } = res;
 
   const validFeaturedBlogsCount = featuredBlogsCount
     ? Number.parseInt(featuredBlogsCount)

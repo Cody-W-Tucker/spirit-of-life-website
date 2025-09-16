@@ -4,24 +4,22 @@ import { queryHomePageData } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchHomePageData() {
-  return await sanityFetch({
-    query: queryHomePageData,
-  });
+  return await sanityFetch(queryHomePageData);
 }
 
 export async function generateMetadata() {
   const homePageData = await fetchHomePageData();
-  return await getMetaData(homePageData?.data ?? {});
+  return await getMetaData(homePageData ?? {});
 }
 
 export default async function Page(): Promise<React.ReactElement> {
-  const { data: homePageData } = await fetchHomePageData();
+  const homePageData = await fetchHomePageData();
 
   if (!homePageData) {
     return <div>No home page data</div>;
   }
 
-  const { _id, _type, pageBuilder } = homePageData ?? {};
+  const { _id, _type, pageBuilder } = homePageData;
 
   return <PageBuilder pageBuilder={pageBuilder ?? []} id={_id} type={_type} />;
 }

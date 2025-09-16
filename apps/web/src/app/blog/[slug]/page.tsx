@@ -10,10 +10,7 @@ import { queryBlogPaths, queryBlogSlugPageData } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchBlogSlugPageData(slug: string) {
-  return await sanityFetch({
-    query: queryBlogSlugPageData,
-    params: { slug: `/blog/${slug}` },
-  });
+  return await sanityFetch(queryBlogSlugPageData, { slug: `/blog/${slug}` });
 }
 
 async function fetchBlogPaths() {
@@ -33,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { data } = await fetchBlogSlugPageData(slug);
+  const data = await fetchBlogSlugPageData(slug);
   return await getMetaData(data ?? {});
 }
 
@@ -47,9 +44,9 @@ export default async function BlogSlugPage({
   params: Promise<{ slug: string }>;
 }): Promise<React.JSX.Element> {
   const { slug } = await params;
-  const { data } = await fetchBlogSlugPageData(slug);
+  const data = await fetchBlogSlugPageData(slug);
   if (!data) return notFound();
-  const { title, description, image, richText } = data ?? {};
+  const { title, description, image, richText } = data;
 
   // Cast richText to RichText type
   const typedRichText: PortableTextBlock[] | undefined = richText as

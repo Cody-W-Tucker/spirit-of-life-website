@@ -7,10 +7,7 @@ import { queryEventPaths, queryEventSlugPageData } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchEventSlugPageData(slug: string) {
-    return await sanityFetch({
-        query: queryEventSlugPageData,
-        params: { slug: `/${slug}` },
-    });
+    return await sanityFetch(queryEventSlugPageData, { slug: `/${slug}` });
 }
 
 async function fetchEventPaths() {
@@ -30,7 +27,7 @@ export async function generateMetadata({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
-    const { data } = await fetchEventSlugPageData(slug);
+    const data = await fetchEventSlugPageData(slug);
     return await getMetaData(data ?? {});
 }
 
@@ -44,10 +41,9 @@ export default async function EventSlugPage({
     params: Promise<{ slug: string }>;
 }): Promise<React.JSX.Element> {
     const { slug } = await params;
-    const { data } = await fetchEventSlugPageData(slug);
+    const data = await fetchEventSlugPageData(slug);
     if (!data) return notFound();
-    const { title, description, image, startDate, endDate, location } =
-        data ?? {};
+    const { title, description, image, startDate, endDate, location } = data;
 
     return (
         <div className="container my-16 mx-auto px-4 md:px-6">

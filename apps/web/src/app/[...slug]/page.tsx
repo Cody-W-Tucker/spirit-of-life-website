@@ -7,10 +7,7 @@ import { querySlugPageData, querySlugPagePaths } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchSlugPageData(slug: string) {
-  return await sanityFetch({
-    query: querySlugPageData,
-    params: { slug: `/${slug}` },
-  });
+  return await sanityFetch(querySlugPageData, { slug: `/${slug}` });
 }
 
 async function fetchSlugPagePaths() {
@@ -31,7 +28,7 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const slugString = slug.join("/");
-  const { data: pageData } = await fetchSlugPageData(slugString);
+  const pageData = await fetchSlugPageData(slugString);
   if (!pageData) {
     return getMetaData({});
   }
@@ -49,13 +46,13 @@ export default async function SlugPage({
 }): Promise<React.ReactElement> {
   const { slug } = await params;
   const slugString = slug.join("/");
-  const { data: pageData } = await fetchSlugPageData(slugString);
+  const pageData = await fetchSlugPageData(slugString);
 
   if (!pageData) {
     return notFound();
   }
 
-  const { title, pageBuilder, _id, _type } = pageData ?? {};
+  const { title, pageBuilder, _id, _type } = pageData;
 
   return !Array.isArray(pageBuilder) || pageBuilder?.length === 0 ? (
     <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-4">

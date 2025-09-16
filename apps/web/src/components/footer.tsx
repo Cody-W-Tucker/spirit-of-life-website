@@ -28,16 +28,12 @@ interface FooterProps {
 
 export const FooterServer: FC = async () => {
   const [response, settingsResponse] = await Promise.all([
-    sanityFetch({
-      query: queryFooterData,
-    }),
-    sanityFetch({
-      query: queryGlobalSeoSettings,
-    }),
+    sanityFetch(queryFooterData),
+    sanityFetch(queryGlobalSeoSettings),
   ]);
 
-  if (!response?.data || !settingsResponse?.data) return <FooterSkeleton />;
-  return <Footer data={response.data} settingsData={settingsResponse.data} />;
+  if (!response || !settingsResponse) return <FooterSkeleton />;
+  return <Footer data={response} settingsData={settingsResponse} />;
 };
 
 function SocialLinks({ data }: SocialLinksProps) {
