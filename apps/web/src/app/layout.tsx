@@ -8,6 +8,7 @@ import { preconnect, prefetchDNS } from "react-dom";
 import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
+import { VisualEditingWrapper } from "@/components/visual-editing";
 
 import { Providers } from "../components/providers";
 
@@ -32,6 +33,8 @@ export default async function RootLayout({
 }>): Promise<React.JSX.Element> {
   preconnect("https://cdn.sanity.io");
   prefetchDNS("https://cdn.sanity.io");
+  const draftModeEnabled = (await draftMode()).isEnabled;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -46,7 +49,8 @@ export default async function RootLayout({
           <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />
           </Suspense>
-          {(await draftMode()).isEnabled && <PreviewBar />}
+          {draftModeEnabled && <PreviewBar />}
+          {draftModeEnabled && <VisualEditingWrapper />}
         </Providers>
       </body>
     </html>
