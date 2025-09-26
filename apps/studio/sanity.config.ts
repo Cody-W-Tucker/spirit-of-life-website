@@ -12,20 +12,19 @@ import { locations } from "./location";
 import { presentationUrl } from "./plugins/presentation-url";
 import { schemaTypes } from "./schemaTypes";
 import { structure } from "./structure";
-import { createPageTemplate } from "./utils/helper";
+import { getPresentationUrl } from "./utils/helper";
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID ?? "";
 const dataset = process.env.SANITY_STUDIO_DATASET;
 const title = process.env.SANITY_STUDIO_TITLE;
-const presentationOriginUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
 
 export default defineConfig({
   name: "default",
-  title: title ?? "Turbo Studio",
-  projectId: projectId,
+  title: title,
   icon: Logo,
+  projectId: projectId,
   dataset: dataset ?? "production",
-  mediaLibrary: {
+  releases: {
     enabled: true,
   },
   plugins: [
@@ -34,34 +33,22 @@ export default defineConfig({
         locations,
       },
       previewUrl: {
-        origin: presentationOriginUrl ?? "http://localhost:3000",
+        origin: getPresentationUrl(),
         previewMode: {
           enable: "/api/presentation-draft",
         },
       },
     }),
-    assist(),
     structureTool({
       structure,
     }),
-    visionTool(),
-    iconPicker(),
-    media(),
     presentationUrl(),
+    visionTool(),
     unsplashImageAsset(),
+    media(),
+    iconPicker(),
+    assist(),
   ],
-
-  form: {
-    image: {
-      assetSources: (sources) =>
-        sources.filter((source) => source.name !== "sanity-default"),
-    },
-    // Disable the default for file assets
-    file: {
-      assetSources: (sources) =>
-        sources.filter((source) => source.name !== "sanity-default"),
-    },
-  },
   document: {
     newDocumentOptions: (prev, { creationContext }) => {
       const { type } = creationContext;
@@ -71,6 +58,27 @@ export default defineConfig({
   },
   schema: {
     types: schemaTypes,
-    templates: createPageTemplate(),
+    templates: [
+      {
+        id: "nested-page-template",
+        title: "Nested Page",
+        schemaType: "page",
+        value: (props: { slug?: string; title?: string }) => {
+          console.log("🚀 ~ props:", props);
+          return {
+            ...(props.slug
+              ? { slug: { current: props.slug, _type: "slug" } }
+              : {}),
+            ...(props.title ? { title: props.title } : {}),
+          };
+        },
+        parameters: [
+          {
+            name: "slug",
+            type: "string",
+          },
+        ],
+      },
+    ],
   },
 });

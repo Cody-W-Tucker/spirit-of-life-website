@@ -1,11 +1,11 @@
+"use client";
 import Link from "next/link";
-import type { FC } from "react";
 
 import type { QueryBlogIndexPageDataResult } from "@/lib/sanity/sanity.types";
 
-import { SanityImage } from "./sanity-image";
+import { SanityImage } from "./elements/sanity-image";
 
-export type Blog = NonNullable<
+type Blog = NonNullable<
   NonNullable<QueryBlogIndexPageDataResult>["blogs"]
 >[number];
 
@@ -15,11 +15,11 @@ interface BlogImageProps {
 }
 
 function BlogImage({ image, title }: BlogImageProps) {
-  if (!image?.asset) return null;
+  if (!image?.id) return null;
 
   return (
     <SanityImage
-      asset={image}
+      image={image}
       width={800}
       height={400}
       alt={title ?? "Blog post image"}
@@ -37,7 +37,7 @@ function AuthorImage({ author }: AuthorImageProps) {
 
   return (
     <SanityImage
-      asset={author.image}
+      image={author.image}
       width={40}
       height={40}
       alt={author.name ?? "Author image"}
@@ -50,7 +50,7 @@ interface BlogAuthorProps {
   author: Blog["authors"];
 }
 
-export const BlogAuthor: FC<BlogAuthorProps> = ({ author }) => {
+export function BlogAuthor({ author }: BlogAuthorProps) {
   if (!author) return null;
 
   return (
@@ -59,7 +59,7 @@ export const BlogAuthor: FC<BlogAuthorProps> = ({ author }) => {
       {author.name}
     </div>
   );
-};
+}
 
 interface BlogCardProps {
   blog: Blog;
@@ -130,7 +130,7 @@ function AuthorSection({ authors }: { authors: Blog["authors"] }) {
   );
 }
 
-export const FeaturedBlogCard: FC<BlogCardProps> = ({ blog }) => {
+export function FeaturedBlogCard({ blog }: BlogCardProps) {
   const { title, publishedAt, slug, authors, description, image } = blog ?? {};
 
   return (
@@ -144,13 +144,13 @@ export const FeaturedBlogCard: FC<BlogCardProps> = ({ blog }) => {
           description={description}
           isFeatured
         />
-        <AuthorSection authors={authors} />
+        {/* <AuthorSection authors={authors} /> */}
       </div>
     </article>
   );
-};
+}
 
-export const BlogCard: FC<BlogCardProps> = ({ blog }) => {
+export function BlogCard({ blog }: BlogCardProps) {
   if (!blog) {
     return (
       <article className="grid grid-cols-1 gap-4 w-full">
@@ -175,24 +175,27 @@ export const BlogCard: FC<BlogCardProps> = ({ blog }) => {
       <div className="w-full space-y-4">
         <BlogMeta publishedAt={publishedAt} />
         <BlogContent title={title} slug={slug} description={description} />
-        <AuthorSection authors={authors} />
+        {/* <AuthorSection authors={authors} /> */}
       </div>
     </article>
   );
-};
+}
 
-export const BlogHeader: FC<{
+export function BlogHeader({
+  title,
+  description,
+}: {
   title: string | null;
   description: string | null;
-}> = ({ title, description }) => {
+}) {
   return (
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
-        <h1 className="heading-2">{title}</h1>
+        <h1 className="text-3xl font-bold sm:text-4xl">{title}</h1>
         <p className="mt-4 text-lg leading-8 text-muted-foreground">
           {description}
         </p>
       </div>
     </div>
   );
-};
+}

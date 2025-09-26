@@ -1,11 +1,11 @@
+import { client } from "@/lib/sanity/client";
+import { queryRedirects } from "@/lib/sanity/query";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   transpilePackages: ["@workspace/ui"],
   experimental: {
     reactCompiler: true,
-    // ppr: true,
     inlineCss: true,
   },
   logging: {
@@ -22,7 +22,8 @@ const nextConfig: NextConfig = {
     ],
   },
   async redirects() {
-    return [
+    const redirects = await client.fetch(queryRedirects);
+    const staticRedirects = [
       {
         source: "/events",
         destination: "/connect",
@@ -34,6 +35,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ];
+    return [...staticRedirects, ...redirects];
   },
 };
 

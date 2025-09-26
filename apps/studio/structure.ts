@@ -7,17 +7,21 @@ import {
   FileText,
   HomeIcon,
   type LucideIcon,
-  MessageCircleQuestion,
+  MessageCircle,
+  PanelBottom,
   PanelBottomIcon,
-  PanelTopDashedIcon,
   Settings2,
+  TrendingUpDown,
   User,
 } from "lucide-react";
 import type {
+  ListItemBuilder,
   StructureBuilder,
   StructureResolverContext,
 } from "sanity/structure";
 
+import { HierarchicalPagesTree } from "./components";
+import { createSlugBasedStructure } from "./components/nested-pages-strucure";
 import type { SchemaType, SingletonType } from "./schemaTypes";
 import { getTitleCase } from "./utils/helper";
 
@@ -100,6 +104,17 @@ const createIndexListWithOrderableItems = ({
     );
 };
 
+// Create hierarchical page structure using custom React component
+const createHierarchicalPageStructure = (
+  S: StructureBuilder,
+  context: StructureResolverContext,
+): ListItemBuilder => {
+  return S.listItem()
+    .title("Pages")
+    .icon(File)
+    .child(S.component(HierarchicalPagesTree).id("hierarchical-pages-tree"));
+};
+
 export const structure = (
   S: StructureBuilder,
   context: StructureResolverContext,
@@ -123,9 +138,10 @@ export const structure = (
         S,
         type: "faq",
         title: "FAQs",
-        icon: MessageCircleQuestion,
+        icon: MessageCircle,
       }),
       createList({ S, type: "author", title: "People", icon: User }),
+      createList({ S, type: "redirect", title: "Redirects", icon: TrendingUpDown }),
       S.divider(),
       S.listItem()
         .title("Site Configuration")
@@ -138,7 +154,7 @@ export const structure = (
                 S,
                 type: "navbar",
                 title: "Navigation",
-                icon: PanelTopDashedIcon,
+                icon: PanelBottom,
               }),
               createSingleTon({
                 S,

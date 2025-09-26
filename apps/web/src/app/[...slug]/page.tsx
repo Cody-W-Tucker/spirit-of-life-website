@@ -4,10 +4,14 @@ import { PageBuilder } from "@/components/pagebuilder";
 import { client } from "@/lib/sanity/client";
 import { sanityFetch } from "@/lib/sanity/live";
 import { querySlugPageData, querySlugPagePaths } from "@/lib/sanity/query";
-import { getMetaData } from "@/lib/seo";
+import { getSEOMetadata } from "@/lib/seo";
 
-async function fetchSlugPageData(slug: string) {
-  return await sanityFetch(querySlugPageData, { slug: `/${slug}` });
+async function fetchSlugPageData(slug: string, stega = true) {
+  return await sanityFetch({
+    query: querySlugPageData,
+    params: { slug: `/${slug}` },
+    stega,
+  });
 }
 
 async function fetchSlugPagePaths() {
@@ -28,11 +32,18 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const slugString = slug.join("/");
-  const pageData = await fetchSlugPageData(slugString);
-  if (!pageData) {
-    return getMetaData({});
-  }
-  return getMetaData(pageData);
+  const { data: pageData } = await fetchSlugPageData(slugString, false);
+  return getSEOMetadata(
+    pageData
+      ? {
+        title: pageData?.title ?? pageData?.seoTitle ?? "",
+        description: pageData?.description ?? pageData?.seoDescription ?? "",
+        slug: pageData?.slug,
+        contentId: pageData?._id,
+        contentType: pageData?._type,
+      }
+      : {},
+  );
 }
 
 export async function generateStaticParams() {
@@ -43,16 +54,16 @@ export default async function SlugPage({
   params,
 }: {
   params: Promise<{ slug: string[] }>;
-}): Promise<React.ReactElement> {
+}) {
   const { slug } = await params;
   const slugString = slug.join("/");
-  const pageData = await fetchSlugPageData(slugString);
+  const { data: pageData } = await fetchSlugPageData(slugString);
 
   if (!pageData) {
     return notFound();
   }
 
-  const { title, pageBuilder, _id, _type } = pageData;
+  const { title, pageBuilder, _id, _type } = pageData ?? {};
 
   return !Array.isArray(pageBuilder) || pageBuilder?.length === 0 ? (
     <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-4">

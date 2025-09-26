@@ -1,20 +1,19 @@
 import { Badge } from "@workspace/ui/components/badge";
 import { cn } from "@workspace/ui/lib/utils";
-import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
+import { RichText } from "../elements/rich-text";
 import { CTACard } from "../image-link-card";
-import { RichText } from "../richtext";
 
 export type ImageLinkCardsProps = PagebuilderType<"imageLinkCards">;
 
-export const ImageLinkCards: FC<ImageLinkCardsProps> = ({
+export function ImageLinkCards({
   richText,
   title,
   eyebrow,
   cards,
-}: ImageLinkCardsProps) => {
+}: ImageLinkCardsProps) {
   return (
     <section id="image-link-cards" className="my-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -35,10 +34,10 @@ export const ImageLinkCards: FC<ImageLinkCardsProps> = ({
                   key={card._key}
                   card={card}
                   className={cn(
-                    "bg-muted-foreground/10",
+                    "bg-muted-foreground/10 dark:bg-zinc-800",
                     idx === 0 && "lg:rounded-l-3xl lg:rounded-r-none",
                     idx === cards.length - 1 &&
-                      "lg:rounded-r-3xl lg:rounded-l-none",
+                    "lg:rounded-r-3xl lg:rounded-l-none",
                     idx !== 0 && idx !== cards.length - 1 && "lg:rounded-none",
                   )}
                 />
@@ -49,4 +48,4 @@ export const ImageLinkCards: FC<ImageLinkCardsProps> = ({
       </div>
     </section>
   );
-};
+}

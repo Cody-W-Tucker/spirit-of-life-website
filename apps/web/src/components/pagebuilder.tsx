@@ -1,11 +1,12 @@
 "use client";
-import { useOptimistic } from "@sanity/visual-editing/react";
-import { createDataAttribute, type SanityDocument } from "next-sanity";
-import type { ComponentType } from "react";
 
-import { dataset, projectId, studioUrl } from "@/lib/sanity/api";
+import { useOptimistic } from "@sanity/visual-editing/react";
+import { createDataAttribute } from "next-sanity";
+import { useCallback, useMemo } from "react";
+
+import { dataset, projectId, studioUrl } from "@/config";
 import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
-import type { PagebuilderType } from "@/types";
+import type { PageBuilderBlockTypes, PagebuilderType } from "@/types";
 
 import { AuthorSection } from "./sections/author-section";
 import { ContentSection } from "./sections/content-section";
@@ -20,128 +21,176 @@ import { ScheduleBar } from "./sections/schedule-bar";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 import { VideoLibrary } from "./sections/video-library";
 
-type PageBlock = NonNullable<
+// More specific and descriptive type aliases
+type PageBuilderBlock = NonNullable<
   NonNullable<QueryHomePageDataResult>["pageBuilder"]
 >[number];
 
-export type PageBuilderProps = {
-  pageBuilder: PageBlock[] | null | undefined;
-  id: string;
-  type: string;
-};
+export interface PageBuilderProps {
+  readonly pageBuilder?: PageBuilderBlock[];
+  readonly id: string;
+  readonly type: string;
+}
 
-type PageData = {
-  _id: string;
-  _type: string;
-  pageBuilder?: PageBlock[];
-};
+interface PageData {
+  readonly _id: string;
+  readonly _type: string;
+  readonly pageBuilder?: PageBuilderBlock[];
+}
 
+interface SanityDataAttributeConfig {
+  readonly id: string;
+  readonly type: string;
+  readonly path: string;
+}
+
+// Component mapping for page builder blocks
 const BLOCK_COMPONENTS = {
   authorSection: AuthorSection,
   contentSection: ContentSection,
   cta: CTABlock,
+  eventsList: EventsListSection,
   faqAccordion: FaqAccordion,
+  fullpageImage: FullpageImageBlock,
   hero: HeroBlock,
   featureCardsIcon: FeatureCardsWithIcon,
+  scheduleBar: ScheduleBar,
   subscribeNewsletter: SubscribeNewsletter,
   imageLinkCards: ImageLinkCards,
-  fullpageImage: FullpageImageBlock,
-  scheduleBar: ScheduleBar,
   videoLibrary: VideoLibrary,
-  eventsList: EventsListSection,
 } as const;
 
-type BlockType = keyof typeof BLOCK_COMPONENTS;
+/**
+ * Helper function to create consistent Sanity data attributes
+ */
+function createSanityDataAttribute(config: SanityDataAttributeConfig): string {
+  return createDataAttribute({
+    id: config.id,
+    baseUrl: studioUrl,
+    projectId,
+    dataset,
+    type: config.type,
+    path: config.path,
+  }).toString();
+}
 
-export function PageBuilder({
-  pageBuilder: initialPageBuilder,
-  id,
-  type,
-}: PageBuilderProps): React.ReactElement {
-  const safeInitial = Array.isArray(initialPageBuilder)
-    ? initialPageBuilder
-    : [];
-  const pageBuilder = useOptimistic<PageBlock[], SanityDocument<PageData>>(
-    safeInitial,
-    (currentPageBuilder, action) => {
-      if (action.id === id && action.document.pageBuilder) {
+/**
+ * Error fallback component for unknown block types
+ */
+function UnknownBlockError({
+  blockType,
+  blockKey,
+}: {
+  blockType: string;
+  blockKey: string;
+}) {
+  return (
+    <div
+      key={`${blockType}-${blockKey}`}
+      className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg border-2 border-dashed border-muted-foreground/20"
+      role="alert"
+      aria-label={`Unknown block type: ${blockType}`}
+    >
+      <div className="space-y-2">
+        <p>Component not found for block type:</p>
+        <code className="font-mono text-sm bg-background px-2 py-1 rounded">
+          {blockType}
+        </code>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Hook to handle optimistic updates for page builder blocks
+ */
+function useOptimisticPageBuilder(
+  initialBlocks: PageBuilderBlock[],
+  documentId: string,
+) {
+  return useOptimistic<PageBuilderBlock[], any>(
+    initialBlocks,
+    (currentBlocks, action) => {
+      if (action.id === documentId && action.document?.pageBuilder) {
         return action.document.pageBuilder;
       }
-
-      return currentPageBuilder;
+      return currentBlocks;
     },
   );
+}
 
-  // Separate fullpageImage, scheduleBar, hero, and contentSection blocks from others
-  const fullWidthBlocks = pageBuilder.filter(
-    (block) =>
-      block._type === "fullpageImage" ||
-      block._type === "scheduleBar" ||
-      block._type === "hero" ||
-      block._type === "contentSection",
+/**
+ * Custom hook for block component rendering logic
+ */
+function useBlockRenderer(id: string, type: string) {
+  const createBlockDataAttribute = useCallback(
+    (blockKey: string) =>
+      createSanityDataAttribute({
+        id,
+        type,
+        path: `pageBuilder[_key=="${blockKey}"]`,
+      }),
+    [id, type],
   );
-  const normalBlocks = pageBuilder.filter(
-    (block) =>
-      block._type !== "fullpageImage" &&
-      block._type !== "scheduleBar" &&
-      block._type !== "hero" &&
-      block._type !== "contentSection",
+
+  const renderBlock = useCallback(
+    (block: PageBuilderBlock, index: number) => {
+      const Component =
+        BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
+
+      if (!Component) {
+        return (
+          <UnknownBlockError
+            key={`${block._type}-${block._key}`}
+            blockType={block._type}
+            blockKey={block._key}
+          />
+        );
+      }
+
+      return (
+        <div
+          key={`${block._type}-${block._key}`}
+          data-sanity={createBlockDataAttribute(block._key)}
+        >
+          {/* @ts-ignore - Component type inference issue */}
+          <Component {...(block as any)} />
+        </div>
+      );
+    },
+    [createBlockDataAttribute],
   );
+
+  return { renderBlock };
+}
+
+/**
+ * PageBuilder component for rendering dynamic content blocks from Sanity CMS
+ */
+export function PageBuilder({
+  pageBuilder: initialBlocks = [],
+  id,
+  type,
+}: PageBuilderProps) {
+  const blocks = useOptimisticPageBuilder(initialBlocks, id);
+  const { renderBlock } = useBlockRenderer(id, type);
+
+  const containerDataAttribute = useMemo(
+    () => createSanityDataAttribute({ id, type, path: "pageBuilder" }),
+    [id, type],
+  );
+
+  if (!blocks.length) {
+    return null;
+  }
 
   return (
-    <>
-      {/* Render full width blocks outside the constrained main */}
-      {fullWidthBlocks.map((block) => {
-        const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
-          PagebuilderType<BlockType>
-        >;
-        return <Component key={`${block._type}-${block._key}`} {...block} />;
-      })}
-      {/* Render normal blocks inside the constrained main */}
-      <main
-        className="flex flex-col [--section-gap:clamp(24px,4vw,64px)] gap-y-[var(--section-gap)] my-[var(--section-gap)] max-w-7xl mx-auto"
-        data-sanity={createDataAttribute({
-          id: id,
-          baseUrl: studioUrl,
-          projectId: projectId,
-          dataset: dataset,
-          type: type,
-          path: "pageBuilder",
-        }).toString()}
-      >
-        {normalBlocks.map((block) => {
-          const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
-            PagebuilderType<BlockType>
-          >;
-
-          if (!Component) {
-            return (
-              <div
-                key={`${block._type}-${block._key}`}
-                className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg"
-              >
-                Component not found for block type: <code>{block._type}</code>
-              </div>
-            );
-          }
-
-          return (
-            <div
-              key={`${block._type}-${block._key}`}
-              data-sanity={createDataAttribute({
-                id: id,
-                baseUrl: studioUrl,
-                projectId: projectId,
-                dataset: dataset,
-                type: type,
-                path: `pageBuilder[_key=="${block._key}"]`,
-              }).toString()}
-            >
-              <Component {...block} />
-            </div>
-          );
-        })}
-      </main>
-    </>
+    <section
+      className="flex flex-col gap-16 my-16 max-w-7xl mx-auto"
+      data-sanity={containerDataAttribute}
+      aria-label="Page content"
+    >
+      {blocks.map(renderBlock)}
+    </section>
   );
 }

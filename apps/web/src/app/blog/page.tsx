@@ -4,21 +4,34 @@ import { BlogCard, BlogHeader, FeaturedBlogCard } from "@/components/blog-card";
 import { PageBuilder } from "@/components/pagebuilder";
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryBlogIndexPageData } from "@/lib/sanity/query";
-import { getMetaData } from "@/lib/seo";
+import { getSEOMetadata } from "@/lib/seo";
 import { handleErrors } from "@/utils";
 
 async function fetchBlogPosts() {
-  return await handleErrors(sanityFetch(queryBlogIndexPageData));
+  return await handleErrors(sanityFetch({ query: queryBlogIndexPageData }));
 }
 
 export async function generateMetadata() {
-  const result = await sanityFetch(queryBlogIndexPageData);
-  return await getMetaData(result ?? {});
+  const { data: result } = await sanityFetch({
+    query: queryBlogIndexPageData,
+    stega: false,
+  });
+  return getSEOMetadata(
+    result
+      ? {
+        title: result?.title ?? result?.seoTitle ?? "",
+        description: result?.description ?? result?.seoDescription ?? "",
+        slug: result?.slug,
+        contentId: result?._id,
+        contentType: result?._type,
+      }
+      : {},
+  );
 }
 
-export default async function BlogIndexPage(): Promise<React.JSX.Element> {
+export default async function BlogIndexPage() {
   const [res, err] = await fetchBlogPosts();
-  if (err || !res) notFound();
+  if (err || !res?.data) notFound();
 
   const {
     blogs = [],
@@ -29,7 +42,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
     _type,
     displayFeaturedBlogs,
     featuredBlogsCount,
-  } = res;
+  } = res.data;
 
   const validFeaturedBlogsCount = featuredBlogsCount
     ? Number.parseInt(featuredBlogsCount)
@@ -56,7 +69,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
 
   const featuredBlogs = shouldDisplayFeaturedBlogs
     ? blogs.slice(0, validFeaturedBlogsCount)
-    : [] as typeof blogs;
+    : [];
   const remainingBlogs = shouldDisplayFeaturedBlogs
     ? blogs.slice(validFeaturedBlogsCount)
     : blogs;
@@ -68,7 +81,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
 
         {featuredBlogs.length > 0 && (
           <div className="mx-auto mt-8 sm:mt-12 md:mt-16 mb-12 lg:mb-20 grid grid-cols-1 gap-8 md:gap-12">
-            {featuredBlogs.map((blog: import("@/components/blog-card").Blog) => (
+            {featuredBlogs.map((blog) => (
               <FeaturedBlogCard key={blog._id} blog={blog} />
             ))}
           </div>
@@ -76,7 +89,7 @@ export default async function BlogIndexPage(): Promise<React.JSX.Element> {
 
         {remainingBlogs.length > 0 && (
           <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2 mt-8">
-            {remainingBlogs.map((blog: import("@/components/blog-card").Blog) => (
+            {remainingBlogs.map((blog) => (
               <BlogCard key={blog._id} blog={blog} />
             ))}
           </div>

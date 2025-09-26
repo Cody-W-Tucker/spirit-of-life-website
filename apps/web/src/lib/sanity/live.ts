@@ -1,23 +1,17 @@
-import { createClient } from "next-sanity";
+import { defineLive } from "next-sanity";
 
 import { client } from "./client";
 import { token } from "./token";
 
 /**
- * Use createClient to enable automatic revalidation and refreshing of your fetched content
- * Learn more: https://github.com/sanity-io/next-sanity
+ * Use defineLive to enable automatic revalidation and refreshing of your fetched content
+ * Learn more: https://github.com/sanity-io/next-sanity?tab=readme-ov-file#1-configure-definelive
  */
 
-// Create a client with live preview capabilities
-const liveClient = createClient({
-  ...client.config(),
-  token: token,
-  useCdn: false, // Use the live API for real-time updates
-  stega: {
-    enabled: true,
-    studioUrl: "/studio",
-  },
+export const { sanityFetch, SanityLive } = defineLive({
+  client,
+  // Required for showing draft content when the Sanity Presentation Tool is used, or to enable the Vercel Toolbar Edit Mode
+  serverToken: token,
+  // Required for stand-alone live previews, the token is only shared to the browser if it's a valid Next.js Draft Mode session
+  browserToken: token,
 });
-
-// Export the client
-export const sanityFetch = liveClient.fetch.bind(liveClient);

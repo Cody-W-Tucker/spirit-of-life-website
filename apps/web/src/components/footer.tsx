@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { FC } from "react";
 
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
@@ -26,15 +25,19 @@ interface FooterProps {
   settingsData: NonNullable<QueryGlobalSeoSettingsResult>;
 }
 
-export const FooterServer: FC = async () => {
+export async function FooterServer() {
   const [response, settingsResponse] = await Promise.all([
-    sanityFetch(queryFooterData),
-    sanityFetch(queryGlobalSeoSettings),
+    sanityFetch({
+      query: queryFooterData,
+    }),
+    sanityFetch({
+      query: queryGlobalSeoSettings,
+    }),
   ]);
 
-  if (!response || !settingsResponse) return <FooterSkeleton />;
-  return <Footer data={response} settingsData={settingsResponse} />;
-};
+  if (!response?.data || !settingsResponse?.data) return <FooterSkeleton />;
+  return <Footer data={response.data} settingsData={settingsResponse.data} />;
+}
 
 function SocialLinks({ data }: SocialLinksProps) {
   if (!data) return null;
@@ -47,9 +50,17 @@ function SocialLinks({ data }: SocialLinksProps) {
       Icon: InstagramIcon,
       label: "Follow us on Instagram",
     },
-    { url: facebook, Icon: FacebookIcon, label: "Follow us on Facebook" },
+    {
+      url: facebook,
+      Icon: FacebookIcon,
+      label: "Follow us on Facebook",
+    },
     { url: twitter, Icon: XIcon, label: "Follow us on Twitter" },
-    { url: linkedin, Icon: LinkedinIcon, label: "Follow us on LinkedIn" },
+    {
+      url: linkedin,
+      Icon: LinkedinIcon,
+      label: "Follow us on LinkedIn",
+    },
     {
       url: youtube,
       Icon: YoutubeIcon,
@@ -71,7 +82,7 @@ function SocialLinks({ data }: SocialLinksProps) {
             rel="noopener noreferrer"
             aria-label={label}
           >
-            <Icon className="fill-muted-foreground hover:fill-primary/80" />
+            <Icon className="fill-muted-foreground hover:fill-primary/80 dark:fill-zinc-400 dark:hover:fill-primary" />
             <span className="sr-only">{label}</span>
           </Link>
         </li>
@@ -80,11 +91,11 @@ function SocialLinks({ data }: SocialLinksProps) {
   );
 }
 
-export const FooterSkeleton: FC = () => {
+export function FooterSkeleton() {
   return (
-    <section className="mt-16 pb-8">
-      <div className="container mx-auto px-4 md:px-6">
-        <footer className="h-[500px] lg:h-auto">
+    <footer className="mt-16 pb-8">
+      <section className="container mx-auto px-4 md:px-6">
+        <div className="h-[500px] lg:h-auto">
           <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left">
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               <div>
@@ -125,11 +136,11 @@ export const FooterSkeleton: FC = () => {
               <div className="h-4 w-24 bg-muted rounded animate-pulse" />
             </div>
           </div>
-        </footer>
-      </div>
-    </section>
+        </div>
+      </section>
+    </footer>
   );
-};
+}
 
 function Footer({ data, settingsData }: FooterProps) {
   const { subtitle, columns } = data;
@@ -137,17 +148,17 @@ function Footer({ data, settingsData }: FooterProps) {
   const year = new Date().getFullYear();
 
   return (
-    <section className="mt-20 pb-8">
-      <div className="container mx-auto">
-        <footer className="h-[500px] lg:h-auto">
+    <footer className="mt-20 pb-8">
+      <section className="container mx-auto">
+        <div className="h-[500px] lg:h-auto">
           <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left mx-auto max-w-7xl px-4 md:px-6">
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 md:gap-8 lg:items-start">
               <div>
                 <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  <Logo image={logo} alt={siteTitle} priority />
+                  <Logo alt={siteTitle} priority image={logo} />
                 </span>
                 {subtitle && (
-                  <p className="mt-6 text-sm text-muted-foreground">
+                  <p className="mt-6 text-sm text-muted-foreground dark:text-zinc-400">
                     {subtitle}
                   </p>
                 )}
@@ -160,7 +171,7 @@ function Footer({ data, settingsData }: FooterProps) {
                   <div key={`column-${column?._key}-${index}`}>
                     <h3 className="mb-6 font-semibold">{column?.title}</h3>
                     {column?.links && column?.links?.length > 0 && (
-                      <ul className="space-y-4 text-sm text-muted-foreground">
+                      <ul className="space-y-4 text-sm text-muted-foreground dark:text-zinc-400">
                         {column?.links?.map((link, index) => (
                           <li
                             key={`${link?._key}-${index}-column-${column?._key}`}
@@ -201,8 +212,8 @@ function Footer({ data, settingsData }: FooterProps) {
               </ul>
             </div>
           </div>
-        </footer>
-      </div>
-    </section>
+        </div>
+      </section>
+    </footer>
   );
 }

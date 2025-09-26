@@ -8,6 +8,7 @@ import { footer } from "./footer";
 import { homePage } from "./home-page";
 import { navbar } from "./navbar";
 import { page } from "./page";
+import { redirect } from "./redirect";
 import { settings } from "./settings";
 
 export const singletons = [
@@ -19,4 +20,4 @@ export const singletons = [
   connectPage,
 ];
 
-export const documents = [blog, page, faq, author, event, ...singletons];
+export const documents = [blog, page, faq, author, event, ...singletons, redirect];

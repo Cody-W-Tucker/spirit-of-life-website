@@ -1,10 +1,9 @@
 import { Badge } from "@workspace/ui/components/badge";
-import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
-import { RichText } from "../richtext";
-import { SanityIcon } from "../sanity-icon";
+import { RichText } from "../elements/rich-text";
+import { SanityIcon } from "../elements/sanity-icon";
 
 type FeatureCardsWithIconProps = PagebuilderType<"featureCardsIcon">;
 
@@ -24,19 +23,19 @@ function FeatureCard({ card }: FeatureCardProps) {
         <h3 className="text-lg font-medium md:text-2xl mb-2">{title}</h3>
         <RichText
           richText={richText}
-          className="font-normal text-sm md:text-[16px] text-black/90 leading-7 text-balance"
+          className="font-normal text-sm md:text-[16px] text-black/90 leading-7 text-balance dark:text-neutral-300"
         />
       </div>
     </div>
   );
 }
 
-export const FeatureCardsWithIcon: FC<FeatureCardsWithIconProps> = ({
+export function FeatureCardsWithIcon({
   eyebrow,
   title,
   richText,
   cards,
-}) => {
+}: FeatureCardsWithIconProps) {
   return (
     <section id="features" className="my-6 md:my-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -61,4 +60,4 @@ export const FeatureCardsWithIcon: FC<FeatureCardsWithIconProps> = ({
       </div>
     </section>
   );
-};
+}

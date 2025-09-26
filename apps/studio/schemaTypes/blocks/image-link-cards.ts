@@ -1,4 +1,4 @@
-import { ImageIcon, ImagesIcon } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
 import { buttonsField, richTextField } from "../common";
@@ -73,7 +73,7 @@ const imageLinkCard = defineField({
 export const imageLinkCards = defineType({
   name: "imageLinkCards",
   type: "object",
-  icon: ImagesIcon,
+  icon: ImageIcon,
   title: "Image Link Cards",
   fields: [
     defineField({

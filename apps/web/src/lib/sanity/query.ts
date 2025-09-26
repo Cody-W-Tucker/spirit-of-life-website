@@ -1,15 +1,23 @@
 import { defineQuery } from "next-sanity";
 
+const imageFields = /* groq */ `
+  "id": asset._ref,
+  "preview": asset->metadata.lqip,
+  hotspot {
+    x,
+    y
+  },
+  crop {
+    bottom,
+    left,
+    right,
+    top
+  }
+`;
 // Base fragments for reusable query parts
 const imageFragment = /* groq */ `
-  image{
-    ...,
-    "dimensions": asset->metadata.dimensions,
-    ...asset->{
-      "alt": coalesce(altText, originalFilename, "no-alt"),
-      "blurData": metadata.lqip,
-      "dominantColor": metadata.palette.dominant.background
-    },
+  image {
+    ${imageFields}
   }
 `;
 
@@ -34,7 +42,14 @@ const markDefsFragment = /* groq */ `
 const richTextFragment = /* groq */ `
   richText[]{
     ...,
-    ${markDefsFragment}
+    _type == "block" => {
+      ...,
+      ${markDefsFragment}
+    },
+    _type == "image" => {
+      ${imageFields},
+      "caption": caption
+    }
   }
 `;
 
@@ -53,36 +68,10 @@ const blogCardFragment = /* groq */ `
   title,
   description,
   "slug":slug.current,
-  richText,
   orderRank,
   ${imageFragment},
   publishedAt,
   ${blogAuthorFragment}
-`;
-
-const eventCardFragment = /* groq */ `
-  _type,
-  _id,
-  title,
-  description,
-  "slug":slug.current,
-  ${imageFragment},
-  startDate,
-  endDate,
-  location,
-  occurrenceType,
-  recurrence{
-    frequency,
-    interval,
-    byWeekday,
-    byMonthday,
-    monthlyMode,
-    weekOfMonth,
-    weekday,
-    until,
-    count,
-    exceptions
-  }
 `;
 
 const buttonsFragment = /* groq */ `
@@ -129,15 +118,7 @@ const imageLinkCardsBlock = /* groq */ `
 const heroBlock = /* groq */ `
   _type == "hero" => {
     ...,
-    "images": images[]{
-      ...,
-      "dimensions": asset->metadata.dimensions,
-      ...asset->{
-        "alt": coalesce(altText, originalFilename, "no-alt"),
-        "blurData": metadata.lqip,
-        "dominantColor": metadata.palette.dominant.background
-      },
-    },
+    ${imageFragment},
     ${buttonsFragment},
     ${richTextFragment}
   }
@@ -182,119 +163,14 @@ const subscribeNewsletterBlock = /* groq */ `
   }
 `;
 
-const fullpageImageBlock = /* groq */ `
-  _type == "fullpageImage" => {
+const featureCardsIconBlock = /* groq */ `
+  _type == "featureCardsIcon" => {
     ...,
-    ${imageFragment},
-    overlayText,
-    button {
-      text,
-      variant,
-      _key,
-      _type,
-      "openInNewTab": url.openInNewTab,
-      "href": select(
-        url.type == "internal" => url.internal->slug.current,
-        url.type == "external" => url.external,
-        url.href
-      ),
-    }
-  }
-`;
-
-const scheduleBarBlock = /* groq */ `
-  _type == "scheduleBar" => {
-    ...,
-    times[]{
-      _key,
-      label,
-      time
-    },
-    infoText,
-    location
-  }
-`;
-
-const contentSectionBlock = /* groq */ `
-  _type == "contentSection" => {
-    ...,
-    subtitle,
     ${richTextFragment},
-    "images": images[]{
+    "cards": array::compact(cards[]{
       ...,
-      "dimensions": asset->metadata.dimensions,
-      ...asset->{
-        "alt": coalesce(altText, originalFilename, "no-alt"),
-        "blurData": metadata.lqip,
-        "dominantColor": metadata.palette.dominant.background
-      },
-    }
-  }
-`;
-
-const videoLibraryBlock = /* groq */ `
-  _type == "videoLibrary" => {
-    ...,
-    title,
-    subtitle,
-    videos[]{
-      _key,
-      title,
-      description,
-      videoUrl,
-      duration,
-      thumbnail{
-        ...,
-        "dimensions": asset->metadata.dimensions,
-        ...asset->{
-          "alt": coalesce(altText, originalFilename, "no-alt"),
-          "blurData": metadata.lqip,
-          "dominantColor": metadata.palette.dominant.background
-        },
-      }
-    }
-  }
-`;
-
-const authorSectionBlock = /* groq */ `
-  _type == "authorSection" => {
-    ...,
-    "authors": authors[]->{
-      _id,
-      name,
-      position,
-      ${imageFragment},
-      bio[]{
-        ...,
-        ${markDefsFragment}
-      }
-    }
-  }
-`;
-
-const eventsListBlock = /* groq */ `
-  _type == "eventsList" => {
-    ...,
-    "subTitle": subTitle[]{
-      ...,
-      ${markDefsFragment}
-    },
-    ${buttonsFragment},
-    "mode": mode,
-    "onlyUpcoming": onlyUpcoming,
-    "includeRecurring": coalesce(includeRecurring, true),
-    "limit": limit,
-    "events": select(
-      mode == "manual" => array::compact(selectedEvents[]->{
-        ${eventCardFragment}
-      }),
-      array::compact(
-        *[_type == "event" && (seoHideFromLists != true)]
-          | order(startDate asc)[0...100]{
-            ${eventCardFragment}
-          }
-      )
-    )
+      ${richTextFragment},
+    })
   }
 `;
 
@@ -304,15 +180,10 @@ const pageBuilderFragment = /* groq */ `
     _type,
     ${ctaBlock},
     ${heroBlock},
-    ${contentSectionBlock},
-    ${authorSectionBlock},
     ${faqAccordionBlock},
+    ${featureCardsIconBlock},
     ${subscribeNewsletterBlock},
-    ${imageLinkCardsBlock},
-    ${fullpageImageBlock},
-    ${scheduleBarBlock},
-    ${videoLibraryBlock},
-    ${eventsListBlock}
+    ${imageLinkCardsBlock}
   }
 `;
 
@@ -382,47 +253,6 @@ export const queryBlogPaths = defineQuery(`
   *[_type == "blog" && defined(slug.current)].slug.current
 `);
 
-export const queryEventIndexPageData = defineQuery(`
-  *[_type == "eventIndex"][0]{
-    ...,
-    _id,
-    _type,
-    title,
-    description,
-    ${pageBuilderFragment},
-    "slug": slug.current,
-    "events": *[_type == "event" && (seoHideFromLists != true)] | order(startDate asc)[0...200]{
-      ${eventCardFragment}
-    }
-  }
-`);
-
-export const queryEventSlugPageData = defineQuery(`
-  *[_type == "event" && slug.current == $slug][0]{
-    ...,
-    "slug": slug.current,
-    ${imageFragment},
-    ${richTextFragment},
-    ${pageBuilderFragment}
-  }
-`);
-
-export const queryEventPaths = defineQuery(`
-  *[_type == "event" && defined(slug.current)].slug.current
-`);
-
-export const queryConnectPageData = defineQuery(`
-  *[_type == "connectPage" && defined(slug.current)][0]{
-    ...,
-    _id,
-    _type,
-    "slug": slug.current,
-    title,
-    description,
-    ${pageBuilderFragment}
-  }
-`);
-
 const ogFieldsFragment = /* groq */ `
   _id,
   _type,
@@ -439,15 +269,7 @@ const ogFieldsFragment = /* groq */ `
   "image": image.asset->url + "?w=566&h=566&dpr=2&fit=max",
   "dominantColor": image.asset->metadata.palette.dominant.background,
   "seoImage": seoImage.asset->url + "?w=1200&h=630&dpr=2&fit=max", 
-  "logo": *[_type == "settings"][0].logo{
-    ...,
-    "dimensions": asset->metadata.dimensions,
-    ...asset->{
-      "alt": coalesce(altText, originalFilename, "no-alt"),
-      "blurData": metadata.lqip,
-      "dominantColor": metadata.palette.dominant.background
-    }
-  },
+  "logo": *[_type == "settings"][0].logo.asset->url + "?w=80&h=40&dpr=3&fit=max&q=100",
   "date": coalesce(date, _createdAt)
 `;
 
@@ -541,10 +363,6 @@ export const querySitemapData = defineQuery(`{
   "blogPages": *[_type == "blog" && defined(slug.current)]{
     "slug": slug.current,
     "lastModified": _updatedAt
-  },
-  "eventPages": *[_type == "event" && defined(slug.current)]{
-    "slug": slug.current,
-    "lastModified": _updatedAt
   }
 }`);
 export const queryGlobalSeoSettings = defineQuery(`
@@ -552,14 +370,8 @@ export const queryGlobalSeoSettings = defineQuery(`
     _id,
     _type,
     siteTitle,
-    logo{
-      ...,
-      "dimensions": asset->metadata.dimensions,
-      ...asset->{
-        "alt": coalesce(altText, originalFilename, "no-alt"),
-        "blurData": metadata.lqip,
-        "dominantColor": metadata.palette.dominant.background
-      }
+    logo {
+      ${imageFields}
     },
     siteDescription,
     socialLinks{
@@ -569,5 +381,25 @@ export const queryGlobalSeoSettings = defineQuery(`
       instagram,
       youtube
     }
+  }
+`);
+
+export const querySettingsData = defineQuery(`
+  *[_type == "settings"][0]{
+    _id,
+    _type,
+    siteTitle,
+    siteDescription,
+    "logo": logo.asset->url + "?w=80&h=40&dpr=3&fit=max",
+    "socialLinks": socialLinks,
+    "contactEmail": contactEmail,
+  }
+`);
+
+export const queryRedirects = defineQuery(`
+  *[_type == "redirect"]{
+    "source":source.current, 
+    "destination":destination.current, 
+    permanent
   }
 `);

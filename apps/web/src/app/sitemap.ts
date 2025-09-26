@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 
-import { getBaseUrl } from "@/config";
 import { client } from "@/lib/sanity/client";
 import { querySitemapData } from "@/lib/sanity/query";
+import { getBaseUrl } from "@/utils";
 
 const baseUrl = getBaseUrl();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { slugPages, blogPages, eventPages } = await client.fetch(querySitemapData);
+  const { slugPages, blogPages } = await client.fetch(querySitemapData);
   return [
     {
       url: baseUrl,
@@ -23,12 +23,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     ...blogPages.map((page) => ({
       url: `${baseUrl}${page.slug}`,
-      lastModified: new Date(page.lastModified ?? new Date()),
-      changeFrequency: "weekly" as const,
-      priority: 0.5,
-    })),
-    ...eventPages.map((page) => ({
-      url: `${baseUrl}/connect/event${page.slug}`,
       lastModified: new Date(page.lastModified ?? new Date()),
       changeFrequency: "weekly" as const,
       priority: 0.5,

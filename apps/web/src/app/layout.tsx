@@ -1,56 +1,55 @@
 import "@workspace/ui/globals.css";
 
+import { VisualEditing } from "next-sanity";
 import { Geist, Geist_Mono } from "next/font/google";
 import { draftMode } from "next/headers";
 import { Suspense } from "react";
-import { preconnect, prefetchDNS } from "react-dom";
 
 import { FooterServer, FooterSkeleton } from "@/components/footer";
-import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
+import { CombinedJsonLd } from "@/components/json-ld";
+import { Navbar } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
-import { VisualEditingWrapper } from "@/components/visual-editing";
+import { Providers } from "@/components/providers";
+import { getNavigationData } from "@/lib/navigation";
+import { SanityLive } from "@/lib/sanity/live";
+import { preconnect } from "react-dom";
 
-import { Providers } from "../components/providers";
-
-const fontGeist = Geist({
+const fontSans = Geist({
   subsets: ["latin"],
-  variable: "--font-geist",
-  weight: ["400", "500", "600", "700"],
-  display: "optional",
+  variable: "--font-sans",
 });
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "700"],
-  display: "optional",
 });
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>): Promise<React.JSX.Element> {
+}>) {
   preconnect("https://cdn.sanity.io");
-  prefetchDNS("https://cdn.sanity.io");
-  const draftModeEnabled = (await draftMode()).isEnabled;
-
+  const nav = await getNavigationData();
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontGeist.variable} ${fontMono.variable} font-geist antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
       >
         <Providers>
-          <Suspense fallback={<NavbarSkeleton />}>
-            <NavbarServer />
-          </Suspense>
+          <Navbar navbarData={nav.navbarData} settingsData={nav.settingsData} />
           {children}
-
           <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />
           </Suspense>
-          {draftModeEnabled && <PreviewBar />}
-          {draftModeEnabled && <VisualEditingWrapper />}
+          <SanityLive />
+          <CombinedJsonLd includeWebsite includeOrganization />
+          {(await draftMode()).isEnabled && (
+            <>
+              <PreviewBar />
+              <VisualEditing />
+            </>
+          )}
         </Providers>
       </body>
     </html>

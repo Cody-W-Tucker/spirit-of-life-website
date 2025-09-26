@@ -4,6 +4,7 @@ import { GROUP, GROUPS } from "../../utils/constant";
 import { ogFields } from "../../utils/og-fields";
 import { seoFields } from "../../utils/seo-fields";
 import { createSlug, isUnique } from "../../utils/slug";
+import { createSlugValidator } from "../../utils/slug-validation";
 import { pageBuilderField } from "../common";
 
 export const blogIndex = defineType({
@@ -39,7 +40,13 @@ export const blogIndex = defineType({
         slugify: createSlug,
         isUnique: isUnique,
       },
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().custom(
+          createSlugValidator({
+            documentType: "Blog index",
+            requiredPrefix: "/blog",
+          }),
+        ),
     }),
     defineField({
       name: "displayFeaturedBlogs",
@@ -88,8 +95,8 @@ export const blogIndex = defineType({
       slug: "slug.current",
     },
     prepare: ({ title, description, slug }) => ({
-      title: title || "Untitled Blog Listing",
-      subtitle: description || slug || "Blog Listing",
+      title: title || "Untitled Blog Index",
+      subtitle: description || slug || "Blog Index",
     }),
   },
 });
