@@ -37,13 +37,13 @@ export async function generateMetadata({
   return getSEOMetadata(
     data
       ? {
-        title: data?.title ?? data?.seoTitle ?? "",
-        description: data?.description ?? data?.seoDescription ?? "",
-        slug: data?.slug,
-        contentId: data?._id,
-        contentType: data?._type,
-        pageType: "article",
-      }
+          title: data?.title ?? data?.seoTitle ?? "",
+          description: data?.description ?? data?.seoDescription ?? "",
+          slug: data?.slug,
+          contentId: data?._id,
+          contentType: data?._type,
+          pageType: "article",
+        }
       : {},
   );
 }

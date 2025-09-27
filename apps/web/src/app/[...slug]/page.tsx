@@ -36,12 +36,12 @@ export async function generateMetadata({
   return getSEOMetadata(
     pageData
       ? {
-        title: pageData?.title ?? pageData?.seoTitle ?? "",
-        description: pageData?.description ?? pageData?.seoDescription ?? "",
-        slug: pageData?.slug,
-        contentId: pageData?._id,
-        contentType: pageData?._type,
-      }
+          title: pageData?.title ?? pageData?.seoTitle ?? "",
+          description: pageData?.description ?? pageData?.seoDescription ?? "",
+          slug: pageData?.slug,
+          contentId: pageData?._id,
+          contentType: pageData?._type,
+        }
       : {},
   );
 }

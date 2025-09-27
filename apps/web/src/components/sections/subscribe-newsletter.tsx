@@ -72,7 +72,7 @@ export function SubscribeNewsletter({
           <Form
             className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-2"
             // action={newsletterSubmission}
-            action={() => { }}
+            action={() => {}}
           >
             <div className="flex bg-white dark:bg-zinc-200 items-center border rounded-xl p-2 drop-shadow-lg md:w-96 justify-between pl-4">
               <input

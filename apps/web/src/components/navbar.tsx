@@ -5,8 +5,8 @@ import { cn } from "@workspace/ui/lib/utils";
 import { ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-// @ts-ignore - SWR types are included in the package
 import useSWR from "swr";
+
 import type {
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
@@ -209,7 +209,7 @@ function MobileMenu({ navbarData, settingsData }: NavigationData) {
                           />
                         </button>
                         {isDropdownOpen && (
-                          <div className="grid gap-1 pl-4 border-l-2 border-border">
+                          <div className="grid gap-1 pl-4 border-l-2 border-gray-200">
                             {column.links?.map((link: ColumnLink) => (
                               <MenuLink
                                 key={link._key}

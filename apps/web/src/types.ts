@@ -7,12 +7,7 @@ import type {
 export type PageBuilderBlockTypes =
   | NonNullable<
     NonNullable<QueryHomePageDataResult>["pageBuilder"]
-  >[number]["_type"]
-  | "fullpageImage"
-  | "scheduleBar"
-  | "videoLibrary"
-  | "authorSection"
-  | "eventsList";
+  >[number]["_type"];
 
 export type PagebuilderType<T extends PageBuilderBlockTypes> = Extract<
   NonNullable<NonNullable<QueryHomePageDataResult>["pageBuilder"]>[number],

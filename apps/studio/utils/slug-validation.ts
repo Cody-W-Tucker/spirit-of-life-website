@@ -167,7 +167,7 @@ export function validateSlug(
 
   // Handle full paths with slashes
   if (slug.includes("/")) {
-    const segments = slug.split("/").filter(Boolean);
+    slug.split("/").filter(Boolean);
 
     // Validate each segment
     // segments.forEach((segment, index) => {

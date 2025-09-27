@@ -19,12 +19,12 @@ export async function generateMetadata() {
   return getSEOMetadata(
     result
       ? {
-        title: result?.title ?? result?.seoTitle ?? "",
-        description: result?.description ?? result?.seoDescription ?? "",
-        slug: result?.slug,
-        contentId: result?._id,
-        contentType: result?._type,
-      }
+          title: result?.title ?? result?.seoTitle ?? "",
+          description: result?.description ?? result?.seoDescription ?? "",
+          slug: result?.slug,
+          contentId: result?._id,
+          contentType: result?._type,
+        }
       : {},
   );
 }

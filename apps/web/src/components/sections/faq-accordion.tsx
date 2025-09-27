@@ -33,7 +33,7 @@ export function FaqAccordion({
               {subtitle}
             </h3>
           </div>
-        </div >
+        </div>
         <div className="my-16 max-w-xl mx-auto">
           <Accordion
             type="single"
@@ -76,13 +76,12 @@ export function FaqAccordion({
                     size={16}
                     className="text-[#374151] dark:text-neutral-300"
                   />
-                </span >
-              </Link >
-            </div >
+                </span>
+              </Link>
+            </div>
           )}
-        </div >
-      </div >
-    </section >
+        </div>
+      </div>
+    </section>
   );
-};
-
+}

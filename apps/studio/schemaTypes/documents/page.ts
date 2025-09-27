@@ -1,10 +1,7 @@
 import { DocumentIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
-import {
-  PathnameFieldComponent,
-  UrlSlugFieldComponent,
-} from "../../components";
+import { PathnameFieldComponent } from "../../components";
 import { GROUP, GROUPS } from "../../utils/constant";
 import { ogFields } from "../../utils/og-fields";
 import { seoFields } from "../../utils/seo-fields";

@@ -34,10 +34,13 @@
     "swr": "^2.3.6"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20.19.9",
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "@workspace/eslint-config": "workspace:^",
-    "@workspace/typescript-config": "workspace:*"
+    "@workspace/typescript-config": "workspace:*",
+    "tailwindcss": "^4.1.12",
+    "tailwindcss-animate": "^1.0.7"
   }
 }

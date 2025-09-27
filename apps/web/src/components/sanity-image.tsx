@@ -7,7 +7,7 @@ import { urlFor } from "@/lib/sanity/client";
 import type { SanityImageProps } from "@/types";
 
 type ImageProps = {
-  asset: SanityImageProps;
+  asset: any;
   alt?: string;
 } & Omit<NextImageProps, "alt" | "src">;
 

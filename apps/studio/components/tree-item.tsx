@@ -58,22 +58,6 @@ export const TreeItem: React.FC<TreeItemProps> = ({
     [hasChildren, onToggleExpand, node.slug],
   );
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        handleClick();
-      } else if (e.key === "ArrowRight" && hasChildren && !isExpanded) {
-        e.preventDefault();
-        onToggleExpand(node.slug);
-      } else if (e.key === "ArrowLeft" && hasChildren && isExpanded) {
-        e.preventDefault();
-        onToggleExpand(node.slug);
-      }
-    },
-    [handleClick, hasChildren, isExpanded, onToggleExpand, node.slug],
-  );
-
   const getIcon = () => {
     if (node.type === "folder") {
       return <FolderIcon style={{ width: 16, height: 16 }} />;
@@ -99,7 +83,7 @@ export const TreeItem: React.FC<TreeItemProps> = ({
         tone={node.type === "page" ? "default" : "transparent"}
         style={{
           marginLeft: `${depth * 16}px`,
-          // cursor: "pointer",
+          cursor: "pointer",
           borderLeft: depth > 0 ? "1px solid var(--card-border-color)" : "none",
           position: "relative",
           transition: "all 0.15s ease-in-out",
@@ -108,6 +92,7 @@ export const TreeItem: React.FC<TreeItemProps> = ({
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
           }),
         }}
+        onClick={handleClick}
         onMouseEnter={() => {
           setIsHovered(true);
         }}

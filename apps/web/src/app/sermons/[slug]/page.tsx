@@ -81,19 +81,19 @@ export default function SermonPage(): React.JSX.Element {
                 <h2 className="heading-3">Sermon Notes</h2>
                 <div className="prose prose-lg max-w-none space-y-6">
                   <p>
-                    Faith is not just a concept we read about in the Bible—it's
-                    a living, breathing reality that transforms how we see the
-                    world and make decisions. In today's message, we'll explore
-                    what it means to truly walk in faith and trust God's plan
-                    for our lives.
+                    Faith is not just a concept we read about in the
+                    Bible—it&apos;s a living, breathing reality that transforms
+                    how we see the world and make decisions. In today&apos;s
+                    message, we&apos;ll explore what it means to truly walk in
+                    faith and trust God&apos;s plan for our lives.
                   </p>
 
                   <h3 className="heading-4">What is Faith?</h3>
                   <p>
-                    Hebrews 11:1 tells us that 'faith is confidence in what we
-                    hope for and assurance about what we do not see.' This
-                    definition challenges us to look beyond our immediate
-                    circumstances and trust in God's greater plan.
+                    Hebrews 11:1 tells us that &apos;faith is confidence in what
+                    we hope for and assurance about what we do not see.&apos;
+                    This definition challenges us to look beyond our immediate
+                    circumstances and trust in God&apos;s greater plan.
                   </p>
 
                   <h3 className="heading-4">Biblical Examples of Faith</h3>
@@ -109,21 +109,23 @@ export default function SermonPage(): React.JSX.Element {
                     Applying Faith to Our Daily Lives
                   </h3>
                   <p>
-                    Faith isn't just for the big moments—it's for every decision
-                    we make. When we choose to trust God in our relationships,
-                    our careers, our finances, and our health, we're walking in
-                    faith. This doesn't mean we don't plan or work hard, but it
-                    does mean we trust God with the outcomes.
+                    Faith isn&apos;t just for the big moments—it&apos;s for
+                    every decision we make. When we choose to trust God in our
+                    relationships, our careers, our finances, and our health,
+                    we&apos;re walking in faith. This doesn&apos;t mean we
+                    don&apos;t plan or work hard, but it does mean we trust God
+                    with the outcomes.
                   </p>
 
                   <h3 className="heading-4">
-                    The Promise of God's Faithfulness
+                    The Promise of God&apos;s Faithfulness
                   </h3>
                   <p>
                     When we walk in faith, we can be confident that God is
                     working all things together for our good (Romans 8:28). Even
-                    when we don't understand the path ahead, we can trust that
-                    God's plan is perfect and His timing is impeccable.
+                    when we don&apos;t understand the path ahead, we can trust
+                    that God&apos;s plan is perfect and His timing is
+                    impeccable.
                   </p>
                 </div>
               </div>
@@ -171,7 +173,7 @@ export default function SermonPage(): React.JSX.Element {
                     href="#god-faithfulness"
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    The Promise of God's Faithfulness
+                    The Promise of God&apos;s Faithfulness
                   </a>
                 </nav>
               </div>
@@ -198,7 +200,7 @@ export default function SermonPage(): React.JSX.Element {
                   </div>
                   <div className="space-y-2">
                     <h4 className="font-semibold text-foreground">
-                      God's Grace in Difficult Times
+                      God&apos;s Grace in Difficult Times
                     </h4>
                     <p className="text-sm text-muted-foreground">
                       Pastor Jonathan • February 25, 2024

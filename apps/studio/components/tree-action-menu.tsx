@@ -1,12 +1,4 @@
-import {
-  AddIcon,
-  CopyIcon,
-  EditIcon,
-  EllipsisVerticalIcon,
-  LinkIcon,
-  SplitVerticalIcon,
-  TrashIcon,
-} from "@sanity/icons";
+import { AddIcon, EditIcon, EllipsisVerticalIcon } from "@sanity/icons";
 import {
   Box,
   Button,
@@ -19,8 +11,7 @@ import {
 } from "@sanity/ui";
 import { uuid } from "@sanity/uuid";
 import React from "react";
-import { IntentLink, useIntentLink } from "sanity/router";
-import { usePaneRouter } from "sanity/structure";
+import { useIntentLink } from "sanity/router";
 
 import type { TreeNode } from "../hooks/use-pages-tree";
 

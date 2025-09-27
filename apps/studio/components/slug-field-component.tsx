@@ -70,9 +70,9 @@ export function PathnameFieldComponent(props: ObjectFieldProps<SlugValue>) {
       const patch =
         typeof newValue === "string"
           ? set({
-            current: newValue,
-            _type: "slug",
-          })
+              current: newValue,
+              _type: "slug",
+            })
           : unset();
 
       onChange(patch);

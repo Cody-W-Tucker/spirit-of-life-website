@@ -59,8 +59,9 @@ const dominantColorSeoImageRender = ({
 }: DominantColorSeoImageRenderProps) => {
   return (
     <div
-      tw={`bg-[${dominantColor ?? "#12061F"
-        }] flex flex-row overflow-hidden relative w-full`}
+      tw={`bg-[${
+        dominantColor ?? "#12061F"
+      }] flex flex-row overflow-hidden relative w-full`}
       style={{ fontFamily: "Inter" }}
     >
       <svg
@@ -96,8 +97,9 @@ const dominantColorSeoImageRender = ({
         {description && <p tw="text-lg text-white">{description}</p>}
         {_type && (
           <div
-            tw={`bg-white text-[${dominantColor ?? "#12061F"
-              }] flex px-5 py-2 rounded-full text-base font-semibold self-start`}
+            tw={`bg-white text-[${
+              dominantColor ?? "#12061F"
+            }] flex px-5 py-2 rounded-full text-base font-semibold self-start`}
           >
             {getTitleCase(_type)}
           </div>

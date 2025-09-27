@@ -29,7 +29,7 @@ export type SubscribeNewsletter = {
       customLink?: CustomUrl;
       _type: "customLink";
       _key: string;
-    }>; s
+    }>;
     level?: number;
     _type: "block";
     _key: string;
@@ -2793,6 +2793,6 @@ declare module "@sanity/client" {
     '{\n  "slugPages": *[_type == "page" && defined(slug.current)]{\n    "slug": slug.current,\n    "lastModified": _updatedAt\n  },\n  "blogPages": *[_type == "blog" && defined(slug.current)]{\n    "slug": slug.current,\n    "lastModified": _updatedAt\n  }\n}': QuerySitemapDataResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    siteTitle,\n    logo {\n      \n  "id": asset._ref,\n  "preview": asset->metadata.lqip,\n  hotspot {\n    x,\n    y\n  },\n  crop {\n    bottom,\n    left,\n    right,\n    top\n  }\n\n    },\n    siteDescription,\n    socialLinks{\n      linkedin,\n      facebook,\n      twitter,\n      instagram,\n      youtube\n    }\n  }\n': QueryGlobalSeoSettingsResult;
     '\n  *[_type == "settings"][0]{\n    _id,\n    _type,\n    siteTitle,\n    siteDescription,\n    "logo": logo.asset->url + "?w=80&h=40&dpr=3&fit=max",\n    "socialLinks": socialLinks,\n    "contactEmail": contactEmail,\n  }\n': QuerySettingsDataResult;
-    '\n  *[_type == \"redirect\"]{\n    \"source\":source.current, \n    \"destination\":destination.current, \n    permanent\n  }\n': QueryRedirectsResult
+    '\n  *[_type == "redirect"]{\n    "source":source.current, \n    "destination":destination.current, \n    permanent\n  }\n': QueryRedirectsResult;
   }
 }

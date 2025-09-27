@@ -20,4 +20,12 @@ export const singletons = [
   connectPage,
 ];
 
-export const documents = [blog, page, faq, author, event, ...singletons, redirect];
+export const documents = [
+  blog,
+  page,
+  faq,
+  author,
+  event,
+  ...singletons,
+  redirect,
+];

@@ -71,10 +71,10 @@ function BlogMeta({ publishedAt }: { publishedAt: string | null }) {
       <time dateTime={publishedAt ?? ""} className="text-muted-foreground">
         {publishedAt
           ? new Date(publishedAt).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })
           : ""}
       </time>
     </div>
@@ -112,26 +112,8 @@ function BlogContent({
   );
 }
 
-function AuthorSection({ authors }: { authors: Blog["authors"] }) {
-  if (!authors) return null;
-
-  return (
-    <div className="mt-6 flex border-t border-gray-900/5 pt-6">
-      <div className="relative flex items-center gap-x-4">
-        <AuthorImage author={authors} />
-        <div className="text-sm leading-6">
-          <p className="font-semibold">
-            <span className="absolute inset-0" />
-            {authors.name}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export function FeaturedBlogCard({ blog }: BlogCardProps) {
-  const { title, publishedAt, slug, authors, description, image } = blog ?? {};
+  const { title, publishedAt, slug, description, image } = blog ?? {};
 
   return (
     <article className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
@@ -164,7 +146,7 @@ export function BlogCard({ blog }: BlogCardProps) {
     );
   }
 
-  const { title, publishedAt, slug, authors, description, image } = blog;
+  const { title, publishedAt, slug, description, image } = blog;
 
   return (
     <article className="grid grid-cols-1 gap-4 w-full">

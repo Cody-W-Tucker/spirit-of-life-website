@@ -253,6 +253,46 @@ export const queryBlogPaths = defineQuery(`
   *[_type == "blog" && defined(slug.current)].slug.current
 `);
 
+export const queryEventSlugPageData = defineQuery(`
+  *[_type == "event" && slug.current == $slug][0]{
+    _id,
+    _type,
+    title,
+    description,
+    image {
+      "id": asset._ref,
+      "preview": asset->metadata.lqip,
+      hotspot {
+        x,
+        y
+      },
+      crop {
+        bottom,
+        left,
+        right,
+        top
+      }
+    },
+    startDate,
+    endDate,
+    location
+  }
+`);
+
+export const queryEventPaths = defineQuery(`
+  *[_type == "event" && defined(slug.current)].slug.current
+`);
+
+export const queryConnectPageData = defineQuery(`
+  *[_type == "connectPage" && _id == "connectPage"][0]{
+    _id,
+    _type,
+    pageBuilder[]{
+      ${pageBuilderFragment}
+    }
+  }
+`);
+
 const ogFieldsFragment = /* groq */ `
   _id,
   _type,

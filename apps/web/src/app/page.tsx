@@ -15,13 +15,13 @@ export async function generateMetadata() {
   return getSEOMetadata(
     homePageData
       ? {
-        title: homePageData?.title ?? homePageData?.seoTitle ?? "",
-        description:
-          homePageData?.description ?? homePageData?.seoDescription ?? "",
-        slug: homePageData?.slug,
-        contentId: homePageData?._id,
-        contentType: homePageData?._type,
-      }
+          title: homePageData?.title ?? homePageData?.seoTitle ?? "",
+          description:
+            homePageData?.description ?? homePageData?.seoDescription ?? "",
+          slug: homePageData?.slug,
+          contentId: homePageData?._id,
+          contentType: homePageData?._type,
+        }
       : {},
   );
 }

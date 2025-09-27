@@ -6,10 +6,11 @@ import type {
   internalGroqTypeReferenceTo,
   SanityImageCrop,
   SanityImageDimensions,
-  SanityImageHotspot
+  SanityImageHotspot,
 } from "@/lib/sanity/sanity.types";
 
 import { SanityImage } from "./sanity-image";
+import type { SanityImageProps } from "@/types";
 
 type Event = {
   _id: string;
@@ -56,8 +57,8 @@ interface EventImageProps {
   title?: string | null;
 }
 
-function EventImage({ image, title }: EventImageProps) {
-  if (!image?.asset) return null;
+function EventImage({ image, title }: { image?: SanityImageProps; title?: string | null }) {
+  if (!image) return null;
 
   return (
     <SanityImage
@@ -170,11 +171,15 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
   return (
     <article className="grid grid-cols-1 gap-4 w-full">
       <div className="relative w-full h-auto aspect-[16/9] overflow-hidden rounded-2xl">
-        <EventImage image={image} title={title} />
+        <EventImage image={image as unknown as SanityImageProps} title={title} />
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div className="w-full space-y-4">
-        <EventMeta startDate={displayStart} endDate={displayEnd} location={location} />
+        <EventMeta
+          startDate={displayStart}
+          endDate={displayEnd}
+          location={location}
+        />
         <EventContent title={title} slug={slug} description={description} />
       </div>
     </article>

@@ -21,7 +21,7 @@ export const CTACard: FC<CTACardProps> = ({ card, className }) => {
         className,
       )}
     >
-      {image?.asset && (
+      {image?.id && (
         <div className="absolute inset-0 z-[1] mix-blend-multiply">
           <SanityImage
             asset={image}
