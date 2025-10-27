@@ -1,6 +1,7 @@
 import { orderableDocumentListDeskItem } from "@sanity/orderable-document-list";
 import {
   BookMarked,
+  Calendar,
   CogIcon,
   File,
   FileText,
@@ -8,9 +9,11 @@ import {
   type LucideIcon,
   MessageCircle,
   PanelBottom,
-  PanelBottomIcon,
-  Settings2,
   TrendingUpDown,
+  MessageCircleQuestion,
+  PanelBottomIcon,
+  PanelTopDashedIcon,
+  Settings2,
   User,
 } from "lucide-react";
 import type {
@@ -109,6 +112,7 @@ export const structure = (
     .title("Content")
     .items([
       createSingleTon({ S, type: "homePage", icon: HomeIcon }),
+      createSingleTon({ S, type: "connectPage", title: "Connect", icon: User }),
       S.divider(),
       createSlugBasedStructure(S, "page"),
       createIndexListWithOrderableItems({
@@ -117,13 +121,15 @@ export const structure = (
         list: { type: "blog", title: "Blogs", icon: FileText },
         context,
       }),
+      // Removed eventIndex singleton; manage events via pages and page builder blocks
+      createList({ S, type: "event", title: "Events", icon: Calendar }),
       createList({
         S,
         type: "faq",
         title: "FAQs",
         icon: MessageCircle,
       }),
-      createList({ S, type: "author", title: "Authors", icon: User }),
+      createList({ S, type: "author", title: "People", icon: User }),
       createList({
         S,
         type: "redirect",

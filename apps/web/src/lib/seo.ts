@@ -140,7 +140,7 @@ export function getSEOMetadata(page: PageSeoData = {}): Metadata {
     },
     openGraph: {
       type: pageType ?? "website",
-      countryName: "UK",
+      countryName: "USA",
       description: defaultDescription,
       title: defaultTitle,
       images: [

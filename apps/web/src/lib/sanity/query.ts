@@ -16,8 +16,14 @@ const imageFields = /* groq */ `
 `;
 // Base fragments for reusable query parts
 const imageFragment = /* groq */ `
-  image {
-    ${imageFields}
+  image{
+    ...,
+    "dimensions": asset->metadata.dimensions,
+    ...asset->{
+      "alt": coalesce(altText, originalFilename, "no-alt"),
+      "blurData": metadata.lqip,
+      "dominantColor": metadata.palette.dominant.background
+    },
   }
 `;
 
@@ -68,10 +74,36 @@ const blogCardFragment = /* groq */ `
   title,
   description,
   "slug":slug.current,
+  richText,
   orderRank,
   ${imageFragment},
   publishedAt,
   ${blogAuthorFragment}
+`;
+
+const eventCardFragment = /* groq */ `
+  _type,
+  _id,
+  title,
+  description,
+  "slug":slug.current,
+  ${imageFragment},
+  startDate,
+  endDate,
+  location,
+  occurrenceType,
+  recurrence{
+    frequency,
+    interval,
+    byWeekday,
+    byMonthday,
+    monthlyMode,
+    weekOfMonth,
+    weekday,
+    until,
+    count,
+    exceptions
+  }
 `;
 
 const buttonsFragment = /* groq */ `
@@ -118,7 +150,15 @@ const imageLinkCardsBlock = /* groq */ `
 const heroBlock = /* groq */ `
   _type == "hero" => {
     ...,
-    ${imageFragment},
+    "images": images[]{
+      ...,
+      "dimensions": asset->metadata.dimensions,
+      ...asset->{
+        "alt": coalesce(altText, originalFilename, "no-alt"),
+        "blurData": metadata.lqip,
+        "dominantColor": metadata.palette.dominant.background
+      },
+    },
     ${buttonsFragment},
     ${richTextFragment}
   }
@@ -163,14 +203,119 @@ const subscribeNewsletterBlock = /* groq */ `
   }
 `;
 
-const featureCardsIconBlock = /* groq */ `
-  _type == "featureCardsIcon" => {
+const fullpageImageBlock = /* groq */ `
+  _type == "fullpageImage" => {
     ...,
+    ${imageFragment},
+    overlayText,
+    button {
+      text,
+      variant,
+      _key,
+      _type,
+      "openInNewTab": url.openInNewTab,
+      "href": select(
+        url.type == "internal" => url.internal->slug.current,
+        url.type == "external" => url.external,
+        url.href
+      ),
+    }
+  }
+`;
+
+const scheduleBarBlock = /* groq */ `
+  _type == "scheduleBar" => {
+    ...,
+    times[]{
+      _key,
+      label,
+      time
+    },
+    infoText,
+    location
+  }
+`;
+
+const contentSectionBlock = /* groq */ `
+  _type == "contentSection" => {
+    ...,
+    subtitle,
     ${richTextFragment},
-    "cards": array::compact(cards[]{
+    "images": images[]{
       ...,
-      ${richTextFragment},
-    })
+      "dimensions": asset->metadata.dimensions,
+      ...asset->{
+        "alt": coalesce(altText, originalFilename, "no-alt"),
+        "blurData": metadata.lqip,
+        "dominantColor": metadata.palette.dominant.background
+      },
+    }
+  }
+`;
+
+const videoLibraryBlock = /* groq */ `
+  _type == "videoLibrary" => {
+    ...,
+    title,
+    subtitle,
+    videos[]{
+      _key,
+      title,
+      description,
+      videoUrl,
+      duration,
+      thumbnail{
+        ...,
+        "dimensions": asset->metadata.dimensions,
+        ...asset->{
+          "alt": coalesce(altText, originalFilename, "no-alt"),
+          "blurData": metadata.lqip,
+          "dominantColor": metadata.palette.dominant.background
+        },
+      }
+    }
+  }
+`;
+
+const authorSectionBlock = /* groq */ `
+  _type == "authorSection" => {
+    ...,
+    "authors": authors[]->{
+      _id,
+      name,
+      position,
+      ${imageFragment},
+      bio[]{
+        ...,
+        ${markDefsFragment}
+      }
+    }
+  }
+`;
+
+const eventsListBlock = /* groq */ `
+  _type == "eventsList" => {
+    ...,
+    "subTitle": subTitle[]{
+      ...,
+      ${markDefsFragment}
+    },
+    ${buttonsFragment},
+    "mode": mode,
+    "onlyUpcoming": onlyUpcoming,
+    "includeRecurring": coalesce(includeRecurring, true),
+    "limit": limit,
+    "events": select(
+      mode == "manual" => array::compact(selectedEvents[]->{
+        ${eventCardFragment}
+      }),
+      array::compact(
+        *[_type == "event" && (seoHideFromLists != true)]
+          | order(startDate asc)[0...100]{
+            ${eventCardFragment}
+          }
+      )
+    )
   }
 `;
 
@@ -180,10 +325,15 @@ const pageBuilderFragment = /* groq */ `
     _type,
     ${ctaBlock},
     ${heroBlock},
+    ${contentSectionBlock},
+    ${authorSectionBlock},
     ${faqAccordionBlock},
-    ${featureCardsIconBlock},
     ${subscribeNewsletterBlock},
-    ${imageLinkCardsBlock}
+    ${imageLinkCardsBlock},
+    ${fullpageImageBlock},
+    ${scheduleBarBlock},
+    ${videoLibraryBlock},
+    ${eventsListBlock}
   }
 `;
 
@@ -253,6 +403,47 @@ export const queryBlogPaths = defineQuery(`
   *[_type == "blog" && defined(slug.current)].slug.current
 `);
 
+export const queryEventIndexPageData = defineQuery(`
+  *[_type == "eventIndex"][0]{
+    ...,
+    _id,
+    _type,
+    title,
+    description,
+    ${pageBuilderFragment},
+    "slug": slug.current,
+    "events": *[_type == "event" && (seoHideFromLists != true)] | order(startDate asc)[0...200]{
+      ${eventCardFragment}
+    }
+  }
+`);
+
+export const queryEventSlugPageData = defineQuery(`
+  *[_type == "event" && slug.current == $slug][0]{
+    ...,
+    "slug": slug.current,
+    ${imageFragment},
+    ${richTextFragment},
+    ${pageBuilderFragment}
+  }
+`);
+
+export const queryEventPaths = defineQuery(`
+  *[_type == "event" && defined(slug.current)].slug.current
+`);
+
+export const queryConnectPageData = defineQuery(`
+  *[_type == "connectPage" && defined(slug.current)][0]{
+    ...,
+    _id,
+    _type,
+    "slug": slug.current,
+    title,
+    description,
+    ${pageBuilderFragment}
+  }
+`);
+
 const ogFieldsFragment = /* groq */ `
   _id,
   _type,
@@ -269,7 +460,15 @@ const ogFieldsFragment = /* groq */ `
   "image": image.asset->url + "?w=566&h=566&dpr=2&fit=max",
   "dominantColor": image.asset->metadata.palette.dominant.background,
   "seoImage": seoImage.asset->url + "?w=1200&h=630&dpr=2&fit=max", 
-  "logo": *[_type == "settings"][0].logo.asset->url + "?w=80&h=40&dpr=3&fit=max&q=100",
+  "logo": *[_type == "settings"][0].logo{
+    ...,
+    "dimensions": asset->metadata.dimensions,
+    ...asset->{
+      "alt": coalesce(altText, originalFilename, "no-alt"),
+      "blurData": metadata.lqip,
+      "dominantColor": metadata.palette.dominant.background
+    }
+  },
   "date": coalesce(date, _createdAt)
 `;
 
@@ -363,6 +562,10 @@ export const querySitemapData = defineQuery(`{
   "blogPages": *[_type == "blog" && defined(slug.current)]{
     "slug": slug.current,
     "lastModified": _updatedAt
+  },
+  "eventPages": *[_type == "event" && defined(slug.current)]{
+    "slug": slug.current,
+    "lastModified": _updatedAt
   }
 }`);
 export const queryGlobalSeoSettings = defineQuery(`
@@ -370,8 +573,14 @@ export const queryGlobalSeoSettings = defineQuery(`
     _id,
     _type,
     siteTitle,
-    logo {
-      ${imageFields}
+    logo{
+      ...,
+      "dimensions": asset->metadata.dimensions,
+      ...asset->{
+        "alt": coalesce(altText, originalFilename, "no-alt"),
+        "blurData": metadata.lqip,
+        "dominantColor": metadata.palette.dominant.background
+      }
     },
     siteDescription,
     socialLinks{

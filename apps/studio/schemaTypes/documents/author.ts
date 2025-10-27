@@ -3,7 +3,7 @@ import { defineField, defineType } from "sanity";
 
 export const author = defineType({
   name: "author",
-  title: "Author",
+  title: "Person",
   type: "document",
   icon: UserIcon,
   fields: [
@@ -12,32 +12,30 @@ export const author = defineType({
       type: "string",
       title: "Name",
       description: "The full name of the person who wrote the content",
-      validation: (Rule) => Rule.required().error("Author name is required"),
+      validation: (Rule) => Rule.required().error("Person name is required"),
     }),
     defineField({
       name: "position",
       type: "string",
       title: "Position",
       description:
-        "The job title or role of this person, like 'Editor' or 'Writer'",
+        "The job title or role of this person, like 'Pastor' or 'Director'",
     }),
     defineField({
       name: "image",
       type: "image",
       title: "Image",
-      description:
-        "A photo of the author that will appear next to their articles",
+      description: "A photo of the Person",
       options: {
         hotspot: true,
       },
     }),
     defineField({
       name: "bio",
-      type: "text",
+      type: "richText",
       title: "Bio",
       description:
-        "A short paragraph about the author's background and expertise",
-      rows: 3,
+        "A short paragraph about the Person's background and expertise with text, images, and formatting",
     }),
   ],
   preview: {
@@ -45,13 +43,13 @@ export const author = defineType({
       title: "name",
       position: "position",
       media: "image",
-      bio: "bio",
     },
-    prepare: ({ title, position, media, bio }) => {
-      const positionInfo = position ? `💼 ${position}` : "🎭 Mystery Writer";
+    prepare: ({ title, position, media }) => {
+      const positionInfo = position ? `${position}` : "";
+
       return {
-        title: `✍️ ${title || "Unnamed Author"}`,
-        subtitle: `${positionInfo} | ${bio}`,
+        title: `${title || "Unnamed Person"}`,
+        subtitle: `${positionInfo}`,
         media,
       };
     },

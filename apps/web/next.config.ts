@@ -23,10 +23,39 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     const redirects = await client.fetch(queryRedirects);
-    return redirects.map((redirect) => ({
-      ...redirect,
-      permanent: redirect.permanent ?? false,
-    }));
+    interface SanityRedirect {
+      source: string;
+      destination: string;
+      permanent?: boolean;
+      // allow any additional fields coming from the CMS
+      [key: string]: unknown;
+    }
+
+    interface AppRedirect {
+      source: string;
+      destination: string;
+      permanent: boolean;
+    }
+
+    const mappedRedirects: AppRedirect[] = (redirects as SanityRedirect[]).map(
+      (redirect): AppRedirect => ({
+        ...redirect,
+        permanent: redirect.permanent ?? false,
+      })
+    );
+    const staticRedirects = [
+      {
+        source: "/events",
+        destination: "/connect",
+        permanent: true,
+      },
+      {
+        source: "/events/:slug*",
+        destination: "/connect/event/:slug*",
+        permanent: true,
+      },
+    ];
+    return [...mappedRedirects, ...staticRedirects];
   },
 };
 

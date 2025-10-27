@@ -4,12 +4,24 @@ import { featureCardsIcon } from "./feature-cards-icon";
 import { hero } from "./hero";
 import { imageLinkCards } from "./image-link-cards";
 import { subscribeNewsletter } from "./subscribe-newsletter";
+import { authorSection } from "./author-section";
+import { contentSection } from "./content-section";
+import { eventsList } from "./events-list";
+import { fullpageImage } from "./fullpage-image";
+import { scheduleBar } from "./schedule-bar";
+import { videoLibrary } from "./video-library";
 
 export const pageBuilderBlocks = [
   hero,
   cta,
+  contentSection,
+  authorSection,
   featureCardsIcon,
   faqAccordion,
   imageLinkCards,
   subscribeNewsletter,
+  fullpageImage,
+  scheduleBar,
+  videoLibrary,
+  eventsList,
 ];
