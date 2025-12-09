@@ -1,6 +1,6 @@
 import "@workspace/ui/globals.css";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Lato } from "next/font/google";
 import { draftMode } from "next/headers";
 import { Suspense } from "react";
 import { preconnect, prefetchDNS } from "react-dom";
@@ -12,10 +12,10 @@ import { VisualEditingWrapper } from "@/components/visual-editing";
 
 import { Providers } from "../components/providers";
 
-const fontGeist = Geist({
+const fontLato = Lato({
   subsets: ["latin"],
-  variable: "--font-geist",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-lato",
+  weight: ["100", "300", "400", "700", "900"],
   display: "optional",
 });
 
@@ -38,7 +38,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontGeist.variable} ${fontMono.variable} font-geist antialiased`}
+        className={`${fontLato.variable} ${fontMono.variable} font-lato font-normal antialiased`}
       >
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>

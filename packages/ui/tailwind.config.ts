@@ -13,7 +13,7 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        geist: ["var(--font-geist)", ...fontFamily.sans],
+        lato: ["var(--font-lato)", ...fontFamily.sans],
         mono: ["var(--font-mono)", ...fontFamily.mono],
       },
       colors: {
