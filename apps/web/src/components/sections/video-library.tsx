@@ -80,18 +80,11 @@ export const VideoLibrary: FC<VideoLibraryProps> = ({
   subtitle,
   videos = [],
 }) => {
-  // Fill with placeholders if we have fewer than 3 videos
-  const videoSlots = [...(Array.isArray(videos) ? videos : [])];
-  while (videoSlots.length < 3) {
-    videoSlots.push({
-      _key: `placeholder-${videoSlots.length}`,
-      title: `Video ${videoSlots.length + 1} Placeholder`,
-      description:
-        "This is a placeholder for your video content. Add your video through the CMS to replace this placeholder.",
-      videoUrl: "#",
-      duration: null,
-      thumbnail: null,
-    });
+  const videoSlots = Array.isArray(videos) ? videos : [];
+
+  // Don't render section if no videos
+  if (videoSlots.length === 0) {
+    return null;
   }
 
   return (
@@ -111,7 +104,7 @@ export const VideoLibrary: FC<VideoLibraryProps> = ({
 
         {/* Video Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videoSlots.slice(0, 3).map((video, index) => (
+          {videoSlots.map((video, index) => (
             <VideoCard
               key={video._key || `video-${index}`}
               title={video.title || `Video ${index + 1}`}

@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 
 import type { PagebuilderType } from "@/types";
+
 import { SanityImage } from "../sanity-image";
 
 export type FullpageImageBlockProps = PagebuilderType<"fullpageImage">;

@@ -20,7 +20,7 @@ const ContentImage: FC<{
       asset={asset}
       width={width}
       height={height}
-      className={`${count === 1 ? 'aspect-[4/3]' : 'aspect-square'} w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover`}
+      className={`${count === 1 ? "aspect-[4/3]" : "aspect-square"} w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover`}
     />
     <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
   </div>
@@ -72,7 +72,13 @@ const ContentImages: FC<{
   if (!layout) return null;
 
   return (
-    <div className={count === 1 ? "lg:row-span-2" : "pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto"}>
+    <div
+      className={
+        count === 1
+          ? "lg:row-span-2"
+          : "pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto"
+      }
+    >
       <div className={layout.container}>
         {layout.columns.map((column, columnIndex) => (
           <div key={columnIndex} className={column.className}>
@@ -103,7 +109,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
   images,
 }) => {
   return (
-    <div className="relative overflow-hidden section-spacing">
+    <div className="relative section-spacing">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         {/* Header with proper z-index */}
         <div className="relative z-20 max-w-4xl">
@@ -120,7 +126,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
           )}
         </div>
 
-        <section className="relative mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">
+        <section className="relative mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16 lg:min-h-[600px]">
           {/* Content Section with proper z-index */}
           <div className="relative z-10 lg:pr-8">
             {richText && (
@@ -133,7 +139,7 @@ export const ContentSection: FC<ContentSectionProps> = ({
 
           {/* Image Grid with lower z-index */}
           {images && Array.isArray(images) && images.length > 0 && (
-            <div className="relative z-0">
+            <div className="relative z-0 lg:sticky lg:top-10 lg:self-start">
               <ContentImages images={images} />
             </div>
           )}
