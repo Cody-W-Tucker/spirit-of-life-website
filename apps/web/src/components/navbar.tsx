@@ -15,9 +15,7 @@ export const NavbarServer: FC = async () => {
     sanityFetch(queryNavbarData),
     sanityFetch(queryGlobalSeoSettings),
   ]);
-  return (
-    <Navbar navbarData={navbarData} settingsData={settingsData} />
-  );
+  return <Navbar navbarData={navbarData} settingsData={settingsData} />;
 };
 
 export const Navbar: FC<{
@@ -28,11 +26,11 @@ export const Navbar: FC<{
   return (
     <section className="py-3 md:border-b">
       <div className="container mx-auto px-4 md:px-6">
-        <nav className="grid grid-cols-[auto_1fr] items-center gap-4">
-          <div className="flex items-center gap-4">
+        <nav className="grid grid-cols-[max-content_1fr] items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             {logo && <Logo alt={settingsSiteTitle} priority image={logo} />}
             {settingsSiteTitle && (
-              <h1 className="text-2xl font-bold text-foreground">
+              <h1 className="hidden lg:block text-xl md:text-2xl font-bold text-foreground whitespace-nowrap">
                 {settingsSiteTitle}
               </h1>
             )}
@@ -52,7 +50,7 @@ export const NavbarSkeleton: FC = () => {
         <nav className="grid grid-cols-[auto_1fr] items-center gap-4">
           <div className="flex items-center gap-4">
             <div className="h-[40px] w-[170px] rounded animate-pulse bg-muted" />
-            <div className="h-[32px] w-[200px] rounded animate-pulse bg-muted" />
+            <div className="hidden lg:block h-[32px] w-[200px] rounded animate-pulse bg-muted" />
           </div>
           <NavbarSkeletonResponsive />
         </nav>

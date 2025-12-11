@@ -617,6 +617,14 @@
             "type": "string"
           },
           "optional": true
+        },
+        "button": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "inline",
+            "name": "button"
+          },
+          "optional": true
         }
       }
     }
@@ -6034,7 +6042,7 @@
     }
   },
   {
-    "name": "sanity.video",
+    "name": "sanity.videoMetadata.playback",
     "type": "type",
     "value": {
       "type": "object",
@@ -6043,43 +6051,13 @@
           "type": "objectAttribute",
           "value": {
             "type": "string",
-            "value": "sanity.video"
+            "value": "sanity.videoMetadata.playback"
           }
         },
-        "asset": {
+        "policy": {
           "type": "objectAttribute",
           "value": {
-            "type": "object",
-            "attributes": {
-              "_ref": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                }
-              },
-              "_type": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string",
-                  "value": "reference"
-                }
-              },
-              "_weak": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "boolean"
-                },
-                "optional": true
-              }
-            },
-            "dereferencesTo": "sanity.videoAsset"
-          },
-          "optional": true
-        },
-        "media": {
-          "type": "objectAttribute",
-          "value": {
-            "type": "unknown"
+            "type": "string"
           },
           "optional": true
         }
@@ -6281,6 +6259,36 @@
           "type": "objectAttribute",
           "value": {
             "type": "number"
+          },
+          "optional": true
+        }
+      }
+    }
+  },
+  {
+    "name": "sanity.video",
+    "type": "type",
+    "value": {
+      "type": "object",
+      "attributes": {
+        "_type": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string",
+            "value": "sanity.video"
+          }
+        },
+        "asset": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "unknown"
+          },
+          "optional": true
+        },
+        "media": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "unknown"
           },
           "optional": true
         }
@@ -7239,21 +7247,21 @@
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "width": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "aspectRatio": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -7276,28 +7284,28 @@
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "y": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "height": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "width": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         }
       }
     }
@@ -7320,28 +7328,28 @@
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "bottom": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "left": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         },
         "right": {
           "type": "objectAttribute",
           "value": {
             "type": "number"
           },
-          "optional": true
+          "optional": false
         }
       }
     }

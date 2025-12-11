@@ -1,5 +1,6 @@
 import { Badge } from "@workspace/ui/components/badge";
 import type { FC } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -8,23 +9,71 @@ import { SanityImage } from "../sanity-image";
 
 type ContentSectionProps = PagebuilderType<"contentSection">;
 
-// Reusable image component
+// Reusable image component with subtle parallax
 const ContentImage: FC<{
   asset: NonNullable<ContentSectionProps["images"]>[number];
   width: number;
   height: number;
   count?: number;
-}> = ({ asset, width, height, count }) => (
-  <div className="relative">
-    <SanityImage
-      asset={asset}
-      width={width}
-      height={height}
-      className={`${count === 1 ? "aspect-[4/3]" : "aspect-square"} w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover`}
-    />
-    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-  </div>
-);
+}> = ({ asset, width, height, count }) => {
+  const [offsetY, setOffsetY] = useState(0);
+  const imageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!imageRef.current) return;
+
+      const rect = imageRef.current.getBoundingClientRect();
+      const scrollY = window.scrollY;
+      const elementTop = rect.top + scrollY;
+      const windowHeight = window.innerHeight;
+
+      // Calculate parallax offset (subtle effect)
+      let parallaxOffset = (scrollY - elementTop + windowHeight) * 0.2;
+
+      // Limit movement on mobile to prevent overlapping text
+      if (window.innerWidth < 1024) {
+        parallaxOffset = Math.min(parallaxOffset, 50);
+      }
+
+      setOffsetY(parallaxOffset);
+    };
+
+    // Throttle scroll events for performance
+    let ticking = false;
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+        setTimeout(() => (ticking = false), 16); // ~60fps
+      }
+    };
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+    handleScroll(); // Initial calculation
+
+    return () => window.removeEventListener("scroll", throttledScroll);
+  }, []);
+
+  return (
+    <div
+      ref={imageRef}
+      className="relative"
+      style={{
+        transform: `translateY(${offsetY}px)`,
+        transition: "transform 0.1s ease-out",
+      }}
+    >
+      <SanityImage
+        asset={asset}
+        width={width}
+        height={height}
+        className={`${count === 1 ? "aspect-[4/3]" : "aspect-square"} w-full rounded-xl shadow-xl outline outline-1 -outline-offset-1 outline-black/10 object-cover`}
+      />
+      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+    </div>
+  );
+};
 
 // Layout configurations for different image counts
 const imageLayouts = {
@@ -35,29 +84,29 @@ const imageLayouts = {
   },
   2: {
     container:
-      "-mx-8 grid grid-cols-2 gap-6 sm:-mx-16 lg:mx-0 lg:gap-8 xl:gap-12",
+      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 lg:mx-0 lg:gap-8 xl:gap-8",
     columns: [
       { className: "", images: [0] },
-      { className: "-mt-8 lg:-mt-40", images: [1] },
+      { className: "mt-4 lg:mt-8", images: [1] },
     ],
   },
   3: {
     container:
-      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-3 lg:mx-0 lg:grid-cols-2 lg:gap-6 xl:gap-8",
+      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-3 lg:mx-0 lg:grid-cols-2 lg:gap-8 xl:gap-8",
     columns: [
       { className: "", images: [0] },
-      { className: "-mt-8 lg:-mt-40", images: [1] },
+      { className: "mt-4 lg:mt-8", images: [1] },
       { className: "", images: [2] },
     ],
   },
   4: {
     container:
-      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-4 xl:gap-8",
+      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-8 xl:gap-8",
     columns: [
       { className: "", images: [0] },
-      { className: "-mt-8 lg:-mt-40", images: [1] },
+      { className: "mt-4 lg:mt-8", images: [1] },
       { className: "", images: [2] },
-      { className: "-mt-8 lg:-mt-40", images: [3] },
+      { className: "mt-4 lg:mt-8", images: [3] },
     ],
   },
 } as const;

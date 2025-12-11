@@ -72,76 +72,49 @@ export function PageBuilder({
     },
   );
 
-  // Separate fullpageImage, scheduleBar, hero, and contentSection blocks from others
-  const fullWidthBlocks = pageBuilder.filter(
-    (block) =>
-      block._type === "fullpageImage" ||
-      block._type === "scheduleBar" ||
-      block._type === "hero" ||
-      block._type === "contentSection",
-  );
-  const normalBlocks = pageBuilder.filter(
-    (block) =>
-      block._type !== "fullpageImage" &&
-      block._type !== "scheduleBar" &&
-      block._type !== "hero" &&
-      block._type !== "contentSection",
-  );
-
   return (
-    <>
-      {/* Render full width blocks outside the constrained main */}
-      {fullWidthBlocks.map((block) => {
+    <div className="flex flex-col [--section-gap:clamp(24px,4vw,64px)] gap-y-[var(--section-gap)] my-[var(--section-gap)]">
+      {pageBuilder.map((block) => {
         const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
           PagebuilderType<BlockType>
         >;
-        return <Component key={`${block._type}-${block._key}`} {...block} />;
-      })}
-      {/* Render normal blocks inside the constrained main */}
-      <main
-        className="flex flex-col [--section-gap:clamp(24px,4vw,64px)] gap-y-[var(--section-gap)] my-[var(--section-gap)] max-w-7xl mx-auto"
-        data-sanity={createDataAttribute({
-          id: id,
-          baseUrl: studioUrl,
-          projectId: projectId,
-          dataset: dataset,
-          type: type,
-          path: "pageBuilder",
-        }).toString()}
-      >
-        {normalBlocks.map((block) => {
-          const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
-            PagebuilderType<BlockType>
-          >;
 
-          if (!Component) {
-            return (
-              <div
-                key={`${block._type}-${block._key}`}
-                className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg"
-              >
-                Component not found for block type: <code>{block._type}</code>
-              </div>
-            );
-          }
-
+        if (!Component) {
           return (
             <div
               key={`${block._type}-${block._key}`}
-              data-sanity={createDataAttribute({
-                id: id,
-                baseUrl: studioUrl,
-                projectId: projectId,
-                dataset: dataset,
-                type: type,
-                path: `pageBuilder[_key=="${block._key}"]`,
-              }).toString()}
+              className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg max-w-7xl mx-auto"
             >
-              <Component {...block} />
+              Component not found for block type: <code>{block._type}</code>
             </div>
           );
-        })}
-      </main>
-    </>
+        }
+
+        // Check if this block needs full width (no container constraints)
+        const isFullWidth =
+          block._type === "fullpageImage" ||
+          block._type === "scheduleBar" ||
+          block._type === "hero" ||
+          block._type === "contentSection" ||
+          block._type === "cta";
+
+        return (
+          <div
+            key={`${block._type}-${block._key}`}
+            className={isFullWidth ? "" : "max-w-7xl mx-auto"}
+            data-sanity={createDataAttribute({
+              id: id,
+              baseUrl: studioUrl,
+              projectId: projectId,
+              dataset: dataset,
+              type: type,
+              path: `pageBuilder[_key=="${block._key}"]`,
+            }).toString()}
+          >
+            <Component {...block} />
+          </div>
+        );
+      })}
+    </div>
   );
 }

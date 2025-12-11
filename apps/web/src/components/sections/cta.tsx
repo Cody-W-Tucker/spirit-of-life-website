@@ -18,7 +18,7 @@ export const CTABlock: FC<CTABlockProps> = ({
     <section id="features" className="section-spacing-tight">
       <div className="container mx-auto px-4 md:px-8">
         <div className="bg-muted py-16 rounded-3xl px-4">
-          <div className="text-center max-w-3xl mx-auto space-y-8">
+          <div className="text-center max-w-5xl mx-auto space-y-8">
             {eyebrow && (
               <Badge variant="secondary" className="bg-zinc-200">
                 {eyebrow}

@@ -19,6 +19,11 @@ export const fullpageImage = defineType({
       type: "string",
       title: "Overlay Text",
     }),
+    defineField({
+      name: "button",
+      type: "button",
+      title: "Button",
+    }),
   ],
   preview: {
     select: {

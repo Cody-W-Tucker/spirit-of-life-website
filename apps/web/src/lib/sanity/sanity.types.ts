@@ -104,6 +104,7 @@ export type FullpageImage = {
     _type: "image";
   };
   overlayText?: string;
+  button?: Button;
 };
 
 export type SubscribeNewsletter = {
@@ -913,15 +914,9 @@ export type CustomUrl = {
       };
 };
 
-export type SanityVideo = {
-  _type: "sanity.video";
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.videoAsset";
-  };
-  media?: unknown;
+export type SanityVideoMetadataPlayback = {
+  _type: "sanity.videoMetadata.playback";
+  policy?: string;
 };
 
 export type SanityVideoAsset = {
@@ -955,6 +950,12 @@ export type SanityVideoMetadata = {
   hasAudio?: boolean;
   codec?: string;
   bitrate?: number;
+};
+
+export type SanityVideo = {
+  _type: "sanity.video";
+  asset?: unknown;
+  media?: unknown;
 };
 
 export type MediaTag = {
@@ -1129,25 +1130,25 @@ export type SanityImagePalette = {
 
 export type SanityImageDimensions = {
   _type: "sanity.imageDimensions";
-  height?: number;
-  width?: number;
-  aspectRatio?: number;
+  height: number;
+  width: number;
+  aspectRatio: number;
 };
 
 export type SanityImageHotspot = {
   _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
+  x: number;
+  y: number;
+  height: number;
+  width: number;
 };
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
 };
 
 export type SanityFileAsset = {
@@ -1254,9 +1255,10 @@ export type AllSanitySchemaTypes =
   | Page
   | Blog
   | CustomUrl
-  | SanityVideo
+  | SanityVideoMetadataPlayback
   | SanityVideoAsset
   | SanityVideoMetadata
+  | SanityVideo
   | MediaTag
   | IconPicker
   | SanityAssistInstructionTask
@@ -1817,7 +1819,14 @@ export type QueryHomePageDataResult = {
               dimensions: SanityImageDimensions | null;
             };
         overlayText: string | null;
-        button: null;
+        button: {
+          text: string | null;
+          variant: "default" | "link" | "outline" | "secondary" | null;
+          _key: null;
+          _type: "button";
+          openInNewTab: boolean | null;
+          href: string | null;
+        } | null;
       }
     | {
         _key: string;
@@ -2652,7 +2661,14 @@ export type QuerySlugPageDataResult = {
               dimensions: SanityImageDimensions | null;
             };
         overlayText: string | null;
-        button: null;
+        button: {
+          text: string | null;
+          variant: "default" | "link" | "outline" | "secondary" | null;
+          _key: null;
+          _type: "button";
+          openInNewTab: boolean | null;
+          href: string | null;
+        } | null;
       }
     | {
         _key: string;
@@ -3481,7 +3497,14 @@ export type QueryBlogIndexPageDataResult = {
               dimensions: SanityImageDimensions | null;
             };
         overlayText: string | null;
-        button: null;
+        button: {
+          text: string | null;
+          variant: "default" | "link" | "outline" | "secondary" | null;
+          _key: null;
+          _type: "button";
+          openInNewTab: boolean | null;
+          href: string | null;
+        } | null;
       }
     | {
         _key: string;
@@ -4612,7 +4635,14 @@ export type QueryConnectPageDataResult = {
               dimensions: SanityImageDimensions | null;
             };
         overlayText: string | null;
-        button: null;
+        button: {
+          text: string | null;
+          variant: "default" | "link" | "outline" | "secondary" | null;
+          _key: null;
+          _type: "button";
+          openInNewTab: boolean | null;
+          href: string | null;
+        } | null;
       }
     | {
         _key: string;

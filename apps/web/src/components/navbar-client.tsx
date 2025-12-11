@@ -200,9 +200,10 @@ function NavbarColumnLink({
 }
 
 function getColumnLayoutClass(itemCount: number) {
-  if (itemCount <= 4) return "w-80";
-  if (itemCount <= 8) return "grid grid-cols-2 gap-2 w-[500px]";
-  return "grid grid-cols-3 gap-2 w-[700px]";
+  if (itemCount <= 4) return "w-80 max-w-[calc(100vw-2rem)]";
+  if (itemCount <= 8)
+    return "grid grid-cols-2 gap-2 w-[500px] max-w-[calc(100vw-2rem)]";
+  return "grid grid-cols-3 gap-2 w-[700px] max-w-[calc(100vw-2rem)]";
 }
 
 export function NavbarColumn({
@@ -258,26 +259,24 @@ export function DesktopNavbar({
   const { columns, buttons } = navbarData ?? {};
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 md:px-6">
-      <div className="grid grid-cols-[1fr_auto] items-center gap-8">
-        <div className="flex justify-center">
-          <NavigationMenu className="">
-            {columns?.map((column) =>
-              column.type === "column" ? (
-                <NavbarColumn key={`nav-${column._key}`} column={column} />
-              ) : (
-                <NavbarColumnLink key={`nav-${column._key}`} column={column} />
-              ),
-            )}
-          </NavigationMenu>
-        </div>
+    <div className="grid grid-cols-[1fr_auto] items-center gap-8 w-full">
+      <div className="flex justify-center">
+        <NavigationMenu className="">
+          {columns?.map((column) =>
+            column.type === "column" ? (
+              <NavbarColumn key={`nav-${column._key}`} column={column} />
+            ) : (
+              <NavbarColumnLink key={`nav-${column._key}`} column={column} />
+            ),
+          )}
+        </NavigationMenu>
+      </div>
 
-        <div className="justify-self-end flex items-center gap-4">
-          <SanityButtons
-            buttons={buttons ?? []}
-            className="flex items-center gap-4"
-          />
-        </div>
+      <div className="justify-self-end flex items-center gap-4">
+        <SanityButtons
+          buttons={buttons ?? []}
+          className="flex items-center gap-4"
+        />
       </div>
     </div>
   );
@@ -288,7 +287,7 @@ const ClientSideNavbar = ({
 }: {
   navbarData: QueryNavbarDataResult;
 }) => {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(1024);
 
   if (isMobile === undefined) {
     return null; // Return null on initial render to avoid hydration mismatch
@@ -303,7 +302,7 @@ const ClientSideNavbar = ({
 
 function SkeletonMobileNavbar() {
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <div className="flex justify-end">
         <div className="h-12 w-12 rounded-md bg-muted animate-pulse" />
       </div>
@@ -313,7 +312,7 @@ function SkeletonMobileNavbar() {
 
 function SkeletonDesktopNavbar() {
   return (
-    <div className="hidden md:grid grid-cols-[1fr_auto] items-center gap-8 w-full">
+    <div className="hidden lg:grid grid-cols-[1fr_auto] items-center gap-8 w-full">
       <div className="justify-center flex max-w-max flex-1 items-center gap-2">
         {Array.from({ length: 2 }).map((_, index) => (
           <div
