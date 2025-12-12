@@ -1,3 +1,4 @@
+import { getImageDimensions } from "@sanity/asset-utils";
 import { Badge } from "@workspace/ui/components/badge";
 import type { FC } from "react";
 
@@ -21,7 +22,7 @@ const HeroImage: FC<{
       asset={asset}
       width={width}
       height={height}
-      className={`${count === 1 ? 'aspect-[4/3]' : 'aspect-[2/3]'} w-full rounded-xl bg-gray-900/5 object-cover shadow-lg`}
+      className={`${count === 1 ? "aspect-auto p-4" : "aspect-[2/3]"} w-full rounded-xl bg-white object-cover shadow-lg`}
     />
     <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
   </div>
@@ -104,18 +105,35 @@ const HeroImages: FC<{ images: NonNullable<HeroBlockProps["images"]> }> = ({
   return (
     <div className={count === 1 ? "mt-8 lg:mt-0" : layout.container}>
       {layout.columns.map((column, columnIndex) => (
-        <div key={columnIndex} className={count === 1 ? "w-full max-w-2xl" : column.className}>
+        <div
+          key={columnIndex}
+          className={count === 1 ? "w-full" : column.className}
+        >
           {column.images.map((imageIndex) => {
             const image = images[imageIndex];
-            return image ? (
+            if (!image?.asset) return null;
+
+            const width = count === 1 ? 2000 : count === 2 ? 240 : 176;
+            let height = count === 1 ? 1333 : count === 2 ? 360 : 264;
+
+            if (count === 1) {
+              const dimensions = getImageDimensions(image.asset);
+              if (dimensions) {
+                height = Math.round(
+                  width * (dimensions.height / dimensions.width),
+                );
+              }
+            }
+
+            return (
               <HeroImage
                 key={imageIndex}
                 asset={image}
-                width={count === 1 ? 1200 : count === 2 ? 240 : 176}
-                height={count === 1 ? 800 : count === 2 ? 360 : 264}
+                width={width}
+                height={height}
                 count={count}
               />
-            ) : null;
+            );
           })}
         </div>
       ))}

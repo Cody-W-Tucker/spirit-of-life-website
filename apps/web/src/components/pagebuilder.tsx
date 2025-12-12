@@ -73,7 +73,7 @@ export function PageBuilder({
   );
 
   return (
-    <div className="flex flex-col [--section-gap:clamp(24px,4vw,64px)] gap-y-[var(--section-gap)] my-[var(--section-gap)]">
+    <div className="flex flex-col [--section-gap:clamp(16px,2vw,32px)] gap-y-[var(--section-gap)] my-[var(--section-gap)]">
       {pageBuilder.map((block) => {
         const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
           PagebuilderType<BlockType>
