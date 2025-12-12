@@ -79,12 +79,12 @@ const ContentImage: FC<{
 const imageLayouts = {
   1: {
     container:
-      "-mx-8 flex justify-center gap-4 sm:-mx-16 lg:mx-0 lg:gap-4 xl:gap-8",
+      "-mx-6 flex justify-center gap-4 md:-mx-16 lg:mx-0 lg:gap-4 xl:gap-8",
     columns: [{ className: "w-full", images: [0] }],
   },
   2: {
     container:
-      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 lg:mx-0 lg:gap-8 xl:gap-8",
+      "-mx-6 grid grid-cols-2 gap-4 md:-mx-16 lg:mx-0 lg:gap-8 xl:gap-8",
     columns: [
       { className: "", images: [0] },
       { className: "mt-4 lg:mt-8", images: [1] },
@@ -92,7 +92,7 @@ const imageLayouts = {
   },
   3: {
     container:
-      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-3 lg:mx-0 lg:grid-cols-2 lg:gap-8 xl:gap-8",
+      "-mx-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:-mx-16 lg:mx-0 lg:grid-cols-2 lg:gap-8 xl:gap-8",
     columns: [
       { className: "", images: [0] },
       { className: "mt-4 lg:mt-8", images: [1] },
@@ -101,7 +101,7 @@ const imageLayouts = {
   },
   4: {
     container:
-      "-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-8 xl:gap-8",
+      "-mx-6 grid grid-cols-2 gap-4 sm:grid-cols-4 md:-mx-16 lg:mx-0 lg:grid-cols-2 lg:gap-8 xl:gap-8",
     columns: [
       { className: "", images: [0] },
       { className: "mt-4 lg:mt-8", images: [1] },
@@ -125,7 +125,7 @@ const ContentImages: FC<{
       className={
         count === 1
           ? "lg:row-span-2"
-          : "pt-16 lg:row-span-2 lg:-mr-16 xl:mr-auto"
+          : "pt-16 lg:row-span-2 lg:-mr-8 xl:mr-auto"
       }
     >
       <div className={layout.container}>
