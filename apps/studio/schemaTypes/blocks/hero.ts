@@ -34,15 +34,30 @@ export const hero = defineType({
       ],
       validation: (Rule) => Rule.max(5).error("Maximum 5 images allowed"),
     }),
+    defineField({
+      name: "layout",
+      type: "string",
+      title: "Layout",
+      options: {
+        list: [
+          { title: "Content Left, Image Right", value: "left" },
+          { title: "Content Right, Image Left", value: "right" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "left",
+    }),
     buttonsField,
   ],
   preview: {
     select: {
       title: "title",
+      image: "images.0",
     },
-    prepare: ({ title }) => ({
+    prepare: ({ title, image }) => ({
       title,
       subtitle: "Hero Block",
+      media: image,
     }),
   },
 });

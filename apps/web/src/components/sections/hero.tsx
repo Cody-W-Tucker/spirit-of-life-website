@@ -1,5 +1,6 @@
 import { getImageDimensions } from "@sanity/asset-utils";
 import { Badge } from "@workspace/ui/components/badge";
+import { cn } from "@workspace/ui/lib/utils";
 import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
@@ -147,13 +148,17 @@ export const HeroBlock: FC<HeroBlockProps> = ({
   badge,
   images,
   richText,
+  layout,
 }: HeroBlockProps) => {
   return (
     <div className="bg-white">
       <div className="relative isolate">
         <svg
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
+          className={cn(
+            "absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-100 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]",
+            layout === "right" && "-scale-x-100",
+          )}
         >
           <defs>
             <pattern
@@ -182,19 +187,29 @@ export const HeroBlock: FC<HeroBlockProps> = ({
         </svg>
         <div
           aria-hidden="true"
-          className="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
+          className={cn(
+            "absolute top-0 -z-10 transform-gpu overflow-hidden blur-3xl",
+            layout === "right"
+              ? "right-1/2 left-0 -mr-24 lg:mr-24 xl:mr-48"
+              : "left-1/2 right-0 -ml-24 lg:ml-24 xl:ml-48",
+          )}
         >
           <div
             style={{
               clipPath:
                 "polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)",
             }}
-            className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#007458] via-[#FFFFFF] to-[#404040] opacity-30"
+            className="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-brand-primary to-brand-primary-dark opacity-10"
           />
         </div>
         <div className="overflow-hidden">
           <div className="mx-auto max-w-7xl px-6 pb-32 pt-24 sm:pt-32 lg:px-8 lg:pt-32">
-            <div className="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
+            <div
+              className={cn(
+                "mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center",
+                layout === "right" && "lg:flex-row-reverse",
+              )}
+            >
               <div className="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
                 {badge && (
                   <Badge variant="secondary" className="mb-8">
