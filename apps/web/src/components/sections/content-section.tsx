@@ -31,9 +31,12 @@ const ContentImage: FC<{
       // Calculate parallax offset (subtle effect)
       let parallaxOffset = (scrollY - elementTop + windowHeight) * 0.2;
 
-      // Limit movement on mobile to prevent overlapping text
+      // Limit movement to prevent overlapping text or breaking layout
       if (window.innerWidth < 1024) {
         parallaxOffset = Math.min(parallaxOffset, 50);
+      } else {
+        // Limit desktop parallax as well
+        parallaxOffset = Math.min(parallaxOffset, 100);
       }
 
       setOffsetY(parallaxOffset);
