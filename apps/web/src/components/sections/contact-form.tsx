@@ -7,8 +7,9 @@ import type { FC } from "react";
 import { useFormStatus } from "react-dom";
 
 import { contactSubmission } from "@/action/contact-submission";
+import type { SanityRichTextProps } from "@/types";
+
 import { RichText } from "../richtext";
-import { SanityRichTextProps } from "@/types";
 
 interface ContactFormProps {
   _type: "contactForm";

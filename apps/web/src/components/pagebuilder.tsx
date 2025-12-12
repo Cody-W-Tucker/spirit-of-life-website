@@ -8,8 +8,8 @@ import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
 import type { PagebuilderType } from "@/types";
 
 import { AuthorSection } from "./sections/author-section";
-import { ContentSection } from "./sections/content-section";
 import { ContactForm } from "./sections/contact-form";
+import { ContentSection } from "./sections/content-section";
 import { CTABlock } from "./sections/cta";
 import { EventsListSection } from "./sections/events-list";
 import { FaqAccordion } from "./sections/faq-accordion";

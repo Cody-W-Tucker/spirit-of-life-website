@@ -1,9 +1,10 @@
+import type { Metadata } from "next";
+
 import { PageBuilder } from "@/components/pagebuilder";
 import { ContactForm } from "@/components/sections/contact-form";
 import { sanityFetch } from "@/lib/sanity/live";
 import { querySlugPageData } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
-import { Metadata } from "next";
 
 async function fetchContactPageData() {
   // We try to fetch a page with slug "/contact"
