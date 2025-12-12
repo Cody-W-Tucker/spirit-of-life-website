@@ -1,4 +1,5 @@
 import { authorSection } from "./author-section";
+import { contactForm } from "./contact-form";
 import { contentSection } from "./content-section";
 import { cta } from "./cta";
 import { eventsList } from "./events-list";
@@ -24,4 +25,5 @@ export const pageBuilderBlocks = [
   scheduleBar,
   videoLibrary,
   eventsList,
+  contactForm,
 ];

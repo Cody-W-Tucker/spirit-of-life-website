@@ -9,6 +9,7 @@ import type { PagebuilderType } from "@/types";
 
 import { AuthorSection } from "./sections/author-section";
 import { ContentSection } from "./sections/content-section";
+import { ContactForm } from "./sections/contact-form";
 import { CTABlock } from "./sections/cta";
 import { EventsListSection } from "./sections/events-list";
 import { FaqAccordion } from "./sections/faq-accordion";
@@ -39,6 +40,7 @@ type PageData = {
 const BLOCK_COMPONENTS = {
   authorSection: AuthorSection,
   contentSection: ContentSection,
+  contactForm: ContactForm,
   cta: CTABlock,
   faqAccordion: FaqAccordion,
   hero: HeroBlock,

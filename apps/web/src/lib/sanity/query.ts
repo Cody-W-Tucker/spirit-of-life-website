@@ -182,6 +182,20 @@ const subscribeNewsletterBlock = /* groq */ `
   }
 `;
 
+const contactFormBlock = /* groq */ `
+  _type == "contactForm" => {
+    ...,
+    "subTitle": subTitle[]{
+      ...,
+      ${markDefsFragment}
+    },
+    "helperText": helperText[]{
+      ...,
+      ${markDefsFragment}
+    }
+  }
+`;
+
 const fullpageImageBlock = /* groq */ `
   _type == "fullpageImage" => {
     ...,
@@ -308,6 +322,7 @@ const pageBuilderFragment = /* groq */ `
     ${authorSectionBlock},
     ${faqAccordionBlock},
     ${subscribeNewsletterBlock},
+    ${contactFormBlock},
     ${imageLinkCardsBlock},
     ${fullpageImageBlock},
     ${scheduleBarBlock},
