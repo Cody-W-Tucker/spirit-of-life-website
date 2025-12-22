@@ -23,7 +23,7 @@ const HeroImage: FC<{
       asset={asset}
       width={width}
       height={height}
-      className={`${count === 1 ? "aspect-auto p-4" : "aspect-[2/3]"} w-full rounded-xl bg-white object-cover shadow-lg`}
+      className={`${count === 1 ? "aspect-auto p-4" : "aspect-[2/3]"} w-full rounded-xl bg-white object-cover shadow-xl`}
     />
     <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
   </div>

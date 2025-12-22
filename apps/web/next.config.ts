@@ -33,6 +33,11 @@ const nextConfig: NextConfig = {
         destination: "/connect/event/:slug*",
         permanent: true,
       },
+      {
+        source: "/online-giving",
+        destination: "https://spiritoflifekearney.churchcenter.com/giving",
+        permanent: true,
+      },
     ];
   },
 };

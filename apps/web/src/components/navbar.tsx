@@ -30,10 +30,15 @@ export const Navbar: FC<{
       <div className="bg-brand-primary text-brand-text-white text-sm py-2 px-4">
         <div className="container mx-auto px-4 md:px-6 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=3148+Dove+Hill+Ave+Kearney+NE+68845"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity hover:underline"
+            >
               <MapPin className="w-4 h-4 text-accent" />
               <span>3148 Dove Hill Ave, Kearney, NE 68845</span>
-            </div>
+            </a>
           </div>
           <div className="flex items-center gap-2 opacity-90 hover:opacity-100 transition-opacity">
             <Clock className="w-4 h-4 text-accent" />
