@@ -156,7 +156,7 @@ export const HeroBlock: FC<HeroBlockProps> = ({
         <svg
           aria-hidden="true"
           className={cn(
-            "absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-100 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]",
+            "absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]",
             layout === "right" && "-scale-x-100",
           )}
         >
@@ -172,7 +172,7 @@ export const HeroBlock: FC<HeroBlockProps> = ({
               <path d="M.5 200V.5H200" fill="none" />
             </pattern>
           </defs>
-          <svg x="50%" y={-1} className="overflow-visible fill-gray-50">
+          <svg x="50%" y={-1} className="overflow-visible fill-gray-100">
             <path
               d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
               strokeWidth={0}
@@ -210,7 +210,7 @@ export const HeroBlock: FC<HeroBlockProps> = ({
                 layout === "right" && "lg:flex-row-reverse",
               )}
             >
-              <div className="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl">
+              <div className="relative w-full lg:max-w-xl lg:shrink-0 xl:max-w-2xl bg-white/70 backdrop-blur-sm rounded-2xl p-8 lg:p-10">
                 {badge && (
                   <Badge variant="secondary" className="mb-8">
                     {badge}
