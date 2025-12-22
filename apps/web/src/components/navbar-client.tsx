@@ -300,6 +300,48 @@ const ClientSideNavbar = ({
   );
 };
 
+export function StickySection({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show navbar if scrolling up
+      if (currentScrollY < lastScrollY) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Hide navbar if scrolling down and not at top
+        setIsVisible(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", controlNavbar);
+
+    return () => {
+      window.removeEventListener("scroll", controlNavbar);
+    };
+  }, [lastScrollY]);
+
+  return (
+    <section
+      className={cn(
+        "py-3 md:border-b bg-white sticky top-0 z-50 transition-transform duration-300 ease-in-out",
+        isVisible ? "translate-y-0" : "-translate-y-full",
+      )}
+    >
+      {children}
+    </section>
+  );
+}
+
 function SkeletonMobileNavbar() {
   return (
     <div className="lg:hidden">

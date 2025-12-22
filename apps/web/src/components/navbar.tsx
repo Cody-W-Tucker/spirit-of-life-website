@@ -9,7 +9,11 @@ import type {
 } from "@/lib/sanity/sanity.types";
 
 import { Logo } from "./logo";
-import { NavbarClient, NavbarSkeletonResponsive } from "./navbar-client";
+import {
+  NavbarClient,
+  NavbarSkeletonResponsive,
+  StickySection,
+} from "./navbar-client";
 
 export const NavbarServer: FC = async () => {
   const [navbarData, settingsData] = await Promise.all([
@@ -25,7 +29,7 @@ export const Navbar: FC<{
 }> = ({ navbarData, settingsData }) => {
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
   return (
-    <div className="flex flex-col">
+    <>
       {/* Top Bar */}
       <div className="bg-brand-primary text-brand-text-white text-sm py-2 px-4">
         <div className="container mx-auto px-4 md:px-6 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
@@ -47,7 +51,7 @@ export const Navbar: FC<{
         </div>
       </div>
 
-      <section className="py-3 md:border-b bg-white relative z-50">
+      <StickySection>
         <div className="container mx-auto px-4 md:px-6">
           <nav className="grid grid-cols-[max-content_1fr] items-center gap-4">
             <div className="flex items-center gap-2 md:gap-4">
@@ -62,8 +66,8 @@ export const Navbar: FC<{
             <NavbarClient navbarData={navbarData} />
           </nav>
         </div>
-      </section>
-    </div>
+      </StickySection>
+    </>
   );
 };
 
