@@ -191,14 +191,6 @@ function Footer({ data, settingsData }: FooterProps) {
               <p>
                 © {year} {siteTitle}. All rights reserved.
               </p>
-              <ul className="flex justify-center gap-4 lg:justify-start">
-                <li className="hover:text-primary">
-                  <Link href="/terms">Terms and Conditions</Link>
-                </li>
-                <li className="hover:text-primary">
-                  <Link href="/privacy">Privacy Policy</Link>
-                </li>
-              </ul>
             </div>
           </div>
         </footer>
