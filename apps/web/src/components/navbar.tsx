@@ -16,9 +16,9 @@ import {
 } from "./navbar-client";
 
 export const NavbarServer: FC = async () => {
-  const [navbarData, settingsData] = await Promise.all([
-    sanityFetch(queryNavbarData),
-    sanityFetch(queryGlobalSeoSettings),
+  const [{ data: navbarData }, { data: settingsData }] = await Promise.all([
+    sanityFetch({ query: queryNavbarData }),
+    sanityFetch({ query: queryGlobalSeoSettings }),
   ]);
   return <Navbar navbarData={navbarData} settingsData={settingsData} />;
 };

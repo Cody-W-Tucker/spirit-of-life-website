@@ -27,9 +27,9 @@ interface FooterProps {
 }
 
 export const FooterServer: FC = async () => {
-  const [response, settingsResponse] = await Promise.all([
-    sanityFetch(queryFooterData),
-    sanityFetch(queryGlobalSeoSettings),
+  const [{ data: response }, { data: settingsResponse }] = await Promise.all([
+    sanityFetch({ query: queryFooterData }),
+    sanityFetch({ query: queryGlobalSeoSettings }),
   ]);
 
   if (!response || !settingsResponse) return <FooterSkeleton />;

@@ -1,12 +1,8 @@
 "use client";
 
-import { enableVisualEditing } from "@sanity/visual-editing";
-import { useEffect } from "react";
+import type { JSX } from "react";
+import { VisualEditing } from "next-sanity/visual-editing";
 
-export function VisualEditingWrapper() {
-    useEffect(() => {
-        enableVisualEditing();
-    }, []);
-
-    return null;
+export function VisualEditingWrapper(): JSX.Element {
+  return <VisualEditing />;
 }

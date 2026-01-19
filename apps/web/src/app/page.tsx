@@ -4,7 +4,8 @@ import { queryHomePageData } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchHomePageData() {
-  return await sanityFetch(queryHomePageData);
+  const { data } = await sanityFetch({ query: queryHomePageData });
+  return data;
 }
 
 export async function generateMetadata() {

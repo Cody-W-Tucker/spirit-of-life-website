@@ -6,7 +6,7 @@ import type {
   internalGroqTypeReferenceTo,
   SanityImageCrop,
   SanityImageDimensions,
-  SanityImageHotspot
+  SanityImageHotspot,
 } from "@/lib/sanity/sanity.types";
 
 import { SanityImage } from "./sanity-image";
@@ -88,10 +88,10 @@ function EventMeta({
       <time dateTime={startDate ?? ""} className="text-muted-foreground">
         {startDate
           ? new Date(startDate).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          })
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })
           : ""}
       </time>
       {endDate && (
@@ -174,7 +174,11 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div className="w-full space-y-4">
-        <EventMeta startDate={displayStart} endDate={displayEnd} location={location} />
+        <EventMeta
+          startDate={displayStart}
+          endDate={displayEnd}
+          location={location}
+        />
         <EventContent title={title} slug={slug} description={description} />
       </div>
     </article>

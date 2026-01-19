@@ -9,7 +9,11 @@ import { getMetaData } from "@/lib/seo";
 async function fetchContactPageData() {
   // We try to fetch a page with slug "/contact"
   // If your CMS slugs don't start with /, try just "contact"
-  return await sanityFetch(querySlugPageData, { slug: "/contact" });
+  const { data } = await sanityFetch({
+    query: querySlugPageData,
+    params: { slug: "/contact" },
+  });
+  return data;
 }
 
 export async function generateMetadata(): Promise<Metadata> {

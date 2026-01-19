@@ -9,6 +9,7 @@ import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
 import { VisualEditingWrapper } from "@/components/visual-editing";
+import { SanityLive } from "@/lib/sanity/live";
 
 import { Providers } from "../components/providers";
 
@@ -52,6 +53,7 @@ export default async function RootLayout({
           {draftModeEnabled && <PreviewBar />}
           {draftModeEnabled && <VisualEditingWrapper />}
         </Providers>
+        <SanityLive />
       </body>
     </html>
   );

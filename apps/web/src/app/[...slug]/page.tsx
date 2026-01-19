@@ -7,7 +7,11 @@ import { querySlugPageData, querySlugPagePaths } from "@/lib/sanity/query";
 import { getMetaData } from "@/lib/seo";
 
 async function fetchSlugPageData(slug: string) {
-  return await sanityFetch(querySlugPageData, { slug: `/${slug}` });
+  const { data } = await sanityFetch({
+    query: querySlugPageData,
+    params: { slug: `/${slug}` },
+  });
+  return data;
 }
 
 async function fetchSlugPagePaths() {
