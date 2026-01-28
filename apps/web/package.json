@@ -18,7 +18,7 @@
     "@sanity/visual-editing": "^3.0.5",
     "@workspace/ui": "workspace:*",
     "babel-plugin-react-compiler": "19.0.0-beta-e993439-20250328",
-    "framer-motion": "11.15.0",
+    "framer-motion": "11.18.2",
     "lucide-react": "0.487.0",
     "next": "15.2.8",
     "next-sanity": "^11.1.0",
