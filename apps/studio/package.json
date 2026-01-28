@@ -34,7 +34,7 @@
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^5.0.2",
+    "@sanity/eslint-config-studio": "^6.0.0",
     "@sanity/schema": "^4.8.1",
     "@types/node": "^22",
     "@types/react": "^19.1.3",
