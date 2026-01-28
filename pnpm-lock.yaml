@@ -101,7 +101,7 @@ importers:
     dependencies:
       '@sanity/asset-utils':
         specifier: ^2.2.1
-        version: 2.2.1
+        version: 2.3.0
       '@sanity/client':
         specifier: ^7.11.1
         version: 7.11.1(debug@4.4.3)
@@ -2416,10 +2416,6 @@ packages:
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
-
-  '@sanity/asset-utils@2.2.1':
-    resolution: {integrity: sha512-dBsZWH5X6ANcvclFRnQT9Y+NNvoWTJZIMKR5HT6hzoRpRb48p7+vWn+wi1V1wPvqgZg2ScsOQQcGXWXskbPbQQ==}
-    engines: {node: '>=18'}
 
   '@sanity/asset-utils@2.3.0':
     resolution: {integrity: sha512-dlEmALjQ5iyQG0O8ZVmkkE3wUYCKfRmiyMvuuGN5SF9buAHxmseBOKJ/Iy2DU/8ef70mtUXlzeCRSlTN/nmZsg==}
@@ -10079,8 +10075,6 @@ snapshots:
     optional: true
 
   '@rtsao/scc@1.1.0': {}
-
-  '@sanity/asset-utils@2.2.1': {}
 
   '@sanity/asset-utils@2.3.0': {}
 
