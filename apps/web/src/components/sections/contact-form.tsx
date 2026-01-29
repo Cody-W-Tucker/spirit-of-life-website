@@ -2,8 +2,8 @@
 
 import { Button } from "@workspace/ui/components/button";
 import { LoaderCircle, Send } from "lucide-react";
-import Form from "next/form";
 import type { FC } from "react";
+import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { contactSubmission } from "@/action/contact-submission";
@@ -54,6 +54,16 @@ export const ContactForm: FC<ContactFormProps> = ({
   subTitle,
   helperText,
 }) => {
+  const [state, formAction] = useActionState(
+    async (
+      prevState: { success: boolean; message: string },
+      formData: FormData,
+    ) => {
+      return await contactSubmission(formData);
+    },
+    { success: false, message: "" },
+  );
+
   return (
     <section id="contact" className="px-4 py-8 sm:py-12 md:py-16">
       <div className="relative container mx-auto px-4 md:px-8 py-8 sm:py-16 md:py-24 lg:py-32 bg-gray-50 rounded-3xl overflow-hidden">
@@ -69,12 +79,7 @@ export const ContactForm: FC<ContactFormProps> = ({
             )}
           </div>
 
-          <Form
-            className="flex flex-col gap-6"
-            action={
-              contactSubmission as unknown as (formData: FormData) => void
-            }
-          >
+          <form className="flex flex-col gap-6" action={formAction}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label
@@ -147,7 +152,15 @@ export const ContactForm: FC<ContactFormProps> = ({
             <div className="flex justify-center mt-4">
               <SubmitButton />
             </div>
-          </Form>
+          </form>
+
+          {state.message && (
+            <div
+              className={`mt-4 text-center ${state.success ? "text-green-600" : "text-red-600"}`}
+            >
+              {state.message}
+            </div>
+          )}
 
           {helperText && (
             <div className="mt-8 text-center text-sm text-gray-500">

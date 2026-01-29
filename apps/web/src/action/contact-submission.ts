@@ -18,9 +18,16 @@ export async function contactSubmission(formData: FormData) {
       };
     }
 
+    const toEmail =
+      process.env.CONTACT_EMAIL || "contact@spiritoflifechurch.com";
+    const fromEmail =
+      process.env.SENDGRID_FROM_EMAIL || "noreply@spiritoflifechurch.com";
+
+    console.log("Sending contact email from:", fromEmail, "to:", toEmail);
+
     const msg = {
-      to: process.env.CONTACT_EMAIL || "contact@spiritoflifechurch.com", // Replace with your contact email
-      from: process.env.SENDGRID_FROM_EMAIL || "noreply@spiritoflifechurch.com", // Must be verified in SendGrid
+      to: toEmail,
+      from: fromEmail,
       subject: `Contact Form: ${subject}`,
       text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
       html: `<p><strong>Name:</strong> ${name}</p>
@@ -36,8 +43,18 @@ export async function contactSubmission(formData: FormData) {
       success: true,
       message: "Thank you for your message! We'll get back to you soon.",
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error sending contact email:", error);
+    if (
+      error &&
+      typeof error === "object" &&
+      "response" in error &&
+      error.response &&
+      typeof error.response === "object" &&
+      "body" in error.response
+    ) {
+      console.error("SendGrid response:", error.response.body);
+    }
     return {
       success: false,
       message:
