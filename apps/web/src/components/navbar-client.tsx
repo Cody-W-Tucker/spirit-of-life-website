@@ -181,21 +181,18 @@ function NavbarColumnLink({
   >;
 }) {
   return (
-    <Link
-      aria-label={`Link to ${column.name ?? column.href}`}
-      href={column.href ?? ""}
-      legacyBehavior
-      passHref
-    >
-      <NavigationMenuLink
+    <NavigationMenuLink asChild>
+      <Link
+        href={column.href ?? ""}
         className={cn(
           navigationMenuTriggerStyle(),
           "text-muted-foreground text-lg font-medium px-6 py-3",
         )}
+        aria-label={`Link to ${column.name ?? column.href}`}
       >
         {column.name}
-      </NavigationMenuLink>
-    </Link>
+      </Link>
+    </NavigationMenuLink>
   );
 }
 
