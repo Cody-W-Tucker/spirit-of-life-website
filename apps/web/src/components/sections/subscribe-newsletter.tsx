@@ -1,8 +1,8 @@
 "use client";
 import { Button } from "@workspace/ui/components/button";
 import { ChevronRight, LoaderCircle } from "lucide-react";
-import Form from "next/form";
 import type { FC } from "react";
+import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { newsletterSubmission } from "@/action/newsletter-submission";
@@ -58,6 +58,16 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
   subTitle,
   helperText,
 }) => {
+  const [state, formAction] = useActionState(
+    async (
+      prevState: { success: boolean; message: string },
+      formData: FormData,
+    ) => {
+      return await newsletterSubmission(formData);
+    },
+    { success: false, message: "" },
+  );
+
   return (
     <section id="subscribe" className="px-4 py-8 sm:py-12 md:py-16">
       <div className="relative container mx-auto px-4 md:px-8 py-8 sm:py-16 md:py-24 lg:py-32 bg-gray-50 rounded-3xl overflow-hidden">
@@ -71,9 +81,9 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
               className="mb-6 text-sm text-gray-600 sm:mb-8 text-balance sm:text-base"
             />
           )}
-          <Form
+          <form
             className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-2"
-            action={newsletterSubmission}
+            action={formAction}
           >
             <div className="flex bg-white items-center border rounded-xl p-2 drop-shadow-lg md:w-96 justify-between pl-4">
               <input
@@ -85,7 +95,14 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
               />
               <SubscribeNewsletterButton />
             </div>
-          </Form>
+          </form>
+          {state.message && (
+            <p
+              className={`mt-3 text-sm ${state.success ? "text-green-600" : "text-red-600"}`}
+            >
+              {state.message}
+            </p>
+          )}
           {helperText && (
             <RichText
               richText={helperText}
