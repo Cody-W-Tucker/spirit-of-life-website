@@ -19,7 +19,7 @@ importers:
         version: 3.8.1
       turbo:
         specifier: ^2.5.3
-        version: 2.8.0
+        version: 2.8.1
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -222,7 +222,7 @@ importers:
         version: 12.1.1(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-turbo:
         specifier: ^2.4.4
-        version: 2.8.0(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.1)
+        version: 2.8.1(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.1)
       globals:
         specifier: ^17.0.0
         version: 17.2.0
@@ -279,7 +279,7 @@ importers:
     devDependencies:
       '@turbo/gen':
         specifier: ^2.5.0
-        version: 2.8.0(@swc/core@1.15.11)(@types/node@24.10.9)(typescript@5.9.3)
+        version: 2.8.1(@swc/core@1.15.11)(@types/node@24.10.9)(typescript@5.9.3)
       '@types/node':
         specifier: ^24.0.0
         version: 24.10.9
@@ -935,12 +935,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/runtime-corejs3@7.28.4':
-    resolution: {integrity: sha512-h7iEYiW4HebClDEhtvFObtPmIvrd1SSfpI9EhOeKk4CtIK/ngBWFpuhCzhdmRKtg71ylcue+9I6dv54XYO1epQ==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/runtime-corejs3@7.28.6':
-    resolution: {integrity: sha512-kz2fAQ5UzjV7X7D3ySxmj3vRq89dTpqOZWv76Z6pNPztkwb/0Yj1Mtx1xFrYj6mbIHysxtBot8J4o0JLCblcFw==}
+  '@babel/runtime-corejs3@7.29.0':
+    resolution: {integrity: sha512-TgUkdp71C9pIbBcHudc+gXZnihEDOjUAmXO1VO4HHGES7QLZcShR0stfKIxLSNIYx2fqhmJChOjm/wkF8wv4gA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/runtime@7.28.4':
@@ -1644,14 +1640,6 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
-
-  '@isaacs/balanced-match@4.0.1':
-    resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
-    engines: {node: 20 || >=22}
-
-  '@isaacs/brace-expansion@5.0.0':
-    resolution: {integrity: sha512-ZT55BDLV0yv0RBm2czMiZ+SqCGO7AvmOM3G/w2xhVPH+te0aKgFjmBvGlL1dH+ql2tgGO3MVrbb3jCKyvpgnxA==}
-    engines: {node: 20 || >=22}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -3052,12 +3040,12 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@turbo/gen@2.8.0':
-    resolution: {integrity: sha512-AqEaeLaIRPvxhRvZUZxbZ6dvw4zWk8sRJ0JrY54ZrBlniaX6i+VaSJJ70BPHwtVjZAgF+Q9wmh+ii3PqnyokIw==}
+  '@turbo/gen@2.8.1':
+    resolution: {integrity: sha512-7XW7LnZhOqXAVJlwJwO5V1lsTOe9J6QZJbOLt1Cv3PL1HNTj8JGZXobKDWr7ZFE4IPGr7bSFGLZrEb/Bvu0/DQ==}
     hasBin: true
 
-  '@turbo/workspaces@2.8.0':
-    resolution: {integrity: sha512-BNTa+A2Ca6Ud6Lif96d+5BJoTBRM364kLtFjLSQ//VOMSL7QUqo2z9vGhC4IMAwCwbaNCwaZT4UGUzlTFaOnLQ==}
+  '@turbo/workspaces@2.8.1':
+    resolution: {integrity: sha512-DwwH6xW38ihHdp3hcTmZB0UZE9fM/3/6B1FDn94dg/cg7CZZZk5fp2BxReQG2cQLt3JvblIgSbWnNsr26earwg==}
     hasBin: true
 
   '@types/babel__core@7.20.5':
@@ -3878,9 +3866,6 @@ packages:
   core-js-compat@3.48.0:
     resolution: {integrity: sha512-OM4cAF3D6VtH/WkLtWvyNC56EZVXsZdU3iqaMG2B4WvYrlqU831pc4UtG5yp0sE9z8Y02wVN7PjW5Zf9Gt0f1Q==}
 
-  core-js-pure@3.45.1:
-    resolution: {integrity: sha512-OHnWFKgTUshEU8MK+lOs1H8kC8GkTi9Z1tvNkxrCcw9wl3MJIO7q2ld77wjWn4/xuGrVu2X+nME1iIIPBSdyEQ==}
-
   core-js-pure@3.48.0:
     resolution: {integrity: sha512-1slJgk89tWC51HQ1AEqG+s2VuwpTRr8ocu4n20QUcH1v9lAN0RXen0Q0AABa/DK1I7RrNWLucplOHMx8hfTGTw==}
 
@@ -4335,8 +4320,8 @@ packages:
     peerDependencies:
       eslint: '>=5.0.0'
 
-  eslint-plugin-turbo@2.8.0:
-    resolution: {integrity: sha512-MmDgInixZN9gqcg+4wbiRoflZSAZX7hTM9VIO3+U6jfYxQo0XNOslK7PvrmKxYcM8bNdQvwK9OO+DTWknVGZuQ==}
+  eslint-plugin-turbo@2.8.1:
+    resolution: {integrity: sha512-a6XyHDTGpvntjWXPppXU9y+LNvrSY45/ZSW4ReNkw9EvwToTwakxwJI+LQl65F2sLbopU4bC/OhA0BjOQ+rDqQ==}
     peerDependencies:
       eslint: '>6.6.0'
       turbo: '>2.0.0'
@@ -5544,10 +5529,6 @@ packages:
 
   min-document@2.19.2:
     resolution: {integrity: sha512-8S5I8db/uZN8r9HSLFVWPdJCvYOejMcEC82VIzNUc6Zkklf/d1gg2psfE79/vyhWOj4+J8MtwmoOz3TmvaGu5A==}
-
-  minimatch@10.1.1:
-    resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
-    engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -6819,8 +6800,8 @@ packages:
     resolution: {integrity: sha512-tsaTIkKW9b4N+AEj+SVA+WhJzV7/zMhcSu78mLKWSk7cXMOSHsBKFWUs0fWwq8QyK3MgJBQRX6Gbi4kYbdvGkQ==}
     engines: {node: '>=18'}
 
-  string-width@8.1.0:
-    resolution: {integrity: sha512-Kxl3KJGb/gxkaUMOjRsQ8IrXiGW75O4E3RPjFIINOVH8AMl2SQ/yWdTzWwF3FevIX9LcMAjJW+GRwAlAbTSXdg==}
+  string-width@8.1.1:
+    resolution: {integrity: sha512-KpqHIdDL9KwYk22wEOg/VIqYbrnLeSApsKT/bSj6Ez7pn3CftUiLAv2Lccpq1ALcpLV9UX1Ppn92npZWu2w/aw==}
     engines: {node: '>=20'}
 
   string.prototype.includes@2.0.1:
@@ -7139,19 +7120,9 @@ packages:
     resolution: {integrity: sha512-1h/Lnq9yajKY2PEbBadPXj3VxsDDu844OnaAo52UVmIzIvwwtBPIuNvkjuzBlTWpfJyUbG3ez0KSBibQkj4ojg==}
     engines: {node: '>=0.6.11 <=0.7.0 || >=0.7.3'}
 
-  turbo-darwin-64@2.8.0:
-    resolution: {integrity: sha512-N7f4PYqz25yk8c5kituk09bJ89tE4wPPqKXgYccT6nbEQnGnrdvlyCHLyqViNObTgjjrddqjb1hmDkv7VcxE0g==}
-    cpu: [x64]
-    os: [darwin]
-
   turbo-darwin-64@2.8.1:
     resolution: {integrity: sha512-FQ6Uqxty/H1Nvn1dpBe8KUlMRclTuiyNSc1PCeDL/ad7M9ykpWutB51YpMpf9ibTA32M6wLdIRf+D96W6hDAtQ==}
     cpu: [x64]
-    os: [darwin]
-
-  turbo-darwin-arm64@2.8.0:
-    resolution: {integrity: sha512-eVzejaP5fn51gmJAPW68U6mSjFaAZ26rPiE36mMdk+tMC4XBGmJHT/fIgrhcrXMvINCl27RF8VmguRe+MBlSuQ==}
-    cpu: [arm64]
     os: [darwin]
 
   turbo-darwin-arm64@2.8.1:
@@ -7159,19 +7130,9 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.8.0:
-    resolution: {integrity: sha512-ILR45zviYae3icf4cmUISdj8X17ybNcMh3Ms4cRdJF5sS50qDDTv8qeWqO/lPeHsu6r43gVWDofbDZYVuXYL7Q==}
-    cpu: [x64]
-    os: [linux]
-
   turbo-linux-64@2.8.1:
     resolution: {integrity: sha512-m99JRlWlEgXPR7mkThAbKh6jbTmWSOXM/c6rt8yd4Uxh0+wjq7+DYcQbead6aoOqmCP9akswZ8EXIv1ogKBblg==}
     cpu: [x64]
-    os: [linux]
-
-  turbo-linux-arm64@2.8.0:
-    resolution: {integrity: sha512-z9pUa8ENFuHmadPfjEYMRWlXO82t1F/XBDx2XTg+cWWRZHf85FnEB6D4ForJn/GoKEEvwdPhFLzvvhOssom2ug==}
-    cpu: [arm64]
     os: [linux]
 
   turbo-linux-arm64@2.8.1:
@@ -7179,29 +7140,15 @@ packages:
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.8.0:
-    resolution: {integrity: sha512-J6juRSRjmSErEqJCv7nVIq2DgZ2NHXqyeV8NQTFSyIvrThKiWe7FDOO6oYpuR06+C1NW82aoN4qQt4/gYvz25w==}
-    cpu: [x64]
-    os: [win32]
-
   turbo-windows-64@2.8.1:
     resolution: {integrity: sha512-GdqNO6bYShRsr79B+2G/2ssjLEp9uBTvLBJSWRtRCiac/SEmv8T6RYv9hu+h5oGbFALtnKNp6BQBw78RJURsPw==}
     cpu: [x64]
-    os: [win32]
-
-  turbo-windows-arm64@2.8.0:
-    resolution: {integrity: sha512-qarBZvCu6uka35739TS+y/3CBU3zScrVAfohAkKHG+So+93Wn+5tKArs8HrO2fuTaGou8fMIeTV7V5NgzCVkSQ==}
-    cpu: [arm64]
     os: [win32]
 
   turbo-windows-arm64@2.8.1:
     resolution: {integrity: sha512-n40E6IpkzrShRo3yMdRpgnn1/sAbGC6tZXwyNu8fe9RsufeD7KBiaoRSvw8xLyqV3pd2yoTL2rdCXq24MnTCWA==}
     cpu: [arm64]
     os: [win32]
-
-  turbo@2.8.0:
-    resolution: {integrity: sha512-hYbxnLEdvJF+DLALS+Ia+PbfNtn0sDP0hH2u9AFoskSUDmcVHSrtwHpzdX94MrRJKo9D9tYxY3MyP20gnlrWyA==}
-    hasBin: true
 
   turbo@2.8.1:
     resolution: {integrity: sha512-pbSMlRflA0RAuk/0jnAt8pzOYh1+sKaT8nVtcs75OFGVWD0evleQRmKtHJJV42QOhaC3Hx9mUUSOom/irasbjA==}
@@ -8558,11 +8505,7 @@ snapshots:
       pirates: 4.0.7
       source-map-support: 0.5.21
 
-  '@babel/runtime-corejs3@7.28.4':
-    dependencies:
-      core-js-pure: 3.45.1
-
-  '@babel/runtime-corejs3@7.28.6':
+  '@babel/runtime-corejs3@7.29.0':
     dependencies:
       core-js-pure: 3.48.0
 
@@ -9192,12 +9135,6 @@ snapshots:
   '@inquirer/type@4.0.3(@types/node@24.10.9)':
     optionalDependencies:
       '@types/node': 24.10.9
-
-  '@isaacs/balanced-match@4.0.1': {}
-
-  '@isaacs/brace-expansion@5.0.0':
-    dependencies:
-      '@isaacs/balanced-match': 4.0.1
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -11147,9 +11084,9 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@turbo/gen@2.8.0(@swc/core@1.15.11)(@types/node@24.10.9)(typescript@5.9.3)':
+  '@turbo/gen@2.8.1(@swc/core@1.15.11)(@types/node@24.10.9)(typescript@5.9.3)':
     dependencies:
-      '@turbo/workspaces': 2.8.0
+      '@turbo/workspaces': 2.8.1
       commander: 10.0.0
       fs-extra: 10.1.0
       inquirer: 8.2.4
@@ -11167,7 +11104,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@turbo/workspaces@2.8.0':
+  '@turbo/workspaces@2.8.1':
     dependencies:
       commander: 10.0.0
       execa: 5.1.1
@@ -11245,7 +11182,7 @@ snapshots:
 
   '@types/minimatch@6.0.0':
     dependencies:
-      minimatch: 10.1.1
+      minimatch: 9.0.0
 
   '@types/node@24.10.9':
     dependencies:
@@ -12121,8 +12058,6 @@ snapshots:
     dependencies:
       browserslist: 4.28.1
 
-  core-js-pure@3.45.1: {}
-
   core-js-pure@3.48.0: {}
 
   core-util-is@1.0.3: {}
@@ -12692,7 +12627,7 @@ snapshots:
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
 
-  eslint-plugin-turbo@2.8.0(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.1):
+  eslint-plugin-turbo@2.8.1(eslint@9.39.2(jiti@2.6.1))(turbo@2.8.1):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.2(jiti@2.6.1)
@@ -14012,10 +13947,6 @@ snapshots:
     dependencies:
       dom-walk: 0.1.2
 
-  minimatch@10.1.1:
-    dependencies:
-      '@isaacs/brace-expansion': 5.0.0
-
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.12
@@ -14160,7 +14091,7 @@ snapshots:
 
   node-plop@0.26.3:
     dependencies:
-      '@babel/runtime-corejs3': 7.28.6
+      '@babel/runtime-corejs3': 7.29.0
       '@types/inquirer': 6.5.0
       change-case: 3.1.0
       del: 5.1.0
@@ -14306,7 +14237,7 @@ snapshots:
       is-unicode-supported: 2.1.0
       log-symbols: 7.0.1
       stdin-discarder: 0.2.2
-      string-width: 8.1.0
+      string-width: 8.1.1
 
   os-tmpdir@1.0.2: {}
 
@@ -15818,7 +15749,7 @@ snapshots:
       get-east-asian-width: 1.4.0
       strip-ansi: 7.1.2
 
-  string-width@8.1.0:
+  string-width@8.1.1:
     dependencies:
       get-east-asian-width: 1.4.0
       strip-ansi: 7.1.2
@@ -16205,50 +16136,23 @@ snapshots:
 
   tunnel@0.0.6: {}
 
-  turbo-darwin-64@2.8.0:
-    optional: true
-
   turbo-darwin-64@2.8.1:
-    optional: true
-
-  turbo-darwin-arm64@2.8.0:
     optional: true
 
   turbo-darwin-arm64@2.8.1:
     optional: true
 
-  turbo-linux-64@2.8.0:
-    optional: true
-
   turbo-linux-64@2.8.1:
-    optional: true
-
-  turbo-linux-arm64@2.8.0:
     optional: true
 
   turbo-linux-arm64@2.8.1:
     optional: true
 
-  turbo-windows-64@2.8.0:
-    optional: true
-
   turbo-windows-64@2.8.1:
-    optional: true
-
-  turbo-windows-arm64@2.8.0:
     optional: true
 
   turbo-windows-arm64@2.8.1:
     optional: true
-
-  turbo@2.8.0:
-    optionalDependencies:
-      turbo-darwin-64: 2.8.0
-      turbo-darwin-arm64: 2.8.0
-      turbo-linux-64: 2.8.0
-      turbo-linux-arm64: 2.8.0
-      turbo-windows-64: 2.8.0
-      turbo-windows-arm64: 2.8.0
 
   turbo@2.8.1:
     optionalDependencies:
@@ -16786,7 +16690,7 @@ snapshots:
 
   xregexp@4.4.1:
     dependencies:
-      '@babel/runtime-corejs3': 7.28.4
+      '@babel/runtime-corejs3': 7.29.0
 
   xstate@5.26.0: {}
 
