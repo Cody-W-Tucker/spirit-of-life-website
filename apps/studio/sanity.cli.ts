@@ -11,5 +11,7 @@ export default defineCliConfig({
   },
   studioHost:
     host && host !== "main" ? `${host}-spirit-of-life` : "spirit-of-life",
-  autoUpdates: false,
+  deployment: {
+    autoUpdates: false,
+  },
 });

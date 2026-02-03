@@ -1,10 +1,10 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import tailwindcssTypography from "@tailwindcss/typography";
-import { fontFamily } from "tailwindcss/defaultTheme.js";
+import defaultTheme from "tailwindcss/defaultTheme.js";
 
 const config = {
-  darkMode: ["class"],
+  darkMode: ["class", ".dark"],
   content: [
     "src/**/*.{ts,tsx}",
     "components/**/*.{ts,tsx}",
@@ -13,8 +13,8 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        lato: ["var(--font-lato)", ...fontFamily.sans],
-        mono: ["var(--font-mono)", ...fontFamily.mono],
+        lato: ["var(--font-lato)", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-mono)", ...defaultTheme.fontFamily.mono],
       },
       colors: {
         // Spirit of Life Church brand colors
