@@ -11,6 +11,8 @@ import { PreviewBar } from "@/components/preview-bar";
 import { VisualEditingWrapper } from "@/components/visual-editing";
 import { SanityLive } from "@/lib/sanity/live";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import { Providers } from "../components/providers";
 
 const fontLato = Lato({
@@ -54,6 +56,7 @@ export default async function RootLayout({
           {draftModeEnabled && <VisualEditingWrapper />}
         </Providers>
         <SanityLive />
+        <Analytics />
       </body>
     </html>
   );
