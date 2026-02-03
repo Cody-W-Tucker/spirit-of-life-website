@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 @layer base {
   :root {
@@ -97,7 +96,6 @@
 }
 
 @layer components {
-
   /* Consistent heading styles */
   .heading-1 {
     @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground;
