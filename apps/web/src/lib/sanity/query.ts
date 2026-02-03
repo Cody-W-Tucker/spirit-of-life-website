@@ -577,6 +577,9 @@ export const queryGlobalSeoSettings = defineQuery(`
       }
     },
     siteDescription,
+    contactEmail,
+    contactPhone,
+    contactAddress,
     socialLinks{
       linkedin,
       facebook,

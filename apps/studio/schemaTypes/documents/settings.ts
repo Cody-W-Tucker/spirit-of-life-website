@@ -87,6 +87,19 @@ export const settings = defineType({
       description: "Primary contact email address for your website",
       validation: (rule) => rule.email(),
     }),
+    defineField({
+      name: "contactPhone",
+      type: "string",
+      title: "Contact Phone",
+      description: "Primary contact phone number for your website",
+    }),
+    defineField({
+      name: "contactAddress",
+      type: "text",
+      rows: 3,
+      title: "Contact Address",
+      description: "Physical address for your website",
+    }),
     socialLinks,
   ],
   preview: {

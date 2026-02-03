@@ -1,3 +1,4 @@
+import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import type { FC } from "react";
 
@@ -133,7 +134,14 @@ export const FooterSkeleton: FC = () => {
 
 function Footer({ data, settingsData }: FooterProps) {
   const { subtitle, columns } = data;
-  const { siteTitle, logo, socialLinks } = settingsData;
+  const {
+    siteTitle,
+    logo,
+    socialLinks,
+    contactEmail,
+    contactPhone,
+    contactAddress,
+  } = settingsData;
   const year = new Date().getFullYear();
 
   return (
@@ -147,11 +155,44 @@ function Footer({ data, settingsData }: FooterProps) {
                   <Logo image={logo} alt={siteTitle} priority />
                 </span>
                 {subtitle && (
-                  <p className="mt-6 text-sm text-muted-foreground">
+                  <p className="mt-6 text-xl text-muted-foreground">
                     {subtitle}
                   </p>
                 )}
               </div>
+
+              {/* Contact Info */}
+              {(contactAddress || contactPhone || contactEmail) && (
+                <div className="flex flex-col items-center lg:items-start gap-3 text-sm text-muted-foreground text-center lg:text-left">
+                  {contactAddress && (
+                    <div className="flex items-start gap-2 justify-center lg:justify-start">
+                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                      <span className="whitespace-pre-line">
+                        {contactAddress}
+                      </span>
+                    </div>
+                  )}
+                  {contactPhone && (
+                    <a
+                      href={`tel:${contactPhone}`}
+                      className="flex items-center gap-2 justify-center lg:justify-start hover:text-primary transition-colors"
+                    >
+                      <Phone className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      <span>{contactPhone}</span>
+                    </a>
+                  )}
+                  {contactEmail && (
+                    <a
+                      href={`mailto:${contactEmail}`}
+                      className="flex items-center gap-2 justify-center lg:justify-start hover:text-primary transition-colors"
+                    >
+                      <Mail className="h-4 w-4 shrink-0 text-muted-foreground" />
+                      <span>{contactEmail}</span>
+                    </a>
+                  )}
+                </div>
+              )}
+
               {socialLinks && <SocialLinks data={socialLinks} />}
             </div>
             {Array.isArray(columns) && columns?.length > 0 && (
@@ -187,7 +228,7 @@ function Footer({ data, settingsData }: FooterProps) {
             )}
           </div>
           <div className="mt-20 border-t pt-8">
-            <div className="flex flex-col justify-between gap-4  text-center text-sm font-normal text-muted-foreground lg:flex-row lg:items-center lg:text-left mx-auto max-w-7xl px-4 md:px-6">
+            <div className="text-center text-sm font-normal text-muted-foreground mx-auto max-w-7xl px-4 md:px-6">
               <p>
                 © {year} {siteTitle}. All rights reserved.
               </p>
