@@ -10,11 +10,20 @@ mailchimp.setConfig({
 export async function newsletterSubmission(formData: FormData) {
   try {
     const email = formData.get("email") as string;
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
 
     if (!email) {
       return {
         success: false,
         message: "Email is required.",
+      };
+    }
+
+    if (!firstName || !lastName) {
+      return {
+        success: false,
+        message: "First name and last name are required.",
       };
     }
 
@@ -30,6 +39,10 @@ export async function newsletterSubmission(formData: FormData) {
     await mailchimp.lists.addListMember(process.env.MAILCHIMP_LIST_ID!, {
       email_address: email,
       status: "subscribed",
+      merge_fields: {
+        FNAME: firstName,
+        LNAME: lastName,
+      },
     });
 
     return {
@@ -38,6 +51,18 @@ export async function newsletterSubmission(formData: FormData) {
     };
   } catch (error: unknown) {
     console.error("Error subscribing to newsletter:", error);
+
+    // Log more details for debugging
+    if (
+      error &&
+      typeof error === "object" &&
+      "response" in error &&
+      error.response &&
+      typeof error.response === "object"
+    ) {
+      console.error("Mailchimp response:", error.response);
+    }
+
     if (
       error &&
       typeof error === "object" &&

@@ -82,18 +82,36 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
             />
           )}
           <form
-            className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-2"
+            className="flex flex-col items-center justify-center gap-3"
             action={formAction}
           >
-            <div className="flex bg-white items-center border rounded-xl p-2 drop-shadow-lg md:w-96 justify-between pl-4">
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="Enter your email address"
-                className="rounded-e-none border-e-0 focus-visible:ring-0 outline-none bg-transparent w-full"
-              />
-              <SubscribeNewsletterButton />
+            <div className="flex flex-col gap-2 w-full max-w-md">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  name="firstName"
+                  required
+                  placeholder="First name"
+                  className="flex-1 bg-white border rounded-xl p-3 drop-shadow-lg focus-visible:ring-0 outline-none"
+                />
+                <input
+                  type="text"
+                  name="lastName"
+                  required
+                  placeholder="Last name"
+                  className="flex-1 bg-white border rounded-xl p-3 drop-shadow-lg focus-visible:ring-0 outline-none"
+                />
+              </div>
+              <div className="flex bg-white items-center border rounded-xl p-2 drop-shadow-lg justify-between pl-4">
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email address"
+                  className="rounded-e-none border-e-0 focus-visible:ring-0 outline-none bg-transparent w-full"
+                />
+                <SubscribeNewsletterButton />
+              </div>
             </div>
           </form>
           {state.message && (
