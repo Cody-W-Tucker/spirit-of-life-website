@@ -19,8 +19,9 @@ export async function generateMetadata() {
 export default async function Page(): Promise<React.ReactElement> {
   const homePageData = await fetchHomePageData();
 
-  // Fetch YouTube videos
-  const latestYouTubeVideos = await getLatestYouTubeVideos(7);
+  // Fetch YouTube videos - client-side safeguard to limit to 7 max
+  const latestYouTubeVideosRaw = await getLatestYouTubeVideos(7);
+  const latestYouTubeVideos = latestYouTubeVideosRaw.slice(0, 7);
   const latestVideo = latestYouTubeVideos[0] ?? null;
 
   if (!homePageData) {

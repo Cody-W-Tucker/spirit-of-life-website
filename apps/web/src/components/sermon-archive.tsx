@@ -8,13 +8,17 @@ import { cleanVideoTitle, formatVideoDate } from "@/lib/youtube";
 interface SermonArchiveProps {
   videos: YouTubeVideo[];
   skipFirst?: boolean;
+  maxVideos?: number;
 }
 
 export default function SermonArchive({
   videos,
   skipFirst = false,
+  maxVideos = 6,
 }: SermonArchiveProps) {
-  const displayedVideos = skipFirst ? videos.slice(1) : videos;
+  const displayedVideos = skipFirst
+    ? videos.slice(1, maxVideos + 1)
+    : videos.slice(0, maxVideos);
 
   return (
     <section className="bg-background py-16 md:py-24">
