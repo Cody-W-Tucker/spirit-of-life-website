@@ -2806,13 +2806,6 @@ packages:
       '@sanity/types': '*'
       react: ^19.2
 
-  '@sanity/insert-menu@3.0.4':
-    resolution: {integrity: sha512-90Sky6kraYuoGllbhHe2sYVOHLsRNJCMf/JjjEhsBv5MFNvV7TLIkNeajT4DpI4hMDC0D47d7TYPZJxwAjLP2A==}
-    engines: {node: '>=20.19 <22 || >=22.12'}
-    peerDependencies:
-      '@sanity/types': '*'
-      react: ^19.2
-
   '@sanity/json-match@1.0.5':
     resolution: {integrity: sha512-skhIX8gT/hLritEBkjfc7+TBlJNu/NLisyA8noKceCk28OatFK0wX7dIuFawkt3pfhTYVomVPykAYFcIm2OqJg==}
     engines: {node: '>=18.2'}
@@ -2948,12 +2941,6 @@ packages:
     peerDependencies:
       '@sanity/client': ^7.14.1
 
-  '@sanity/visual-editing-csm@3.0.5':
-    resolution: {integrity: sha512-hhu1LUik3YtteIszYGL8si4L7DtR/VjHJj1jQZVa4rzdko7Fs7lnU1s/jT7/8EZ/NIBXe3oFBg98vyGc02J0JA==}
-    engines: {node: '>=20.19 <22 || >=22.12'}
-    peerDependencies:
-      '@sanity/client': ^7.14.1
-
   '@sanity/visual-editing-types@1.1.8':
     resolution: {integrity: sha512-4Hu3J8qDLanymnSapRzKwHlQl6SCsBbkL1o5fSMVbWVHvTk/j2uGLLNTsjASICTqUwSm3fwWlyahzCy2uS/LvQ==}
     engines: {node: '>=18'}
@@ -2972,30 +2959,6 @@ packages:
       '@sanity/types': '*'
     peerDependenciesMeta:
       '@sanity/types':
-        optional: true
-
-  '@sanity/visual-editing@5.2.1':
-    resolution: {integrity: sha512-69KGJGyf6QVi8F67mODWe2wBTadzXiezj8lRvBXU2H1u98t7WARVkK28izK2oNWmjn5FbCE9zgSLL6d824H5MA==}
-    engines: {node: '>=20.19'}
-    peerDependencies:
-      '@sanity/client': ^7.14.1
-      '@sveltejs/kit': '>= 2'
-      next: '>=16.0.0-0'
-      react: ^19.2
-      react-dom: ^19.2
-      react-router: '>= 7'
-      styled-components: ^6.1
-      svelte: '>= 4'
-    peerDependenciesMeta:
-      '@sanity/client':
-        optional: true
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react-router:
-        optional: true
-      svelte:
         optional: true
 
   '@sanity/visual-editing@5.2.1':
@@ -7060,10 +7023,6 @@ packages:
     resolution: {integrity: sha512-OxbzDES66+x7nnKGg2MwBA1ypVsZoDTLHpeaP4giyiHSixbsiTaMyeJqbEyvBdp5Cm28fc+8GG6RdQtic0ijwQ==}
     hasBin: true
 
-  turbo@2.8.9:
-    resolution: {integrity: sha512-G+Mq8VVQAlpz/0HTsxiNNk/xywaHGl+dk1oiBREgOEVCCDjXInDlONWUn5srRnC9s5tdHTFD1bx1N19eR4hI+g==}
-    hasBin: true
-
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -7477,9 +7436,6 @@ packages:
 
   xregexp@4.4.1:
     resolution: {integrity: sha512-2u9HwfadaJaY9zHtRRnH6BY6CQVNQKkYm3oLtC9gJXXzfsbACg5X5e4EZZGVAH+YIfa+QA9lsFQTTe3HURF3ag==}
-
-  xstate@5.28.0:
-    resolution: {integrity: sha512-Iaqq6ZrUzqeUtA3hC5LQKZfR8ZLzEFTImMHJM3jWEdVvXWdKvvVLXZEiNQWm3SCA9ZbEou/n5rcsna1wb9t28A==}
 
   xstate@5.28.0:
     resolution: {integrity: sha512-Iaqq6ZrUzqeUtA3hC5LQKZfR8ZLzEFTImMHJM3jWEdVvXWdKvvVLXZEiNQWm3SCA9ZbEou/n5rcsna1wb9t28A==}
@@ -10334,19 +10290,6 @@ snapshots:
       - react-dom
       - styled-components
 
-  '@sanity/insert-menu@3.0.4(@emotion/is-prop-valid@1.4.0)(@sanity/types@5.7.0(@types/react@19.2.10))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.3.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4))':
-    dependencies:
-      '@sanity/icons': 3.7.4(react@19.2.4)
-      '@sanity/types': 5.7.0(@types/react@19.2.10)(debug@4.4.3)
-      '@sanity/ui': 3.1.11(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.4(react@19.2.4))(react-is@19.2.4)(react@19.2.4)(styled-components@6.3.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
-      lodash-es: 4.17.23
-      react: 19.2.4
-      react-is: 19.2.4
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-      - react-dom
-      - styled-components
-
   '@sanity/json-match@1.0.5': {}
 
   '@sanity/logos@2.2.2(react@19.2.4)':
@@ -10720,33 +10663,6 @@ snapshots:
       xstate: 5.28.0
     optionalDependencies:
       '@sanity/client': 7.15.0(debug@4.4.3)
-      next: 16.1.6(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-      - '@sanity/types'
-      - debug
-      - react-is
-      - typescript
-
-  '@sanity/visual-editing@5.2.1(@emotion/is-prop-valid@1.4.0)(@sanity/client@7.14.1)(@sanity/types@5.7.0(@types/react@19.2.10))(next@16.1.6(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react-is@19.2.4)(react@19.2.4)(styled-components@6.3.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@5.9.3)':
-    dependencies:
-      '@sanity/comlink': 4.0.1
-      '@sanity/icons': 3.7.4(react@19.2.4)
-      '@sanity/insert-menu': 3.0.4(@emotion/is-prop-valid@1.4.0)(@sanity/types@5.7.0(@types/react@19.2.10))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(styled-components@6.3.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
-      '@sanity/mutate': 0.16.1(xstate@5.28.0)
-      '@sanity/presentation-comlink': 2.0.1(@sanity/client@7.14.1)(@sanity/types@5.7.0(@types/react@19.2.10))
-      '@sanity/preview-url-secret': 4.0.3(@sanity/client@7.14.1)
-      '@sanity/ui': 3.1.11(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.4(react@19.2.4))(react-is@19.2.4)(react@19.2.4)(styled-components@6.3.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
-      '@sanity/visual-editing-csm': 3.0.5(@sanity/client@7.14.1)(@sanity/types@5.7.0(@types/react@19.2.10))(typescript@5.9.3)
-      '@vercel/stega': 1.0.0
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-      rxjs: 7.8.2
-      scroll-into-view-if-needed: 3.1.0
-      styled-components: 6.3.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      xstate: 5.28.0
-    optionalDependencies:
-      '@sanity/client': 7.14.1(debug@4.4.3)
       next: 16.1.6(babel-plugin-react-compiler@19.0.0-beta-ebf51a3-20250411)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
     transitivePeerDependencies:
       - '@emotion/is-prop-valid'
@@ -15544,15 +15460,6 @@ snapshots:
       turbo-windows-64: 2.8.10
       turbo-windows-arm64: 2.8.10
 
-  turbo@2.8.9:
-    optionalDependencies:
-      turbo-darwin-64: 2.8.9
-      turbo-darwin-arm64: 2.8.9
-      turbo-linux-64: 2.8.9
-      turbo-linux-arm64: 2.8.9
-      turbo-windows-64: 2.8.9
-      turbo-windows-arm64: 2.8.9
-
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
@@ -15935,8 +15842,6 @@ snapshots:
   xregexp@4.4.1:
     dependencies:
       '@babel/runtime-corejs3': 7.29.0
-
-  xstate@5.28.0: {}
 
   xstate@5.28.0: {}
 
