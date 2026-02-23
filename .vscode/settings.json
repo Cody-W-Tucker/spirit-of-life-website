@@ -1,6 +1,0 @@
-// Disable default css checking to rely on the tailwind extension
-{
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false
-}

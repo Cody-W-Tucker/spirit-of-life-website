@@ -82,10 +82,26 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
             />
           )}
           <form
-            className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-2"
+            className="flex flex-col items-center justify-center gap-3 w-full max-w-lg mx-auto"
             action={formAction}
           >
-            <div className="flex bg-white items-center border rounded-xl p-2 drop-shadow-lg md:w-96 justify-between pl-4">
+            <div className="grid grid-cols-2 gap-2 w-full">
+              <input
+                type="text"
+                name="firstName"
+                required
+                placeholder="First name"
+                className="w-full bg-white border rounded-xl p-3 drop-shadow-lg focus-visible:ring-0 outline-none"
+              />
+              <input
+                type="text"
+                name="lastName"
+                required
+                placeholder="Last name"
+                className="w-full bg-white border rounded-xl p-3 drop-shadow-lg focus-visible:ring-0 outline-none"
+              />
+            </div>
+            <div className="flex bg-white items-center border rounded-xl p-2 drop-shadow-lg justify-between pl-4 w-full">
               <input
                 type="email"
                 name="email"
