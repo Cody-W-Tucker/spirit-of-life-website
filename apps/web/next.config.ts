@@ -19,6 +19,17 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
         pathname: `/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/**`,
       },
+      // YouTube thumbnail domains
+      {
+        protocol: "https",
+        hostname: "img.youtube.com",
+        pathname: "/vi/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
     ],
   },
   async redirects() {
