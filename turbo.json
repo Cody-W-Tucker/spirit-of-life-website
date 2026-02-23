@@ -13,7 +13,8 @@
     "SENDGRID_FROM_EMAIL",
     "MAILCHIMP_API_KEY",
     "MAILCHIMP_SERVER_PREFIX",
-    "MAILCHIMP_LIST_ID"
+    "MAILCHIMP_LIST_ID",
+    "TEXT_IN_CHURCH_API_KEY"
   ],
   "tasks": {
     "build": {
