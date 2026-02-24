@@ -2,13 +2,25 @@
 import { Button } from "@workspace/ui/components/button";
 import { ChevronRight, LoaderCircle } from "lucide-react";
 import type { FC } from "react";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { newsletterSubmission } from "@/action/newsletter-submission";
 import type { PagebuilderType } from "@/types";
 
 import { RichText } from "../richtext";
+
+const formatPhoneNumber = (value: string): string => {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 0) return "";
+  if (digits.length <= 3) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+};
+
+const unformatPhoneNumber = (value: string): string => {
+  return value.replace(/\D/g, "");
+};
 
 // const InteractiveGridPattern = dynamic(
 //   () =>
@@ -58,15 +70,24 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
   subTitle,
   helperText,
 }) => {
+  const [phoneValue, setPhoneValue] = useState("");
+
   const [state, formAction] = useActionState(
     async (
       prevState: { success: boolean; message: string },
       formData: FormData,
     ) => {
+      const phone = formData.get("phone") as string;
+      formData.set("phone", unformatPhoneNumber(phone));
       return await newsletterSubmission(formData);
     },
     { success: false, message: "" },
   );
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatPhoneNumber(e.target.value);
+    setPhoneValue(formatted);
+  };
 
   return (
     <section id="subscribe" className="px-4 py-8 sm:py-12 md:py-16">
@@ -85,7 +106,7 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
             className="flex flex-col items-center justify-center gap-3 w-full max-w-lg mx-auto"
             action={formAction}
           >
-            <div className="grid grid-cols-2 gap-2 w-full">
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
               <input
                 type="text"
                 name="firstName"
@@ -101,11 +122,19 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
                 className="w-full bg-white border rounded-xl p-3 drop-shadow-lg focus-visible:ring-0 outline-none"
               />
             </div>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone number (optional)"
+              value={phoneValue}
+              onChange={handlePhoneChange}
+              maxLength={14}
+              className="w-full bg-white border rounded-xl p-3 drop-shadow-lg focus-visible:ring-0 outline-none"
+            />
             <div className="flex bg-white items-center border rounded-xl p-2 drop-shadow-lg justify-between pl-4 w-full">
               <input
                 type="email"
                 name="email"
-                required
                 placeholder="Enter your email address"
                 className="rounded-e-none border-e-0 focus-visible:ring-0 outline-none bg-transparent w-full"
               />
