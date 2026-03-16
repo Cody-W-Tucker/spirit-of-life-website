@@ -32,6 +32,7 @@
     "slugify": "^1.6.8"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
     "@types/mailchimp__mailchimp_marketing": "^3.0.22",
     "@types/node": "^25.5.0",
     "@types/react": "19.2.14",

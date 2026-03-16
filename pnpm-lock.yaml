@@ -157,6 +157,9 @@ importers:
         specifier: ^1.6.8
         version: 1.6.8
     devDependencies:
+      '@tailwindcss/postcss':
+        specifier: ^4.1.18
+        version: 4.2.1
       '@types/mailchimp__mailchimp_marketing':
         specifier: ^3.0.22
         version: 3.0.22
