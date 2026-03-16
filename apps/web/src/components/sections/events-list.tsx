@@ -1,29 +1,59 @@
 import Link from "next/link";
 
 import { SanityImage } from "@/components/sanity-image";
+import type { Recurrence } from "@/lib/recurrence";
 import { buildDisplayEvents } from "@/lib/recurrence";
+import type {
+  internalGroqTypeReferenceTo,
+  SanityImageCrop,
+  SanityImageDimensions,
+  SanityImageHotspot,
+} from "@/lib/sanity/sanity.types";
+import type { SanityRichTextProps } from "@/types";
 
 import { RichText } from "../richtext";
+
+type EventImage = {
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+  };
+  media?: unknown;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  _type: "image";
+  dimensions: SanityImageDimensions | null;
+  alt: string | "no-alt";
+  blurData: string | null;
+  dominantColor: string | null;
+};
+
+type DisplayEventItem = EventItem & {
+  displayStartDate: string | null;
+  displayEndDate: string | null;
+};
 
 type EventItem = {
   _id: string;
   title: string | null;
   description: string | null;
-  image?: any;
+  image?: EventImage;
   slug: string | null;
   startDate: string | null;
   endDate: string | null;
   location: string | null;
   occurrenceType?: "single" | "recurring" | null;
-  recurrence?: any;
+  recurrence?: Recurrence;
 };
 
 interface EventsListProps {
   _key?: string;
   _type?: string;
   title?: string | null;
-  subTitle?: any[] | null;
-  buttons?: any[] | null;
+  subTitle?: SanityRichTextProps | null;
+  buttons?: unknown[] | null;
   events?: EventItem[];
   onlyUpcoming?: boolean;
   includeRecurring?: boolean;
@@ -61,7 +91,7 @@ export function EventsListSection({
 
       {displayEvents.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 md:gap-12 lg:grid-cols-2">
-          {displayEvents.map((event: any) => (
+          {displayEvents.map((event: DisplayEventItem) => (
             <article key={event._id} className="grid grid-cols-1 gap-4 w-full">
               <div className="relative w-full h-auto aspect-[16/9] overflow-hidden rounded-2xl">
                 {event.image?.asset && (
@@ -83,7 +113,7 @@ export function EventsListSection({
                   >
                     {(event.displayStartDate ?? event.startDate)
                       ? new Date(
-                          event.displayStartDate ?? event.startDate,
+                          event.displayStartDate ?? event.startDate ?? "",
                         ).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "short",
@@ -93,12 +123,12 @@ export function EventsListSection({
                   </time>
                   {(event.displayEndDate ?? event.endDate) && (
                     <time
-                      dateTime={event.displayEndDate ?? event.endDate}
+                      dateTime={event.displayEndDate ?? event.endDate ?? ""}
                       className="text-muted-foreground"
                     >
                       -{" "}
                       {new Date(
-                        event.displayEndDate ?? event.endDate,
+                        event.displayEndDate ?? event.endDate ?? "",
                       ).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "short",

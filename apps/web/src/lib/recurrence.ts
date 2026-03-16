@@ -99,12 +99,6 @@ function addDays(date: Date, days: number): Date {
   return d;
 }
 
-function addMonths(date: Date, months: number): Date {
-  const d = new Date(date);
-  d.setMonth(d.getMonth() + months);
-  return d;
-}
-
 function diffInDays(from: Date, to: Date): number {
   const ms = startOfDay(to).getTime() - startOfDay(from).getTime();
   return Math.floor(ms / (24 * 60 * 60 * 1000));
@@ -183,7 +177,7 @@ export function computeNextOccurrence(
       const weeksSinceBase = diffInWeeks(startOfDay(baseStart), cursor);
       const inInterval = weeksSinceBase >= 0 && weeksSinceBase % interval === 0;
       const normalizedWeekdays = normalizeWeekdayArray(
-        Array.isArray((r as any).byWeekday) ? (r as any).byWeekday : [],
+        Array.isArray(r.byWeekday) ? r.byWeekday : [],
       );
       const weekdays =
         normalizedWeekdays.length > 0
@@ -262,7 +256,7 @@ export function computeNextOccurrence(
 }
 
 export function buildDisplayEvents<
-  T extends RecurringEventLike & { [key: string]: any },
+  T extends RecurringEventLike & Record<string, unknown>,
 >(
   events: T[],
   options: {

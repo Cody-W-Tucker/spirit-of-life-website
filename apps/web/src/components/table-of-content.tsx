@@ -2,7 +2,7 @@ import { cn } from "@workspace/ui/lib/utils";
 import { ChevronDown, Circle } from "lucide-react";
 import Link from "next/link";
 import type { PortableTextBlock } from "next-sanity";
-import { type FC, useMemo } from "react";
+import { useMemo } from "react";
 import slugify from "slugify";
 
 export type TableProps = {
@@ -89,7 +89,7 @@ const getHeadingLevels = (exist: HeadingBlock[]): HeadingData[] => {
   return headings;
 };
 
-const AnchorT: FC<{ heading: HeadingData }> = ({ heading }) => {
+function AnchorT({ heading }: { heading: HeadingData }) {
   const { href, text, children, isChild, heading: style } = heading;
   if (isChild === true && children?.length === 0) return <></>;
 
@@ -128,9 +128,9 @@ const AnchorT: FC<{ heading: HeadingData }> = ({ heading }) => {
       )}
     </li>
   );
-};
+}
 
-export const TableOfContent: FC<TableProps> = ({ richText }) => {
+export function TableOfContent({ richText }: TableProps) {
   const { showTableOfContent, headings } = useMemo(() => {
     const exist = isExistTableOfContent(richText ?? []);
     if (exist.length) {
@@ -169,4 +169,4 @@ export const TableOfContent: FC<TableProps> = ({ richText }) => {
       </details>
     </div>
   );
-};
+}

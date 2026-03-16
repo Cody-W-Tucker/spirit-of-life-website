@@ -68,7 +68,7 @@ export const blog = defineType({
       },
       validation: (Rule) => [
         Rule.required().error("A URL slug is required"),
-        Rule.custom((value, context) => {
+        Rule.custom((value) => {
           if (!value?.current) return true;
           if (!value.current.startsWith("/blog/")) {
             return 'URL slug must start with "/blog/"';
@@ -143,19 +143,10 @@ export const blog = defineType({
       media: "image",
       isPrivate: "seoNoIndex",
       isHidden: "seoHideFromLists",
-      slug: "slug.current",
       author: "authors.0.name",
       publishDate: "publishedAt",
     },
-    prepare: ({
-      title,
-      media,
-      slug,
-      isPrivate,
-      isHidden,
-      author,
-      publishDate,
-    }) => {
+    prepare: ({ title, media, isPrivate, isHidden, author, publishDate }) => {
       // Status indicators
       const visibility = isPrivate
         ? "🔒 Private"

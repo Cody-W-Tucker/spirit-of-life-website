@@ -1,5 +1,4 @@
 import { Clock, MapPin } from "lucide-react";
-import type { FC } from "react";
 
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryGlobalSeoSettings, queryNavbarData } from "@/lib/sanity/query";
@@ -15,18 +14,21 @@ import {
   StickySection,
 } from "./navbar-client";
 
-export const NavbarServer: FC = async () => {
+export async function NavbarServer() {
   const [{ data: navbarData }, { data: settingsData }] = await Promise.all([
     sanityFetch({ query: queryNavbarData }),
     sanityFetch({ query: queryGlobalSeoSettings }),
   ]);
   return <Navbar navbarData={navbarData} settingsData={settingsData} />;
-};
+}
 
-export const Navbar: FC<{
+export function Navbar({
+  navbarData,
+  settingsData,
+}: {
   navbarData: QueryNavbarDataResult;
   settingsData: QueryGlobalSeoSettingsResult;
-}> = ({ navbarData, settingsData }) => {
+}) {
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
   return (
     <>
@@ -69,9 +71,9 @@ export const Navbar: FC<{
       </StickySection>
     </>
   );
-};
+}
 
-export const NavbarSkeleton: FC = () => {
+export function NavbarSkeleton() {
   return (
     <header className="h-[75px] py-4 md:border-b">
       <div className="container mx-auto px-4 md:px-6">
@@ -85,4 +87,4 @@ export const NavbarSkeleton: FC = () => {
       </div>
     </header>
   );
-};
+}

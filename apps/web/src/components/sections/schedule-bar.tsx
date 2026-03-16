@@ -1,5 +1,4 @@
 import { MapPin } from "lucide-react";
-import type { FC } from "react";
 import React from "react";
 
 import type { PagebuilderType } from "@/types";
@@ -8,11 +7,11 @@ import type { PagebuilderType } from "@/types";
 // If typegen is not up to date, you may need to adjust this type
 export type ScheduleBarBlockProps = PagebuilderType<"scheduleBar">;
 
-export const ScheduleBar: FC<ScheduleBarBlockProps> = ({
+export function ScheduleBar({
   times = [],
   infoText,
   location,
-}) => {
+}: ScheduleBarBlockProps) {
   return (
     <section className="w-full bg-brand-primary text-brand-text-white py-4 md:py-3 border-b border-brand-primary-light/10">
       <div className="container mx-auto px-4">
@@ -69,4 +68,4 @@ export const ScheduleBar: FC<ScheduleBarBlockProps> = ({
       </div>
     </section>
   );
-};
+}

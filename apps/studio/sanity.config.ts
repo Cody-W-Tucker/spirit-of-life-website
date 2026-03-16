@@ -4,7 +4,7 @@ import { defineConfig } from "sanity";
 import { presentationTool } from "sanity/presentation";
 import { structureTool } from "sanity/structure";
 import { unsplashImageAsset } from "sanity-plugin-asset-source-unsplash";
-import { iconPicker } from "sanity-plugin-icon-picker";
+import { iconPicker } from "sanity-plugin-icon-picker-v2";
 import { media } from "sanity-plugin-media";
 
 import { Logo } from "./components/logo";

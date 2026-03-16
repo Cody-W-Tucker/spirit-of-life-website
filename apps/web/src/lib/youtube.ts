@@ -10,7 +10,7 @@ export function cleanVideoTitle(title: string): string {
   return (
     title
       // Remove date prefixes like "12-21-25", "12/21/25", "12-21-2025", "Dec 21, 2025", etc.
-      .replace(/^\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\s*/, "")
+      .replace(/^\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\s*/, "")
       // Remove date prefixes like "December 21, 2025", "Dec 21, 2025", "21 December 2025"
       .replace(
         /^(?:January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{4}\s*/i,
@@ -42,6 +42,26 @@ export function formatVideoDate(dateString: string): string {
     month: "long",
     day: "numeric",
   });
+}
+
+interface YouTubeSearchItem {
+  id: {
+    videoId: string;
+  };
+  snippet: {
+    title: string;
+    description: string;
+    publishedAt: string;
+    thumbnails?: {
+      high?: { url: string };
+      medium?: { url: string };
+      default?: { url: string };
+    };
+  };
+}
+
+interface YouTubeSearchResponse {
+  items?: YouTubeSearchItem[];
 }
 
 export interface YouTubeVideo {
@@ -84,13 +104,13 @@ export async function getLatestYouTubeVideos(
     return [];
   }
 
-  const data = await res.json();
+  const data = (await res.json()) as YouTubeSearchResponse;
 
   if (!Array.isArray(data.items)) {
     return [];
   }
 
-  return data.items.map((item: any) => ({
+  return data.items.map((item) => ({
     videoId: item.id.videoId as string,
     title: item.snippet.title as string,
     thumbnailUrl:

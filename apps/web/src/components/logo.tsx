@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { FC } from "react";
 
 import type { Maybe, SanityImageProps } from "@/types";
 
@@ -18,14 +17,14 @@ interface LogoProps {
   priority?: boolean;
 }
 
-export const Logo: FC<LogoProps> = ({
+export function Logo({
   src,
   alt = "logo",
   image,
   width,
   height,
   priority = true,
-}: LogoProps) => {
+}: LogoProps) {
   // Default aspect ratio
   let aspectRatio = 3 / 1;
   let imgW: number | undefined;
@@ -101,4 +100,4 @@ export const Logo: FC<LogoProps> = ({
       </div>
     </Link>
   );
-};
+}

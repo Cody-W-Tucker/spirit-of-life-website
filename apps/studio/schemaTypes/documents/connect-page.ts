@@ -52,10 +52,9 @@ export const connectPage = defineType({
   preview: {
     select: {
       title: "title",
-      description: "description",
       slug: "slug.current",
     },
-    prepare: ({ title, description, slug }) => ({
+    prepare: ({ title, slug }) => ({
       title: title || "Connect Page",
       media: UsersIcon,
       subtitle: slug || "/connect",

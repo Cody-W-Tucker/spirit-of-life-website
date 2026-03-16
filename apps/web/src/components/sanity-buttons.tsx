@@ -1,7 +1,7 @@
 import { Button } from "@workspace/ui/components/button";
 import { cn } from "@workspace/ui/lib/utils";
 import Link from "next/link";
-import type { ComponentProps, FC } from "react";
+import type { ComponentProps } from "react";
 
 import type { SanityButtonProps } from "@/types";
 
@@ -44,12 +44,12 @@ function SanityButton({
   );
 }
 
-export const SanityButtons: FC<SanityButtonsProps> = ({
+export function SanityButtons({
   buttons,
   className,
   buttonClassName,
   size = "default",
-}: SanityButtonsProps) => {
+}: SanityButtonsProps) {
   if (!buttons?.length) return null;
 
   return (
@@ -64,4 +64,4 @@ export const SanityButtons: FC<SanityButtonsProps> = ({
       ))}
     </div>
   );
-};
+}

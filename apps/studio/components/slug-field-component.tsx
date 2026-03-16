@@ -14,7 +14,7 @@ import {
   Text,
   TextInput,
 } from "@sanity/ui";
-import type { FocusEvent, FormEvent, MouseEvent } from "react";
+import type { FormEvent, MouseEvent } from "react";
 import { useCallback, useMemo, useRef, useState } from "react";
 import {
   getPublishedId,
@@ -74,7 +74,7 @@ const FolderText = styled(Text)`
 export function PathnameFieldComponent(props: ObjectFieldProps<SlugValue>) {
   const document = useFormValue([]) as SanityDocument;
   const publishedId = getPublishedId(document?._id as string);
-  const validation = useValidationStatus(publishedId, document?._type);
+  const validation = useValidationStatus(publishedId, document?._type, true);
 
   const slugValidationError = useMemo(
     () =>
@@ -163,12 +163,9 @@ export function PathnameFieldComponent(props: ObjectFieldProps<SlugValue>) {
     });
   }, []);
 
-  const handleBlur = useCallback(
-    (e: FocusEvent<HTMLInputElement>) => {
-      setFolderLocked(segments.length > 1);
-    },
-    [segments],
-  );
+  const handleBlur = useCallback(() => {
+    setFolderLocked(segments.length > 1);
+  }, [segments]);
 
   const localizedPathname = getDocumentPath({
     ...document,

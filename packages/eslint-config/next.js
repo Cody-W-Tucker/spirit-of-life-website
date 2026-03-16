@@ -21,6 +21,7 @@ export const nextJsConfig = [
   eslintConfigPrettier,
   {
     ...pluginReact.configs.flat.recommended,
+    settings: { react: { version: "19.0" } },
     languageOptions: {
       ...pluginReact.configs.flat.recommended.languageOptions,
       globals: {
@@ -45,7 +46,7 @@ export const nextJsConfig = [
     plugins: {
       "react-hooks": pluginReactHooks,
     },
-    settings: { react: { version: "detect" } },
+    settings: { react: { version: "19.0" } },
     rules: {
       ...pluginReactHooks.configs.recommended.rules,
       "simple-import-sort/imports": "error",

@@ -1,6 +1,5 @@
 import { createClient } from "next-sanity";
 import { defineLive } from "next-sanity/live";
-import type { ReactNode } from "react";
 
 import { apiVersion, dataset, projectId, studioUrl } from "./api";
 import { token } from "./token";
@@ -22,10 +21,7 @@ const client = createClient({
   },
 });
 
-export const {
-  sanityFetch,
-  SanityLive,
-}: { sanityFetch: any; SanityLive: any } = defineLive({
+export const { sanityFetch, SanityLive } = defineLive({
   client,
   serverToken: token,
   browserToken: token,

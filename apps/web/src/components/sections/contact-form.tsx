@@ -2,7 +2,6 @@
 
 import { Button } from "@workspace/ui/components/button";
 import { LoaderCircle, Send } from "lucide-react";
-import type { FC } from "react";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
@@ -19,7 +18,7 @@ interface ContactFormProps {
   helperText?: SanityRichTextProps;
 }
 
-const SubmitButton: FC = () => {
+function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <Button
@@ -47,18 +46,19 @@ const SubmitButton: FC = () => {
       </span>
     </Button>
   );
-};
+}
 
-export const ContactForm: FC<ContactFormProps> = ({
+export function ContactForm({
   title = "Contact Us",
   subTitle,
   helperText,
-}) => {
+}: ContactFormProps) {
   const [state, formAction] = useActionState(
     async (
       prevState: { success: boolean; message: string },
       formData: FormData,
     ) => {
+      void prevState;
       return await contactSubmission(formData);
     },
     { success: false, message: "" },
@@ -171,4 +171,4 @@ export const ContactForm: FC<ContactFormProps> = ({
       </div>
     </section>
   );
-};
+}

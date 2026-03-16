@@ -1134,6 +1134,7 @@ export type AllSanitySchemaTypes =
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type ArrayOf<T> = Array<
   T & {
     _key: string;
