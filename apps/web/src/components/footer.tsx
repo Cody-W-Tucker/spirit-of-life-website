@@ -1,6 +1,5 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
-import type { FC } from "react";
 
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
@@ -27,7 +26,7 @@ interface FooterProps {
   settingsData: NonNullable<QueryGlobalSeoSettingsResult>;
 }
 
-export const FooterServer: FC = async () => {
+export async function FooterServer() {
   const [{ data: response }, { data: settingsResponse }] = await Promise.all([
     sanityFetch({ query: queryFooterData }),
     sanityFetch({ query: queryGlobalSeoSettings }),
@@ -35,7 +34,7 @@ export const FooterServer: FC = async () => {
 
   if (!response || !settingsResponse) return <FooterSkeleton />;
   return <Footer data={response} settingsData={settingsResponse} />;
-};
+}
 
 function SocialLinks({ data }: SocialLinksProps) {
   if (!data) return null;
@@ -81,7 +80,7 @@ function SocialLinks({ data }: SocialLinksProps) {
   );
 }
 
-export const FooterSkeleton: FC = () => {
+export function FooterSkeleton() {
   return (
     <section className="mt-16 pb-8">
       <div className="container mx-auto px-4 md:px-6">
@@ -130,7 +129,7 @@ export const FooterSkeleton: FC = () => {
       </div>
     </section>
   );
-};
+}
 
 function Footer({ data, settingsData }: FooterProps) {
   const { subtitle, columns } = data;

@@ -5,7 +5,6 @@ import {
   type PortableTextBlock,
   type PortableTextReactComponents,
 } from "next-sanity";
-import type { FC } from "react";
 
 import { parseChildrenToSlug } from "@/utils";
 
@@ -138,10 +137,13 @@ type SanityRichText = Array<
     }
 > | null;
 
-export const RichText: FC<{
+export function RichText({
+  richText,
+  className,
+}: {
   richText?: SanityRichText;
   className?: string;
-}> = ({ richText, className }) => {
+}) {
   if (!richText) return null;
 
   return (
@@ -160,4 +162,4 @@ export const RichText: FC<{
       />
     </div>
   );
-};
+}

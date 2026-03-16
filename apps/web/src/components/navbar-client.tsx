@@ -106,13 +106,18 @@ function MobileNavbarAccordionColumn({
 function MobileNavbar({ navbarData }: { navbarData: QueryNavbarDataResult }) {
   const { columns, buttons } = navbarData ?? {};
   const [isOpen, setIsOpen] = useState(false);
+  const [prevPath, setPrevPath] = useState<string | null>(null);
 
   const path = usePathname();
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: This is intentional
   useEffect(() => {
-    setIsOpen(false);
-  }, [path]);
+    if (prevPath !== null && prevPath !== path) {
+      // Close mobile menu when route changes
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsOpen(false);
+    }
+    setPrevPath(path);
+  }, [path, prevPath]);
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex justify-end">

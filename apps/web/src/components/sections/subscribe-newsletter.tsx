@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@workspace/ui/components/button";
 import { ChevronRight, LoaderCircle } from "lucide-react";
-import type { FC } from "react";
 import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 
@@ -34,7 +33,7 @@ const unformatPhoneNumber = (value: string): string => {
 
 type SubscribeNewsletterProps = PagebuilderType<"subscribeNewsletter">;
 
-const SubscribeNewsletterButton: FC = () => {
+function SubscribeNewsletterButton() {
   const { pending } = useFormStatus();
   return (
     <Button
@@ -63,13 +62,13 @@ const SubscribeNewsletterButton: FC = () => {
       </span>
     </Button>
   );
-};
+}
 
-export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
+export function SubscribeNewsletter({
   title,
   subTitle,
   helperText,
-}) => {
+}: SubscribeNewsletterProps) {
   const [phoneValue, setPhoneValue] = useState("");
 
   const [state, formAction] = useActionState(
@@ -77,6 +76,7 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
       prevState: { success: boolean; message: string },
       formData: FormData,
     ) => {
+      void prevState;
       const phone = formData.get("phone") as string;
       formData.set("phone", unformatPhoneNumber(phone));
       return await newsletterSubmission(formData);
@@ -164,4 +164,4 @@ export const SubscribeNewsletter: FC<SubscribeNewsletterProps> = ({
       </div>
     </section>
   );
-};
+}

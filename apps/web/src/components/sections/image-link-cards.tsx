@@ -1,6 +1,5 @@
 import { Badge } from "@workspace/ui/components/badge";
 import { cn } from "@workspace/ui/lib/utils";
-import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -9,12 +8,12 @@ import { RichText } from "../richtext";
 
 export type ImageLinkCardsProps = PagebuilderType<"imageLinkCards">;
 
-export const ImageLinkCards: FC<ImageLinkCardsProps> = ({
+export function ImageLinkCards({
   richText,
   title,
   eyebrow,
   cards,
-}: ImageLinkCardsProps) => {
+}: ImageLinkCardsProps) {
   return (
     <section id="image-link-cards" className="my-16">
       <div className="container mx-auto px-4 md:px-6">
@@ -49,4 +48,4 @@ export const ImageLinkCards: FC<ImageLinkCardsProps> = ({
       </div>
     </section>
   );
-};
+}

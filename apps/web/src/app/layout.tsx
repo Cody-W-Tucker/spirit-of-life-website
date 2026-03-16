@@ -1,5 +1,6 @@
 import "@workspace/ui/globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
 import { Geist_Mono, Lato } from "next/font/google";
 import { draftMode } from "next/headers";
 import { Suspense } from "react";
@@ -10,8 +11,6 @@ import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
 import { VisualEditingWrapper } from "@/components/visual-editing";
 import { SanityLive } from "@/lib/sanity/live";
-
-import { Analytics } from "@vercel/analytics/next";
 
 import { Providers } from "../components/providers";
 

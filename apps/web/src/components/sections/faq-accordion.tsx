@@ -7,7 +7,6 @@ import {
 import { Badge } from "@workspace/ui/components/badge";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -15,13 +14,13 @@ import { RichText } from "../richtext";
 
 type FaqAccordionProps = PagebuilderType<"faqAccordion">;
 
-export const FaqAccordion: FC<FaqAccordionProps> = ({
+export function FaqAccordion({
   eyebrow,
   title,
   subtitle,
   faqs,
   link,
-}: FaqAccordionProps) => {
+}: FaqAccordionProps) {
   return (
     <section id="faq" className="section-spacing-tight">
       <div className="container mx-auto px-4 md:px-6">
@@ -81,4 +80,4 @@ export const FaqAccordion: FC<FaqAccordionProps> = ({
       </div>
     </section>
   );
-};
+}

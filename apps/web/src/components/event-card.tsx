@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { FC } from "react";
 
+import type { Recurrence } from "@/lib/recurrence";
 import { computeNextOccurrence } from "@/lib/recurrence";
 import type {
   internalGroqTypeReferenceTo,
@@ -37,18 +37,7 @@ type Event = {
   endDate: string | null;
   location: string | null;
   occurrenceType?: "single" | "recurring" | null;
-  recurrence?: {
-    frequency?: string;
-    interval?: number;
-    byWeekday?: number[];
-    byMonthday?: number[];
-    monthlyMode?: string;
-    weekOfMonth?: number;
-    weekday?: number;
-    until?: string;
-    count?: number;
-    exceptions?: string[];
-  };
+  recurrence?: Recurrence;
 };
 
 interface EventImageProps {
@@ -133,7 +122,7 @@ function EventContent({
   );
 }
 
-export const EventCard: FC<EventCardProps> = ({ event }) => {
+export function EventCard({ event }: EventCardProps) {
   if (!event) {
     return (
       <article className="grid grid-cols-1 gap-4 w-full">
@@ -153,13 +142,13 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
   // Resolve the display occurrence (supports recurring events)
   let displayStart = startDate;
   let displayEnd = endDate;
-  if ((event as any).occurrenceType === "recurring") {
+  if (event.occurrenceType === "recurring") {
     const next = computeNextOccurrence({
       _id: event._id as string,
       startDate: startDate,
       endDate: endDate ?? null,
-      occurrenceType: (event as any).occurrenceType ?? null,
-      recurrence: (event as any).recurrence ?? null,
+      occurrenceType: event.occurrenceType ?? null,
+      recurrence: event.recurrence ?? null,
     });
     if (next) {
       displayStart = next.startDate;
@@ -183,12 +172,15 @@ export const EventCard: FC<EventCardProps> = ({ event }) => {
       </div>
     </article>
   );
-};
+}
 
-export const EventHeader: FC<{
+export function EventHeader({
+  title,
+  description,
+}: {
   title: string | null;
   description: string | null;
-}> = ({ title, description }) => {
+}) {
   return (
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
@@ -199,4 +191,4 @@ export const EventHeader: FC<{
       </div>
     </div>
   );
-};
+}

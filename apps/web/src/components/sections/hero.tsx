@@ -1,7 +1,6 @@
 import { getImageDimensions } from "@sanity/asset-utils";
 import { Badge } from "@workspace/ui/components/badge";
 import { cn } from "@workspace/ui/lib/utils";
-import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -12,22 +11,29 @@ import { SanityImage } from "../sanity-image";
 type HeroBlockProps = PagebuilderType<"hero">;
 
 // Reusable image component
-const HeroImage: FC<{
+function HeroImage({
+  asset,
+  width,
+  height,
+  count,
+}: {
   asset: NonNullable<HeroBlockProps["images"]>[number];
   width: number;
   height: number;
   count?: number;
-}> = ({ asset, width, height, count }) => (
-  <div className="relative">
-    <SanityImage
-      asset={asset}
-      width={width}
-      height={height}
-      className={`${count === 1 ? "aspect-auto p-4" : "aspect-[2/3]"} w-full rounded-xl bg-white object-cover shadow-xl`}
-    />
-    <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
-  </div>
-);
+}) {
+  return (
+    <div className="relative">
+      <SanityImage
+        asset={asset}
+        width={width}
+        height={height}
+        className={`${count === 1 ? "aspect-auto p-4" : "aspect-[2/3]"} w-full rounded-xl bg-white object-cover shadow-xl`}
+      />
+      <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
+    </div>
+  );
+}
 
 // Layout configurations for different image counts
 const imageLayouts = {
@@ -95,9 +101,11 @@ const imageLayouts = {
 } as const;
 
 // Dynamic image layout component
-const HeroImages: FC<{ images: NonNullable<HeroBlockProps["images"]> }> = ({
+function HeroImages({
   images,
-}) => {
+}: {
+  images: NonNullable<HeroBlockProps["images"]>;
+}) {
   const count = Math.min(images.length, 5) as keyof typeof imageLayouts;
   const layout = imageLayouts[count];
 
@@ -140,16 +148,16 @@ const HeroImages: FC<{ images: NonNullable<HeroBlockProps["images"]> }> = ({
       ))}
     </div>
   );
-};
+}
 
-export const HeroBlock: FC<HeroBlockProps> = ({
+export function HeroBlock({
   title,
   buttons,
   badge,
   images,
   richText,
   layout,
-}: HeroBlockProps) => {
+}: HeroBlockProps) {
   return (
     <div className="bg-white">
       <div className="relative isolate">
@@ -239,4 +247,4 @@ export const HeroBlock: FC<HeroBlockProps> = ({
       </div>
     </div>
   );
-};
+}

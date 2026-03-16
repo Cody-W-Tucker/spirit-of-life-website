@@ -1,5 +1,4 @@
 import { PlayIcon } from "lucide-react";
-import type { FC } from "react";
 
 import type { PagebuilderType, SanityImageProps } from "@/types";
 
@@ -16,13 +15,13 @@ interface VideoCardProps {
   _type?: string;
 }
 
-const VideoCard: FC<VideoCardProps> = ({
+function VideoCard({
   title,
   description,
   videoUrl,
   thumbnail,
   duration,
-}) => {
+}: VideoCardProps) {
   const handleVideoClick = () => {
     // For now, just open the URL in a new tab
     // In a real implementation, you might want to open a modal or embed player
@@ -73,13 +72,13 @@ const VideoCard: FC<VideoCardProps> = ({
       </div>
     </div>
   );
-};
+}
 
-export const VideoLibrary: FC<VideoLibraryProps> = ({
+export function VideoLibrary({
   title,
   subtitle,
   videos = [],
-}) => {
+}: VideoLibraryProps) {
   const videoSlots = Array.isArray(videos) ? videos : [];
 
   // Don't render section if no videos
@@ -118,4 +117,4 @@ export const VideoLibrary: FC<VideoLibraryProps> = ({
       </div>
     </section>
   );
-};
+}

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { FC } from "react";
 
 import type { QueryBlogIndexPageDataResult } from "@/lib/sanity/sanity.types";
 
@@ -50,7 +49,7 @@ interface BlogAuthorProps {
   author: Blog["authors"];
 }
 
-export const BlogAuthor: FC<BlogAuthorProps> = ({ author }) => {
+export function BlogAuthor({ author }: BlogAuthorProps) {
   if (!author) return null;
 
   return (
@@ -59,7 +58,7 @@ export const BlogAuthor: FC<BlogAuthorProps> = ({ author }) => {
       {author.name}
     </div>
   );
-};
+}
 
 interface BlogCardProps {
   blog: Blog;
@@ -130,7 +129,7 @@ function AuthorSection({ authors }: { authors: Blog["authors"] }) {
   );
 }
 
-export const FeaturedBlogCard: FC<BlogCardProps> = ({ blog }) => {
+export function FeaturedBlogCard({ blog }: BlogCardProps) {
   const { title, publishedAt, slug, authors, description, image } = blog ?? {};
 
   return (
@@ -148,9 +147,9 @@ export const FeaturedBlogCard: FC<BlogCardProps> = ({ blog }) => {
       </div>
     </article>
   );
-};
+}
 
-export const BlogCard: FC<BlogCardProps> = ({ blog }) => {
+export function BlogCard({ blog }: BlogCardProps) {
   if (!blog) {
     return (
       <article className="grid grid-cols-1 gap-4 w-full">
@@ -179,12 +178,15 @@ export const BlogCard: FC<BlogCardProps> = ({ blog }) => {
       </div>
     </article>
   );
-};
+}
 
-export const BlogHeader: FC<{
+export function BlogHeader({
+  title,
+  description,
+}: {
   title: string | null;
   description: string | null;
-}> = ({ title, description }) => {
+}) {
   return (
     <div className="mx-auto max-w-7xl px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
@@ -195,4 +197,4 @@ export const BlogHeader: FC<{
       </div>
     </div>
   );
-};
+}

@@ -1,6 +1,5 @@
 import { Badge } from "@workspace/ui/components/badge";
 import { cn } from "@workspace/ui/lib/utils";
-import type { FC } from "react";
 
 import type { PagebuilderType } from "@/types";
 
@@ -13,7 +12,7 @@ interface AuthorCardProps {
   author: NonNullable<AuthorSectionProps["authors"]>[number];
 }
 
-const AuthorCard: FC<AuthorCardProps> = ({ author }) => {
+function AuthorCard({ author }: AuthorCardProps) {
   if (!author) return null;
 
   return (
@@ -70,7 +69,7 @@ const AuthorCard: FC<AuthorCardProps> = ({ author }) => {
       </div>
     </div>
   );
-};
+}
 
 // Layout configurations for different author counts
 const getLayoutConfig = (count: number) => {
@@ -86,12 +85,12 @@ const getLayoutConfig = (count: number) => {
   }
 };
 
-export const AuthorSection: FC<AuthorSectionProps> = ({
+export function AuthorSection({
   eyebrow,
   title,
   subtitle,
   authors = [],
-}) => {
+}: AuthorSectionProps) {
   // Filter out null/undefined authors
   const validAuthors = (authors || []).filter(Boolean);
   const authorCount = validAuthors.length;
@@ -143,4 +142,4 @@ export const AuthorSection: FC<AuthorSectionProps> = ({
       </div>
     </section>
   );
-};
+}

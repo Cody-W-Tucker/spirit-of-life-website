@@ -1,5 +1,4 @@
 import { Badge } from "@workspace/ui/components/badge";
-import type { FC } from "react";
 import { useEffect, useRef, useState } from "react";
 
 import type { PagebuilderType } from "@/types";
@@ -10,12 +9,17 @@ import { SanityImage } from "../sanity-image";
 type ContentSectionProps = PagebuilderType<"contentSection">;
 
 // Reusable image component with subtle parallax
-const ContentImage: FC<{
+function ContentImage({
+  asset,
+  width,
+  height,
+  count,
+}: {
   asset: NonNullable<ContentSectionProps["images"]>[number];
   width: number;
   height: number;
   count?: number;
-}> = ({ asset, width, height, count }) => {
+}) {
   const [offsetY, setOffsetY] = useState(0);
   const imageRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +80,7 @@ const ContentImage: FC<{
       <div className="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10" />
     </div>
   );
-};
+}
 
 // Layout configurations for different image counts
 const imageLayouts = {
@@ -115,9 +119,11 @@ const imageLayouts = {
 } as const;
 
 // Dynamic image layout component
-const ContentImages: FC<{
+function ContentImages({
+  images,
+}: {
   images: NonNullable<ContentSectionProps["images"]>;
-}> = ({ images }) => {
+}) {
   const count = Math.min(images.length, 4) as keyof typeof imageLayouts;
   const layout = imageLayouts[count];
 
@@ -151,15 +157,15 @@ const ContentImages: FC<{
       </div>
     </div>
   );
-};
+}
 
-export const ContentSection: FC<ContentSectionProps> = ({
+export function ContentSection({
   eyebrow,
   title,
   subtitle,
   richText,
   images,
-}) => {
+}: ContentSectionProps) {
   return (
     <div className="relative section-spacing">
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
@@ -199,4 +205,4 @@ export const ContentSection: FC<ContentSectionProps> = ({
       </div>
     </div>
   );
-};
+}
