@@ -22,27 +22,27 @@
     "@sanity/icons": "^3.7.0",
     "@sanity/orderable-document-list": "^1.5.1",
     "@sanity/ui": "^3.1.14",
-    "@sanity/vision": "^5.18.0",
+    "@sanity/vision": "^5.19.0",
     "lucide-react": "^1.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "sanity": "^5.18.0",
+    "sanity": "^5.19.0",
     "sanity-plugin-asset-source-unsplash": "^7.0.5",
     "sanity-plugin-icon-picker-v2": "^1.0.4",
     "sanity-plugin-media": "^4.0.0",
-    "slugify": "^1.6.8",
+    "slugify": "^1.6.9",
     "styled-components": "^6.3.12"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^6.0.0",
-    "@sanity/schema": "^5.18.0",
-    "@types/node": "^25.5.0",
+    "@sanity/schema": "^5.19.0",
+    "@types/node": "^25.5.2",
     "@types/react": "19.2.14",
-    "baseline-browser-mapping": "^2.10.12",
+    "baseline-browser-mapping": "^2.10.15",
     "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "typescript-eslint": "^8.57.2"
+    "typescript-eslint": "^8.58.0"
   }
 }
