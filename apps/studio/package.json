@@ -18,31 +18,31 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/assist": "^6.0.5",
+    "@sanity/assist": "^6.0.6",
     "@sanity/icons": "^3.7.0",
     "@sanity/orderable-document-list": "^1.5.1",
     "@sanity/ui": "^3.2.0",
-    "@sanity/vision": "^5.24.0",
-    "lucide-react": "^1.14.0",
+    "@sanity/vision": "^5.25.1",
+    "lucide-react": "^1.16.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "sanity": "^5.24.0",
-    "sanity-plugin-asset-source-unsplash": "^7.0.5",
+    "sanity": "^5.25.1",
+    "sanity-plugin-asset-source-unsplash": "^7.0.6",
     "sanity-plugin-icon-picker-v2": "^1.0.4",
-    "sanity-plugin-media": "^4.2.0",
+    "sanity-plugin-media": "^4.3.0",
     "slugify": "^1.6.9",
     "styled-components": "^6.4.1"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^6.0.0",
-    "@sanity/schema": "^5.24.0",
-    "@types/node": "^25.6.2",
+    "@sanity/schema": "^5.25.1",
+    "@types/node": "^25.9.0",
     "@types/react": "19.2.14",
-    "baseline-browser-mapping": "^2.10.29",
+    "baseline-browser-mapping": "^2.10.31",
     "eslint": "^9.0.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-prettier": "^5.4.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
-    "typescript-eslint": "^8.59.2"
+    "typescript-eslint": "^8.59.3"
   }
 }
