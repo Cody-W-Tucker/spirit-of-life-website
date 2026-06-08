@@ -1,5 +1,9 @@
 name: Dependabot Auto-Merge
 
+# Security updates only (see dependabot.yml: open-pull-requests-limit: 0 for npm).
+# Auto-merge + approve only for security-labeled patch updates.
+# Vercel build acts as the gate — auto-merge waits for required status checks.
+
 on:
   pull_request:
     types:
@@ -21,21 +25,19 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Enable auto-merge for Dependabot PRs
+      - name: Enable auto-merge for security patch updates
         if: |
-          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' ||
-          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' ||
-          steps.dependabot-metadata.outputs.dependency-type == 'direct:development'
+          contains(github.event.pull_request.labels.*.name, 'security') &&
+          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Approve Dependabot PRs
+      - name: Approve Dependabot security patch PRs
         if: |
-          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch' ||
-          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-minor' ||
-          steps.dependabot-metadata.outputs.dependency-type == 'direct:development'
+          contains(github.event.pull_request.labels.*.name, 'security') &&
+          steps.dependabot-metadata.outputs.update-type == 'version-update:semver-patch'
         run: gh pr review --approve "$PR_URL"
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}

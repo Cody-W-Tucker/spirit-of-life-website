@@ -1,51 +1,35 @@
 # Dependabot configuration for Spirit of Life Church Website
-# This is a Turborepo monorepo using pnpm workspaces
+# Security and critical vulnerability updates only.
+# This is a stable site; no routine minor/patch version bumps.
 
 version: 2
 updates:
-  # Root package.json and workspace packages
+  # npm: security updates only.
+  # Regular version updates are disabled (open-pull-requests-limit: 0).
+  # GitHub security updates (when enabled in repo settings) will still create PRs for vulns.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 10
+      interval: "weekly" # ignored for version updates when limit is 0
+    open-pull-requests-limit: 0
     reviewers:
-      - "Cody-W-Tucker" # Update with your GitHub username
+      - "Cody-W-Tucker"
     assignees:
       - "Cody-W-Tucker"
     commit-message:
       prefix: "chore"
-      prefix-development: "chore(dev)"
       include: "scope"
     labels:
       - "dependencies"
       - "npm"
-    groups:
-      # Group minor and patch updates to reduce PR noise
-      minor-patch-dependencies:
-        patterns:
-          - "*"
-        update-types:
-          - "minor"
-          - "patch"
-      # Group all dev dependencies
-      dev-dependencies:
-        dependency-type: "development"
-        patterns:
-          - "*"
-    # Auto-merge is handled by .github/workflows/dependabot-auto-merge.yml
-    # which approves and enables auto-merge for minor/patch/dev updates
+      - "security"
 
-  # GitHub Actions (for future workflows)
+  # GitHub Actions: minimal (security + occasional CI maintenance only)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "monthly"
-      day: "monday"
-      time: "09:00"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 2
     reviewers:
       - "Cody-W-Tucker"
     assignees:
